@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
+	    <ProjectName>ROGER</ProjectName>
+        <AUTPath>https://roger-uat.myriadapps.com/</AUTPath>
+		<LocalBrowserName>Chrome</LocalBrowserName>
+		<CaptureScreenShot>Failed</CaptureScreenShot>
+		<RunReference>Debug</RunReference>
+		<RunReferenceFlag>No</RunReferenceFlag>
+		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
+		<GlobalAdminPassword>Password1</GlobalAdminPassword>
+		<ReportsDBJDBCDriver>NA</ReportsDBJDBCDriver>
+		<ReportsDBURL>NA</ReportsDBURL>
+		<ReportsDBName>NA</ReportsDBName>
+		<ReportsDBUserName>NA</ReportsDBUserName>
+		<ReportsDBPassword>NA</ReportsDBPassword>
+		
+    </config>

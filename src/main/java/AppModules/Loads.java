@@ -1,0 +1,717 @@
+package AppModules;
+
+import Utils.GenericSkins;
+import Utils.TestDataImport;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import PageObjects.*;
+
+public class Loads extends GenericSkins {
+
+	// MEthod to add a new user
+	public static boolean addNewLoad(String sActualTestCaseID) throws Exception {
+
+		boolean bResult = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "Add Load";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		// System.out.println("Number of rows:"+iRowCnt);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sCarrier = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sLoadDate = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			String sSHipper = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			String sSHipperContact = TestDataImport.GetCellData(sSheetName, 4, iRow);
+			String sCommodity = TestDataImport.GetCellData(sSheetName, 5, iRow);
+			String sRate = TestDataImport.GetCellData(sSheetName, 6, iRow);
+			String sRateUOM = TestDataImport.GetCellData(sSheetName, 7, iRow);
+			String sOrigin = TestDataImport.GetCellData(sSheetName, 8, iRow);
+			String sDestination = TestDataImport.GetCellData(sSheetName, 9, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 10, iRow);
+			System.out.println("Add Load:" + "sTestCaseID:" + sTestCaseID + "sActualTestCaseID:" + sActualTestCaseID);
+			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID.trim())) {
+				System.out.println("inside if");
+				try {
+
+					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					LocalDateTime t1 = LocalDateTime.now();
+					sLoadDate = sLoadDate.replace("Current Date", t1.format(dateandtime));
+					LoadsPage.eMenuLoads().click();
+					Thread.sleep(2000);
+					System.out.println("Clicking on add new load");
+					LoadsPage.eAddNewLoad().click();
+					Thread.sleep(4000);
+					Actions ac = new Actions(driver);
+					try {
+
+						LoadsPage.eListCarrier().sendKeys(sCarrier);
+
+						ac.sendKeys(Keys.ENTER).build().perform();
+
+					} catch (Exception error) {
+
+					}
+
+					Thread.sleep(2000);
+					LoadsPage.eAddNewLoadDate().sendKeys(sLoadDate);
+					ac = new Actions(driver);
+					ac.sendKeys(Keys.ENTER).build().perform();
+					Thread.sleep(2000);
+					System.out.println("Set Load Date");
+					if (!(sSHipper.trim().equalsIgnoreCase("NA"))) {
+						System.out.println("Insideshipper");
+						LoadsPage.eShipper().sendKeys(sSHipper);
+						Thread.sleep(3000);
+						// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+						// Thread.sleep(500);
+						ac.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+						System.out.println("Set shipper");
+
+					}
+					if (!(sSHipperContact.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eShipperContact().sendKeys(sSHipperContact);
+						Thread.sleep(3000);
+						// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+						// Thread.sleep(500);
+						ac.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+
+					}
+
+					if (!(sCommodity.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eCommodity().sendKeys(sCommodity);
+						ac = new Actions(driver);
+						ac.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+
+					}
+					if (!(sRate.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eRate().sendKeys(sRate);
+
+					}
+					if (!(sOrigin.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eOrigin().sendKeys(sOrigin);
+
+					}
+
+					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eDestination().sendKeys(sDestination);
+
+					}
+
+					if (!(sRateUOM.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eRateUOM().sendKeys(sRateUOM);
+						ac = new Actions(driver);
+						ac.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+
+					}
+
+					LoadsPage.eSave().click();
+					WebDriverWait wait = new WebDriverWait(driver, 10);
+					wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
+							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/div[1]/div[3]/div")));
+					sActualResult = "Added new load successfully";
+					bResult = true;
+
+				} catch (Exception error) {
+
+					sActualResult = error.getMessage();
+					// throw error;
+
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 11, sActualResult, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 12, sTestStepStatus, "NA");
+				break;
+			} else {
+				sActualResult = "Testcase not found";
+			}
+
+		}
+		System.out.println("Add load:" + sActualResult);
+		return bResult;
+	}
+
+	// MEthod to edit a load
+	public static boolean editLoad(String sActualTestCaseID) throws Exception {
+		Thread.sleep(5000);
+		boolean bResult = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "Edit Load";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("Number of rows:" + iRowCnt);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sField = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sValue = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
+				try {
+					LoadsPage.eEdit().click();
+					Thread.sleep(5000);
+					switch (sField.toUpperCase()) {
+					case "SHIPPER CONTACT":
+						LoadsPage.eShipperContact().sendKeys(sValue);
+						Actions action = new Actions(driver);
+						Thread.sleep(2000);
+						action.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+						bResult = true;
+						break;
+					case "DRIVER":
+						System.out.println("sendkeys in Driver");
+						LoadsPage.eDriver().sendKeys(sValue);
+						Actions action1 = new Actions(driver);
+						Thread.sleep(2000);
+						action1.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+						bResult = true;
+						break;
+					case "ORIGIN WEIGHT":
+						System.out.println("Send Keys in Origin Weight");
+						LoadsPage.eNetOriginWt().sendKeys(sValue);
+						Actions action11 = new Actions(driver);
+						Thread.sleep(2000);
+						action11.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+
+						bResult = true;
+						break;
+
+					case "DESTINATION WEIGHT":
+						System.out.println("Send Keys in Destination Weight");
+						LoadsPage.eNetDestWr().sendKeys(sValue);
+						Actions action111 = new Actions(driver);
+						Thread.sleep(2000);
+						action111.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(2000);
+						bResult = true;
+						break;
+
+					}
+
+					if (bResult == true) {
+						LoadsPage.eSave().click();
+						try {
+							driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+							driver.findElement(By.xpath("//span[text()='Yes']")).click();
+							Thread.sleep(3000);
+							LoadsPage.eSave().click();
+
+						} catch (Exception er) {
+						}
+						sActualResult = "Load Edited Successfully";
+					}
+
+				} catch (Exception error) {
+					bResult = false;
+					sActualResult = error.getMessage();
+					// throw error;
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+
+			}
+		}
+
+		System.out.println(sActualResult);
+		return bResult;
+	}
+
+	// Method to customize webtable in Loads Page
+	public static boolean customizeAGgrid(String sActualTestCaseID) throws Exception {
+		boolean bResult = false;
+
+		boolean bSelected = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "CustomizeGrid";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			sTestStepData = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
+				try {
+					if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
+						// Click on Loads menu
+						LoadsPage.eMenuLoads().click();
+						System.out.println("Clicked on menu loads");
+						// Click on All tab
+						LoadsPage.eAllTab().click();
+						System.out.println("Clicked on all loads");
+						Thread.sleep(10000);
+						// CLick on columns button from right pane
+						LoadsPage.eColumnPane().click();
+						Thread.sleep(2000);
+						sActualResult = "Columns not found";
+						List<WebElement> eColumns = driver.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
+						// System.out.println("Number of columns:" + eColumns.size());
+						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+						// uncheck all checkboxes
+
+						for (WebElement eColumn : eColumns) {
+
+							String sName = eColumn.findElement(By.tagName("span")).getText();
+							WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+									.findElement(By.tagName("div"));
+							try {
+								WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+								// System.out.println("svg displayed:" + eCheckboxSelectedsvg.isDisplayed());
+								bSelected = eCheckboxSelectedsvg.isDisplayed();
+							} catch (Exception child_error) {
+								bSelected = false;
+							}
+							// System.out.println("checkbox selected1:" + bSelected);
+							if (bSelected == true) {
+								eCheckBox.click();
+								// System.out.println("checkbox unchecked");
+								Thread.sleep(500);
+
+							}
+							Actions action = new Actions(driver);
+							action.sendKeys(Keys.ARROW_DOWN).build().perform();
+							Thread.sleep(500);
+
+						}
+
+						//
+						// CLick on columns button from right pane
+						LoadsPage.eColumnPane().click();
+						Thread.sleep(2000);
+						Actions action = new Actions(driver);
+						action.sendKeys(Keys.F5).build().perform();
+						driver.navigate().refresh();
+						Thread.sleep(5000);
+						// click on columnspane
+						LoadsPage.eColumnPane().click();
+						// driver.findElement(By.xpath(""))
+						Thread.sleep(2000);
+						eColumns = driver.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
+						// System.out.println("Number of columns:" + eColumns.size());
+
+						switch (sOperation.toUpperCase()) {
+						case "ALL":
+							for (WebElement eColumn : eColumns) {
+								String sName = eColumn.findElement(By.tagName("span")).getText();
+								WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+										.findElement(By.tagName("div"));
+								try {
+									WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+									bSelected = eCheckboxSelectedsvg.isDisplayed();
+								} catch (Exception child_error) {
+									bSelected = false;
+								}
+								// System.out.println("checkbox selected2:" + bSelected);
+								if (bSelected == false) {
+									eCheckBox.click();
+									// System.out.println("checkbox checked");
+									Thread.sleep(100);
+
+								}
+								Actions action2 = new Actions(driver);
+								action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+								Thread.sleep(100);
+							}
+
+							bResult = true;
+							break;
+						case "SELECT":
+
+							String[] sData = sTestStepData.split(";");
+							int iSelectedCnt = 0;
+							for (int i = 0; i < sData.length; i++) {
+								for (WebElement eColumn : eColumns) {
+									String sName = eColumn.findElement(By.tagName("span")).getText();
+									// System.out.println("sName:" + sName);
+									if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
+										WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+												.findElement(By.tagName("div"));
+										try {
+											WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+											bSelected = eCheckboxSelectedsvg.isDisplayed();
+										} catch (Exception child_error) {
+											bSelected = false;
+										}
+										// System.out.println("checkbox selected2:" + bSelected);
+										if (bSelected == false) {
+											eCheckBox.click();
+											iSelectedCnt++;
+											// System.out.println("checkbox checked");
+
+										}
+										break;
+
+									}
+									Thread.sleep(100);
+									Actions action2 = new Actions(driver);
+									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+									Thread.sleep(100);
+								}
+							}
+							// click on columnspane
+							LoadsPage.eColumnPane().click();
+							Thread.sleep(4000);
+							List<WebElement> eHeaders = driver
+									.findElements(By.xpath(".//span[@class='ag-header-cell-text']"));
+							// System.out.println("Number of cols displayed:" + eHeaders.size());
+							for (int i = 0; i < sData.length; i++) {
+								int iHeadercnt = 0;
+								for (WebElement eHeader : eHeaders) {
+
+									iHeadercnt++;
+									if (eHeader.getText().trim().equalsIgnoreCase(sData[i].trim())) {
+										// System.out.println("Header value:" + eHeader.getText());
+										// System.out.println("Header Number:" + iHeadercnt);
+										aHeaderNumbers.add(iHeadercnt);
+									}
+
+								}
+							}
+							if (sData.length == eHeaders.size()) {
+								bResult = true;
+								sActualResult = "Webtable customized successfully";
+							} else {
+								sActualResult = "Webtable not customized successfully";
+								bResult = false;
+							}
+							driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+							break;
+
+						}
+
+					}
+
+				} catch (Exception error) {
+					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+					bResult = false;
+					sActualResult = error.getMessage();
+
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+
+			}
+
+			// System.out.println("class name:"+this.getClass().getName());
+			// sTestCaseID = "TestCases."+sTestCaseID;
+
+		}
+
+		return bResult;
+	}
+
+	// Method to handle Loads Webtable
+	public static boolean LoadsWebTable(int iDataRow, String sActualTestCaseID) throws Exception {
+		boolean bResult = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "View Load";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("Number of rows:" + iRowCnt);
+		String sOperation = "VIEW";
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sCarrier = TestDataImport.GetCellData(sSheetName, 4, iRow);
+			String sLoadDate = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sSHipper = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			String sSHipperContact = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			String sStatus = TestDataImport.GetCellData(sSheetName, 5, iRow);
+			String sOrigin = TestDataImport.GetCellData(sSheetName, 6, iRow);
+			String sDestination = TestDataImport.GetCellData(sSheetName, 7, iRow);
+			String sRate = TestDataImport.GetCellData(sSheetName, 8, iRow);
+			String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
+			String sCommodity = TestDataImport.GetCellData(sSheetName, 10, iRow);
+			String sReadytoSubmit = TestDataImport.GetCellData(sSheetName, 11, iRow);
+			// String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
+
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
+			sTestStepData = sLoadDate + ";" + sSHipper + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
+					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
+			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
+				try {
+					ArrayList<String> aActualRecordCell = new ArrayList();
+					;
+
+					try {
+						Thread.sleep(5000);
+						driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+						driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
+						Thread.sleep(5000);
+					} catch (Exception error_message) {
+
+					}
+
+					driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					LocalDateTime t1 = LocalDateTime.now();
+					sTestStepData = sTestStepData.replace("Current Date", t1.format(dateandtime));
+
+					String sData[] = sTestStepData.split(";");
+					// List<WebElement> eCheckBoxes =
+					// driver.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					// *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					sActualResult = "Record not found";
+					List<WebElement> eCheckBoxes = driver
+							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					List<WebElement> eHeaderFilters = driver.findElements(
+							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div"));
+					System.out.println("Number of filters:" + eHeaderFilters.size());
+					for (int i = 0; i < aHeaderNumbers.size(); i++) {
+						int iFilterNum = aHeaderNumbers.get(i);
+						System.out.println("Header Number from arraylist:" + iFilterNum);
+						int iHeaderFilterCnt = 0;
+						for (WebElement eHeaderFilter : eHeaderFilters) {
+							iHeaderFilterCnt++;
+							if (iHeaderFilterCnt == iFilterNum) {
+								if (!(sData[i].equalsIgnoreCase("NA"))) {
+									eHeaderFilter.findElement(By.tagName("input")).clear();
+									Thread.sleep(2000);
+									eHeaderFilter.findElement(By.tagName("input")).sendKeys(sData[i]);
+									Actions acton = new Actions(driver);
+									acton.sendKeys(Keys.ENTER).build().perform();
+									Thread.sleep(3000);
+
+								}
+
+								break;
+							}
+						}
+					}
+					Thread.sleep(5000); // *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					eCheckBoxes = driver
+							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					List<WebElement> eRows = driver.findElements(
+							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
+					// System.out.println("Number of rows:" + eRows.size());
+					// System.out.println("Number of eCheckBoxes:" + eCheckBoxes.size());
+					int iRow1 = 0;
+					for (WebElement eRow : eRows) {
+						iRow1++;
+						List<WebElement> eCols = eRow.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div[" + iRow1
+										+ "]/div"));
+						System.out.println("Number of cols in AG grid:" + eCols.size());
+						/*
+						 * for(int i=0;i<aHeaderNames.size();i++) { WebElement eColTemp = null; String
+						 * sHeaderName=aHeaderNames.get(i); switch(sHeaderName.toUpperCase()) { case
+						 * "LOAD DATE": for(WebElement eCol : eCols) {
+						 * if(eCol.getAttribute("col-id").trim().equalsIgnoreCase("load_date")) {
+						 * eColTemp = eCol; break; } }
+						 * 
+						 * } }
+						 */
+
+						for (WebElement eCol : eCols) {
+							String sValue = eCol.getText();
+							try {
+								driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+								sValue = eCol.findElement(By.tagName("svg")).findElement(By.tagName("path"))
+										.getAttribute("fill");
+								System.out.println("sValue:" + sValue);
+								if (sValue.equals("#B1C82C")) {
+									sValue = "GREEN";
+									Actions action = new Actions(driver);
+									action.moveToElement(eCol).build().perform();
+									Thread.sleep(3000);
+								} else {
+									sValue = "NA";
+								}
+								driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+							} catch (Exception err) {
+								driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+							}
+
+							System.out.println("col text:" + sValue);
+							if (sValue.equalsIgnoreCase("") || sValue.equals(null)) {
+								sValue = "NA";
+
+							}
+							aActualRecordCell.add(sValue);
+						}
+						int iDisplayedcnt = 0;
+						ArrayList<Integer> aMatchedIndex = new ArrayList();
+						for (int i = 0; i < sData.length; i++) {
+
+							for (int j = 0; j < aActualRecordCell.size(); j++) {
+								// System.out.println("sData[i]:" + sData[i] + "aActualRecordCell[j]:" +
+								// aActualRecordCell.get(j));
+								// System.out.println();
+
+								if (aActualRecordCell.get(j).trim().equalsIgnoreCase(sData[i].trim())) {
+									aMatchedIndex.add(j);
+									// System.out.println("Matched");
+									iDisplayedcnt++;
+									break;
+								}
+							}
+						}
+						// remove cells of this row from arraylist
+						for (int i = 0; i < aActualRecordCell.size(); i++) {
+							aActualRecordCell.remove(i);
+						}
+						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
+						if (iDisplayedcnt == sData.length) {
+							int iCheckBoxcnt = 0;
+							for (WebElement eCheckBox : eCheckBoxes) {
+								iCheckBoxcnt++;
+								if (iRow1 == iCheckBoxcnt) {
+									eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+									Thread.sleep(2000);
+									eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
+									Thread.sleep(2000);
+									try {
+										driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+										LoadsPage.eEdit().isDisplayed();
+
+									} catch (Exception error_child) {
+										eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+									}
+									break;
+								}
+								break;
+							}
+							bResult = true;
+
+							sActualResult = "Webtable validated successfully";
+							break;
+						} else {
+							sActualResult = "Record not found";
+						}
+
+					}
+					// List<>
+				} catch (Exception error) {
+					sActualResult = error.getMessage();
+					throw error;
+
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 14, sTestStepStatus, "NA");
+
+			}
+		}
+
+		System.out.println(sActualResult);
+		return bResult;
+	}
+
+	public static boolean uploadDoc(String sDocType) {
+		boolean bResult = false;
+		try {
+			Thread.sleep(2000);
+			// WebElement eDocumentsrow =
+			// driver.findElement(By.xpath("(.//div[@role='row'])[10]"));
+			List<WebElement> eDocs = driver.findElements(By.xpath(".//*[@class='css-1vcualq ex37wus3']"));
+			String sExpectedResult = "Uploaded Document";
+			System.out.println("Number of docs:" + eDocs.size());
+			for (WebElement eDoc : eDocs) {
+				String sTitle = eDoc.findElement(By.cssSelector(".title")).getText();
+				System.out.println("Doc Ttile:" + sTitle);
+				if (sTitle.trim().equalsIgnoreCase(sDocType)) {
+					eDoc.click();
+					String sEXEFile = null;
+					switch (sTitle.toUpperCase()) {
+					case "ORIGIN TICKET":
+						sEXEFile = "Origin";
+						break;
+					case "DEST. TICKET":
+						sEXEFile = "Destination";
+						break;
+
+					}
+					WindowsHandle(sEXEFile);
+					Thread.sleep(15000);
+					WebDriverWait wait = new WebDriverWait(driver, 10);
+					wait.until(ExpectedConditions.visibilityOf(eDoc.findElement(By.tagName("a"))));
+					bResult = true;
+
+					break;
+				}
+			}
+			if (bResult == true) {
+				sActualResult = "Uploaded document";
+			}
+
+		} catch (Exception error) {
+			sActualResult = error.getMessage();
+
+		}
+
+		return bResult;
+
+	}
+
+	// ____________________________Method to handle windows through AutoIT
+	// tool______________________________________
+	protected static void WindowsHandle(String sFileName) throws Exception {
+		try {
+			Thread.sleep(2000);
+			
+			Runtime.getRuntime().exec(sTestDataPath + "Docs//" + sFileName + ".exe");
+			// System.out.println("sTestStepData:"+sTestStepData);
+			sActualResult = "Handled windows";
+
+		} catch (Exception Error_Message) {
+			sActualResult = Error_Message.getMessage();
+
+		}
+
+		// ResultComparision();
+	}
+
+}
