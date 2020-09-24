@@ -302,7 +302,7 @@ public class GenericSkins {
 	// ________________________________Method to initialize required folder
 	// paths in test suite________________
 	protected static void InitializeTestFolderPaths() {
-		sProjectPath = sProjectPath + "//";
+		//sProjectPath = sProjectPath + "//";
 		sTestDataPath = sProjectPath + "TestData//";  //"Source//Scripts//TestData//"
 		//sPathOR = sProjectPath + "Wizard//ObjectRepository//";
 		sSystemIndependencyConfig = sProjectPath + "Config//SystemIndependencyConfig.xml"; //"Source//Scripts//Config//SystemIndependencyConfig.xml";
