@@ -47,7 +47,7 @@ public class DriverScript extends GenericSkins {
 		//JFrame frame = new JFrame("InputDialog");
 		// prompt the user to enter their project location
 		//sProjectPath = JOptionPane.showInputDialog(frame, "Enter Automation Test Suite Path:", "D:\\Roger\\Development");
-		sProjectPath = "D:\\a\\1\\a\\Roger\\Development";
+		sProjectPath = "D:\\a\\1\\a";  //D:\\a\\1\\a\\Roger\\Development
 
 		// Initialization of TestSuite folders
 		InitializeTestFolderPaths();
