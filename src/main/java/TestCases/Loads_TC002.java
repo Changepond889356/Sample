@@ -15,7 +15,7 @@ public class Loads_TC002 extends SetUp {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void main() {
-		test = extent.createTest(" Loads_TC002 ");
+		test = extent.createTest(" Load Test ");
 		boolean bResult = false;
 		// String expected = "Uploaded Document";
 		String sActTestCaseID = "Loads_TC002";

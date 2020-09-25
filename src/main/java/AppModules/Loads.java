@@ -144,6 +144,7 @@ public class Loads extends GenericSkins {
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 11, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 12, sTestStepStatus, "NA");
 				break;
 			} else {
@@ -241,6 +242,7 @@ public class Loads extends GenericSkins {
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
 
 			}
@@ -279,7 +281,7 @@ public class Loads extends GenericSkins {
 						// Click on All tab
 						LoadsPage.eAllTab().click();
 						System.out.println("Clicked on all loads");
-						Thread.sleep(10000);
+						Thread.sleep(5000);
 						// CLick on columns button from right pane
 						LoadsPage.eColumnPane().click();
 						Thread.sleep(2000);
@@ -432,6 +434,7 @@ public class Loads extends GenericSkins {
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
 
 			}
@@ -641,12 +644,13 @@ public class Loads extends GenericSkins {
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 14, sTestStepStatus, "NA");
 
 			}
 		}
 
-		System.out.println(sActualResult);
+		//System.out.println(sActualResult);
 		return bResult;
 	}
 

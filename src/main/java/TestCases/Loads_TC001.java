@@ -14,11 +14,11 @@ public class Loads_TC001 extends SetUp {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void main() {
-		
-		test = extent.createTest(" Loads_TC001 ");
+		String sActTestCaseID = "Loads_TC001";
+		test = extent.createTest(sActTestCaseID);
 		boolean bResult = false;
 		// String expected = "Record not found";
-		String sActTestCaseID = "Loads_TC001";
+		//String sActTestCaseID = "Loads_TC001";
 		try {
 			String sFileName = "Loads.xlsx";
 			String sSheetName = "AGgrid";
@@ -43,13 +43,11 @@ public class Loads_TC001 extends SetUp {
 					// Edit record
 					Loads.editLoad(sActTestCaseID);
 					// Search for edited record in AG grid
-					// sTestStepData = "Current Date;CP Shipper;TestContact;Changepond
-					// T;Open;NA;NA;0.25;Bushels;Corn";
 					Loads.LoadsWebTable(2, sActTestCaseID);
 					// click on delete icon
 					LoadsPage.eDelete().click();
 					Thread.sleep(5000);
-					bResult = Loads.LoadsWebTable(3, sActTestCaseID);
+					//bResult = Loads.LoadsWebTable(3, sActTestCaseID);
 
 				}
 			}

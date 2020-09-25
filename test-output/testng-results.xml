@@ -1,53 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="2" total="4" passed="2" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-09-24T14:30:36 IST" name="Suite" finished-at="2020-09-24T14:33:25 IST" duration-ms="169466">
+  <suite started-at="2020-09-25T11:14:57 IST" name="Suite" finished-at="2020-09-25T11:22:37 IST" duration-ms="460359">
     <groups>
     </groups>
-    <test started-at="2020-09-24T14:30:36 IST" name="Test" finished-at="2020-09-24T14:33:25 IST" duration-ms="169466">
-      <class name="TestCases.User_TC002">
-        <test-method signature="main()[pri:0, instance:TestCases.User_TC002@117632cf]" started-at="2020-09-24T14:32:53 IST" name="main" finished-at="2020-09-24T14:33:25 IST" duration-ms="32012" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- main -->
-        <test-method is-config="true" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:TestCases.User_TC002@117632cf]" started-at="2020-09-24T14:33:25 IST" name="afterMethod" finished-at="2020-09-24T14:33:25 IST" duration-ms="211" status="PASS">
+    <test started-at="2020-09-25T11:14:57 IST" name="Test" finished-at="2020-09-25T11:22:37 IST" duration-ms="460359">
+      <class name="TestCases.DriverScript">
+        <test-method signature="main(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestCases.DriverScript@27406a17]" started-at="2020-09-25T11:14:57 IST" name="main" finished-at="2020-09-25T11:22:37 IST" duration-ms="460311" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=main status=SUCCESS method=User_TC002.main()[pri:0, instance:TestCases.User_TC002@117632cf] output={null}]]]>
+                <![CDATA[Chrome]]>
               </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[NA]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Log]]>
+              </value>
+            </param>
+            <param index="3">
+              <value is-null="true"/>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- afterMethod -->
-      </class> <!-- TestCases.User_TC002 -->
-      <class name="TestCases.User_TC001">
-        <test-method is-config="true" signature="ReportSetup()[pri:0, instance:TestCases.User_TC001@492fc69e]" started-at="2020-09-24T14:30:36 IST" name="ReportSetup" finished-at="2020-09-24T14:30:36 IST" duration-ms="254" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- ReportSetup -->
-        <test-method signature="main()[pri:0, instance:TestCases.User_TC001@492fc69e]" started-at="2020-09-24T14:30:36 IST" name="main" finished-at="2020-09-24T14:32:53 IST" duration-ms="136975" status="PASS">
-          <reporter-output>
-          </reporter-output>
         </test-method> <!-- main -->
-        <test-method is-config="true" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:TestCases.User_TC001@492fc69e]" started-at="2020-09-24T14:32:53 IST" name="afterMethod" finished-at="2020-09-24T14:32:53 IST" duration-ms="258" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=main status=SUCCESS method=User_TC001.main()[pri:0, instance:TestCases.User_TC001@492fc69e] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterMethod -->
-        <test-method is-config="true" signature="CloseReport()[pri:0, instance:TestCases.User_TC001@492fc69e]" started-at="2020-09-24T14:33:26 IST" name="CloseReport" finished-at="2020-09-24T14:33:26 IST" duration-ms="601" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- CloseReport -->
-      </class> <!-- TestCases.User_TC001 -->
+      </class> <!-- TestCases.DriverScript -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>

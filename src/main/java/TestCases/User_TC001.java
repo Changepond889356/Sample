@@ -12,7 +12,7 @@ public class User_TC001 extends SetUp {
 	@Test
 	public void main() throws Exception {
 		
-		test = extent.createTest(" User_TC001");
+		test = extent.createTest(" User Test ");
 		String sTestCaseID = "User_TC001";
 		boolean bResult = false;
 

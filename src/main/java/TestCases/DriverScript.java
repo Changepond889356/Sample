@@ -47,7 +47,7 @@ public class DriverScript extends GenericSkins {
 		//JFrame frame = new JFrame("InputDialog");
 		// prompt the user to enter their project location
 		//sProjectPath = JOptionPane.showInputDialog(frame, "Enter Automation Test Suite Path:", "D:\\Roger\\Development");
-		sProjectPath = "/";  //D:\\a\\1\\a\\Roger\\Development
+		sProjectPath = "./";
 
 		// Initialization of TestSuite folders
 		InitializeTestFolderPaths();
@@ -120,7 +120,7 @@ public class DriverScript extends GenericSkins {
 				sActualResult = "NA";
 				SRegPackTestCaseStatus = "No Run";
 			}
-/*			String sColor = "NA";
+			String sColor = "NA";
 			System.out.println("SRegPackTestCaseStatus:" + SRegPackTestCaseStatus);
 			if (SRegPackTestCaseStatus.equalsIgnoreCase("Passed")) {
 				sColor = "GREEN";
@@ -135,9 +135,10 @@ public class DriverScript extends GenericSkins {
 			
 			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 			TestDataImport.setCellData(sSheetRegressionPacks, iTestCase, 4, sActualResult, "NA");
+			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 			TestDataImport.setCellData(sSheetRegressionPacks, iTestCase, 5, SRegPackTestCaseStatus, sColor);
 			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
-*/
+
 		}
 			List<XmlSuite> suites = new ArrayList<XmlSuite>();
 			suites.add(suite);

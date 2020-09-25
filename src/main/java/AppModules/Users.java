@@ -96,7 +96,9 @@ public class Users extends GenericSkins {
 					// throw error;
 
 				}
+				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 10, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 11, sTestStepStatus, "NA");
 				break;
 			}
@@ -241,13 +243,16 @@ public class Users extends GenericSkins {
 								break;
 							}
 
-							System.out.println("sActualName:" + sActualName + " Name:" + sName);
-							System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
-							System.out.println("sActualPhone:" + sActualPhone + " Phone:" + sPhone);
-							System.out.println("sActualRole:" + sActualRole + " Role:" + sRole);
-							System.out.println("sActualCarrier:" + sActualCarrier + " Carrier:" + sCarrier);
-							System.out.println("sActualRef:" + sActualRef + " Ref:" + sRef);
-							System.out.println("sActualShipper:" + sActualShipper + " Shipper:" + sShipper);
+							/*
+							 * System.out.println("sActualName:" + sActualName + " Name:" + sName);
+							 * System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
+							 * System.out.println("sActualPhone:" + sActualPhone + " Phone:" + sPhone);
+							 * System.out.println("sActualRole:" + sActualRole + " Role:" + sRole);
+							 * System.out.println("sActualCarrier:" + sActualCarrier + " Carrier:" +
+							 * sCarrier); System.out.println("sActualRef:" + sActualRef + " Ref:" + sRef);
+							 * System.out.println("sActualShipper:" + sActualShipper + " Shipper:" +
+							 * sShipper);
+							 */
 
 							if (sActualName.trim().equalsIgnoreCase(sName.trim())
 									&& sACtualEmail.trim().equalsIgnoreCase(sEmail.trim())
@@ -344,6 +349,7 @@ public class Users extends GenericSkins {
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 10, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 11, sTestStepStatus, "NA");
 				if (sTestStepStatus.equalsIgnoreCase("Passed"))
 					;

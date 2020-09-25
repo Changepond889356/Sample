@@ -9,8 +9,9 @@ import Utils.SetUp;
 public class User_TC002 extends SetUp {
 	@Test
 	public void main() throws Exception {
-		test = extent.createTest(" User_TC002 ");
 		String sTestCaseID = "User_TC002";
+		test = extent.createTest(sTestCaseID);
+		//String sTestCaseID = "User_TC002";
 		boolean bResult = false;
 
 		try {
