@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -37,10 +38,27 @@ public class SetUp extends GenericSkins {
         extent.attachReporter(htmlReporter);
 	}
 	
+	@BeforeMethod
+	public void beforeMethod(ITestResult result) throws Exception {
+		setReportName(result);
+		File file2 = new File(sTestResultsPath+"\\Driver.xlsx");
+		FileInputStream inputStream2 = new FileInputStream(file2);
+		ExcelWBook = new XSSFWorkbook(inputStream2);
+		ExcelWSheet = ExcelWBook.getSheet(sSheetRegressionPacks);  //ExcelWSheet = ExcelWBook.getSheetAt(1);
+		rowcount = ExcelWSheet.getLastRowNum();
+		for(int j = 1; j <= rowcount; j++) {
+		 	 Row = ExcelWSheet.getRow(j);
+			 Cell = Row.getCell(0);
+			 if(Cell.getStringCellValue().equalsIgnoreCase(reportName)) {
+				 tcDescription =  Row.getCell(1).getStringCellValue().replace(".", "<br>");
+				 sFinalExpectedResult = Row.getCell(3).getStringCellValue();
+			 }
+		}
+	}
+	
 	@AfterMethod
 	public void afterMethod(ITestResult result) throws Exception {
-		getResult(result);
-		setReportName(result);
+		getResult(result);		
 		SetTestCaseStatus();
 		String sColor = "NA";
 		System.out.println("SRegPackTestCaseStatus:" + SRegPackTestCaseStatus);
@@ -91,7 +109,11 @@ public class SetUp extends GenericSkins {
             test.fail(result.getThrowable());
         }
         else if(result.getStatus() == ITestResult.SUCCESS) {
-            test.log(Status.PASS, MarkupHelper.createLabel(result.getName()+" PASSED ", ExtentColor.GREEN));
+            test.log(Status.PASS, MarkupHelper.createLabel(" PASSED ", ExtentColor.GREEN));
+            //test.pass(tcDescription);
+            test.info(tcDescription);
+            test.info("<html><body><b>Expected Result: </b></body></html>"+sFinalExpectedResult);
+            test.info("<html><body><b>Acutal Result:</b></body></html> "+sActualResult);
         }
         else {
             test.log(Status.SKIP, MarkupHelper.createLabel(result.getName()+" SKIPPED ", ExtentColor.ORANGE));
