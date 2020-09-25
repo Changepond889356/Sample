@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-09-25T15:59:44 IST" name="Suite" finished-at="2020-09-25T16:00:54 IST" duration-ms="69744">
+  <suite started-at="2020-09-25T18:09:29 IST" name="Default suite" finished-at="2020-09-25T18:14:08 IST" duration-ms="278810">
     <groups>
     </groups>
-    <test started-at="2020-09-25T15:59:44 IST" name="Test" finished-at="2020-09-25T16:00:54 IST" duration-ms="69744">
+    <test started-at="2020-09-25T18:09:29 IST" name="Default test" finished-at="2020-09-25T18:14:08 IST" duration-ms="278810">
       <class name="TestCases.DriverScript">
-        <test-method signature="main(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestCases.DriverScript@76b1e9b8]" started-at="2020-09-25T15:59:44 IST" name="main" finished-at="2020-09-25T16:00:54 IST" duration-ms="69690" status="PASS">
+        <test-method signature="main(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestCases.DriverScript@76b1e9b8]" started-at="2020-09-25T18:09:29 IST" name="main" finished-at="2020-09-25T18:14:08 IST" duration-ms="278760" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -32,6 +32,6 @@
           </reporter-output>
         </test-method> <!-- main -->
       </class> <!-- TestCases.DriverScript -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

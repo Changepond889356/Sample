@@ -32,6 +32,7 @@ import org.apache.xmlbeans.impl.soap.Node;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.AssertJUnit;
 import org.w3c.dom.NodeList;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -540,7 +541,7 @@ public class GenericSkins {
 	protected static void ResultComparision() {
 		System.out.println("sExpectedResult:"+sExpectedResult);
 		System.out.println("sActualResult:"+sActualResult);
-		if (sExpectedResult.trim().equalsIgnoreCase(sActualResult.trim())) {
+		if ((sExpectedResult.trim()).equals(sActualResult.trim())) {
 			sTestStepStatus = "Passed";
 		} else {
 			sTestStepStatus = "Failed";
@@ -553,7 +554,8 @@ public class GenericSkins {
 		} else {
 			iTotalTestStepsFailed += 1;
 		}
-
+		AssertJUnit.assertEquals(sExpectedResult, sActualResult);
+		
 		/*
 		 * if (sScreenShotfor.equalsIgnoreCase("Passed") &&
 		 * sTestStepStatus.equalsIgnoreCase("Passed")) { screenshot();

@@ -3,6 +3,15 @@
 <suite name="Failed suite [Suite]">
   <test thread-count="5" name="Test(failed)">
     <classes>
+      <class name="TestCases.User_TC002">
+        <methods>
+          <include name="main"/>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+          <include name="ReportSetup"/>
+          <include name="CloseReport"/>
+        </methods>
+      </class> <!-- TestCases.User_TC002 -->
       <class name="TestCases.User_TC001">
         <methods>
           <include name="beforeMethod"/>

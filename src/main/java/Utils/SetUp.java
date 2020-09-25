@@ -41,9 +41,9 @@ public class SetUp extends GenericSkins {
 	@BeforeMethod
 	public void beforeMethod(ITestResult result) throws Exception {
 		setReportName(result);
-		File file2 = new File(sTestResultsPath+"\\Driver.xlsx");
-		FileInputStream inputStream2 = new FileInputStream(file2);
-		ExcelWBook = new XSSFWorkbook(inputStream2);
+		File file3 = new File(sTestDataPath+"\\Driver.xlsx");
+		FileInputStream inputStream3 = new FileInputStream(file3);
+		ExcelWBook = new XSSFWorkbook(inputStream3);
 		ExcelWSheet = ExcelWBook.getSheet(sSheetRegressionPacks);  //ExcelWSheet = ExcelWBook.getSheetAt(1);
 		rowcount = ExcelWSheet.getLastRowNum();
 		for(int j = 1; j <= rowcount; j++) {
@@ -105,7 +105,7 @@ public class SetUp extends GenericSkins {
 	public static void getResult(ITestResult result) throws IOException {
 		
         if(result.getStatus() == ITestResult.FAILURE) {
-        	test.log(Status.FAIL, MarkupHelper.createLabel(result.getName()+" FAILED ", ExtentColor.RED));
+        	test.log(Status.FAIL, MarkupHelper.createLabel(" FAILED ", ExtentColor.RED));
             test.fail(result.getThrowable());
         }
         else if(result.getStatus() == ITestResult.SUCCESS) {
@@ -113,7 +113,7 @@ public class SetUp extends GenericSkins {
             //test.pass(tcDescription);
             test.info(tcDescription);
             test.info("<html><body><b>Expected Result: </b></body></html>"+sFinalExpectedResult);
-            test.info("<html><body><b>Acutal Result:</b></body></html> "+sActualResult);
+            test.info("<html><body><b>Acutal Result: </b></body></html>"+sActualResult);
         }
         else {
             test.log(Status.SKIP, MarkupHelper.createLabel(result.getName()+" SKIPPED ", ExtentColor.ORANGE));
