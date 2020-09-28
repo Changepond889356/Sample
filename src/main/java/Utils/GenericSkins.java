@@ -541,6 +541,7 @@ public class GenericSkins {
 	protected static void ResultComparision() {
 		System.out.println("sExpectedResult:"+sExpectedResult);
 		System.out.println("sActualResult:"+sActualResult);
+		AssertJUnit.assertEquals(sExpectedResult, sActualResult);
 		if ((sExpectedResult.trim()).equals(sActualResult.trim())) {
 			sTestStepStatus = "Passed";
 		} else {
@@ -554,7 +555,7 @@ public class GenericSkins {
 		} else {
 			iTotalTestStepsFailed += 1;
 		}
-		AssertJUnit.assertEquals(sExpectedResult, sActualResult);
+		
 		
 		/*
 		 * if (sScreenShotfor.equalsIgnoreCase("Passed") &&

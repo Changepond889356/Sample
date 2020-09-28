@@ -114,10 +114,10 @@ public class LoadsPage extends GenericSkins {
 	public static WebElement eShipperContact() {
 		try {
 			
-			element = driver.findElement(By.xpath(".//input[@id='contact_uuid']"));
+			element = driver.findElement(By.xpath(".//div[@id='contact_uuid']//input"));  //.//input[@id='contact_uuid']
 			element.click();
 			Thread.sleep(1000);
-			element = driver.findElement(By.xpath(".//input[@id='contact_uuid']"));
+			element = driver.findElement(By.xpath(".//div[@id='contact_uuid']//input"));
 		} catch (Exception ele) {
 			
 			sActualResult=ele.getMessage();
@@ -242,6 +242,32 @@ public static WebElement eNetDestWr()
 	try
 	{
 		element = driver.findElement(By.xpath("//*[@id='destination_weight']"));
+	}
+	catch(Exception ele)
+	{
+		sActualResult=ele.getMessage();
+	}
+	return element;
+}
+
+public static WebElement Submit() {
+	// TODO Auto-generated method stub
+	try
+	{
+		element = driver.findElement(By.xpath("//button[@data-cy='submit-loads-button']"));
+	}
+	catch(Exception ele)
+	{
+		sActualResult=ele.getMessage();
+	}
+	return element;
+}
+
+public static WebElement SubmitLoad() {
+	// TODO Auto-generated method stub
+	try
+	{
+		element = driver.findElement(By.xpath("(//span[contains(text(),'Submit')])[5]"));
 	}
 	catch(Exception ele)
 	{

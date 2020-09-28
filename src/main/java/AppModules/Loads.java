@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -197,6 +198,7 @@ public class Loads extends GenericSkins {
 						Thread.sleep(2000);
 						action1.sendKeys(Keys.ENTER).build().perform();
 						Thread.sleep(2000);
+						LoadsPage.eSave().click();
 						bResult = true;
 						break;
 					case "ORIGIN WEIGHT":
@@ -204,9 +206,8 @@ public class Loads extends GenericSkins {
 						LoadsPage.eNetOriginWt().sendKeys(sValue);
 						Actions action11 = new Actions(driver);
 						Thread.sleep(2000);
-						action11.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
-
+						action11.sendKeys(Keys.TAB).build().perform();
+						Thread.sleep(2000);						
 						bResult = true;
 						break;
 
@@ -215,7 +216,7 @@ public class Loads extends GenericSkins {
 						LoadsPage.eNetDestWr().sendKeys(sValue);
 						Actions action111 = new Actions(driver);
 						Thread.sleep(2000);
-						action111.sendKeys(Keys.ENTER).build().perform();
+						action111.sendKeys(Keys.TAB).build().perform();
 						Thread.sleep(2000);
 						bResult = true;
 						break;
@@ -223,7 +224,7 @@ public class Loads extends GenericSkins {
 					}
 
 					if (bResult == true) {
-						LoadsPage.eSave().click();
+						//LoadsPage.eSave().click();
 						try {
 							driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 							driver.findElement(By.xpath("//span[text()='Yes']")).click();
@@ -231,6 +232,7 @@ public class Loads extends GenericSkins {
 							LoadsPage.eSave().click();
 
 						} catch (Exception er) {
+							System.out.println(er);
 						}
 						sActualResult = "Load Edited Successfully";
 					}
@@ -510,8 +512,8 @@ public class Loads extends GenericSkins {
 					List<WebElement> eHeaderFilters = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div"));
 					System.out.println("Number of filters:" + eHeaderFilters.size());
-					for (int i = 0; i < aHeaderNumbers.size(); i++) {
-						int iFilterNum = aHeaderNumbers.get(i);
+					for (int i = 0; i < aHeaderNumbers.size(); i++) { //aHeaderNumbers
+						int iFilterNum = aHeaderNumbers.size();  //aHeaderNumbers
 						System.out.println("Header Number from arraylist:" + iFilterNum);
 						int iHeaderFilterCnt = 0;
 						for (WebElement eHeaderFilter : eHeaderFilters) {
@@ -716,6 +718,93 @@ public class Loads extends GenericSkins {
 		}
 
 		// ResultComparision();
+	}
+
+	public static boolean LoadsNewRecord() throws Exception {
+		// TODO Auto-generated method stub
+		boolean bResult = false;
+
+		try {
+			
+			try {
+				Thread.sleep(5000);
+				System.out.println("Inside Try 1");
+				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+				driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
+				Thread.sleep(7000);
+			} catch (Exception error_message) {
+				System.out.println(error_message);
+			} 
+			System.out.println("Inside Try 2");
+			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			LocalDateTime t1 = LocalDateTime.now();
+
+			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//input")).clear();
+			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//input")).sendKeys(t1.format(dateandtime));
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//div[@class='ag-body-viewport ag-layout-normal ag-row-no-animation']//div[@col-id='first_column']/div/span")).click();
+			Thread.sleep(1000);
+			driver.findElement(By.xpath("//span[@data-cy='open-bulk-edit']//button")).click();
+			Thread.sleep(5000);
+			driver.findElement(By.xpath("//div[@class='css-zaam0c']/div[3]")).click();
+		}catch (Exception error_message) {
+			System.out.println(error_message);
+		}
+
+		bResult = true;
+
+		sActualResult = "Webtable validated successfully";
+
+		return bResult;
+	}
+	
+	public static boolean uploadOriginTicket(String sDocType) {
+		boolean bResult = false;
+		try {
+			Thread.sleep(2000);
+
+			driver.findElement(By.xpath("//div[@data-cy='images-origin']//img")).click();
+			WindowsHandle(sDocType);
+			Thread.sleep(15000);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("a"))));
+			bResult = true;
+
+		} catch (Exception error) {
+			sActualResult = error.getMessage();
+			System.out.println(sActualResult);
+		}
+
+		return bResult;
+
+	}
+
+	public static boolean uploadDestTicket(String sDocType) {
+		// TODO Auto-generated method stub
+		boolean bResult = false;
+		try {
+			Thread.sleep(2000);
+
+			driver.findElement(By.xpath("//div[@data-cy='images-destination']//img")).click();
+			WindowsHandle(sDocType);
+			Thread.sleep(15000);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("a"))));
+			bResult = true;
+
+		} catch (Exception error) {
+			sActualResult = error.getMessage();
+			System.out.println(sActualResult);
+		}
+
+		return bResult;
+	}
+
+	public static void GetInvoiceNumber() {
+		// TODO Auto-generated method stub
+		String invoiceNumber = 	driver.findElement(By.xpath("//input[@id='invoice-number']")).getText();
+		System.out.println("Invoice Number " + invoiceNumber);
 	}
 
 }

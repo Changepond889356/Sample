@@ -15,16 +15,18 @@ public class Loads_TC002 extends SetUp {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void main() {
-		test = extent.createTest(" Load Test ");
+		String sActTestCaseID = "Loads_TC002";
+		test = extent.createTest(sActTestCaseID);
 		boolean bResult = false;
 		// String expected = "Uploaded Document";
-		String sActTestCaseID = "Loads_TC002";
+		
 		try {
 			// Launch application
 			TestActions.LaunchApplication();
 
 			// Login as Global Admin
 			bResult = TestActions.Login(sActTestCaseID);
+			//bResult = TestActions.Login_GlobalAdmin();
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
 			}
