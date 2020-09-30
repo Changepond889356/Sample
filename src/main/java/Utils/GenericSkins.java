@@ -244,7 +244,7 @@ public class GenericSkins {
 	protected static ExtentHtmlReporter htmlReporter;
 	protected static ExtentReports extent;
 	protected static ExtentTest test;
-	protected static String tcDescription,sFinalExpectedResult;
+	protected static String tcDescription,sFinalExpectedResult,invoiceNumber;
 
 	// ------------------------------------Method to create New
 	// Folder-----------------------------------------

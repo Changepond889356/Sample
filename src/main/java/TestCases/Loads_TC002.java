@@ -45,13 +45,16 @@ public class Loads_TC002 extends SetUp {
 					// Search for record in AG grid
 					// sTestStepData = "Current Date;CP Shipper;NA;Changepond
 					// T;Open;NA;NA;0.25;Bushels;Corn";
+					//bResult = Loads.customizeAGgrid(sActTestCaseID);
 					bResult = Loads.LoadsWebTable(4, sActTestCaseID);
 					if (bResult == true) {
-						Loads.uploadDoc("Origin Ticket");
-						Loads.uploadDoc("Dest. Ticket");
+						Loads.uploadOriginTicket("Origin");
+						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
 						bResult = Loads.LoadsWebTable(5, sActTestCaseID);
-						
+						LoadsPage.Submit().click();
+						Loads.GetInvoiceNumber();
+						LoadsPage.SubmitLoad().click();
 
 					}
 					LoadsPage.eDelete().click();

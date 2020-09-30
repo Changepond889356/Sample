@@ -7,12 +7,12 @@ import AppModules.TestActions;
 import PageObjects.LoadsPage;
 import Utils.SetUp;
 
-public class Loads_TC003 extends SetUp {
-	
-	@Test
-	public void scoularLoad_FullSubmit() {
+public class Loads_TC004 extends SetUp {
 
-		String sActTestCaseID = "Loads_TC003";
+	@Test
+	public void nonScoularLoad() {
+		
+		String sActTestCaseID = "Loads_TC004";
 		test = extent.createTest(sActTestCaseID);
 		boolean bResult = false;
 		try {
@@ -94,5 +94,4 @@ public class Loads_TC003 extends SetUp {
 		driver.close();
 		driver.quit();
 	}
-
 }

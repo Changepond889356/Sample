@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.groovy.json.internal.Exceptions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -17,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.AssertJUnit;
 
 import PageObjects.*;
 
@@ -439,6 +441,7 @@ public class Loads extends GenericSkins {
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
 
+				break;
 			}
 
 			// System.out.println("class name:"+this.getClass().getName());
@@ -512,8 +515,8 @@ public class Loads extends GenericSkins {
 					List<WebElement> eHeaderFilters = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div"));
 					System.out.println("Number of filters:" + eHeaderFilters.size());
-					for (int i = 0; i < aHeaderNumbers.size(); i++) { //aHeaderNumbers
-						int iFilterNum = aHeaderNumbers.size();  //aHeaderNumbers
+					for (int i = 0; i < aHeaderNumbers.size(); i++) {
+						int iFilterNum = aHeaderNumbers.get(i);
 						System.out.println("Header Number from arraylist:" + iFilterNum);
 						int iHeaderFilterCnt = 0;
 						for (WebElement eHeaderFilter : eHeaderFilters) {
@@ -648,11 +651,12 @@ public class Loads extends GenericSkins {
 				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 14, sTestStepStatus, "NA");
-
+				break;
 			}
+
 		}
 
-		//System.out.println(sActualResult);
+	   System.out.println("Loads Webtble:"+bResult);
 		return bResult;
 	}
 
@@ -743,7 +747,9 @@ public class Loads extends GenericSkins {
 			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//input")).clear();
 			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//input")).sendKeys(t1.format(dateandtime));
 			Thread.sleep(5000);
-			driver.findElement(By.xpath("//div[@class='ag-body-viewport ag-layout-normal ag-row-no-animation']//div[@col-id='first_column']/div/span")).click();
+			driver.findElement(By.xpath("(//div[@class='ag-react-container']//input)[10]")).clear();
+			driver.findElement(By.xpath("(//div[@class='ag-react-container']//input)[10]")).sendKeys("Johnny");
+			driver.findElement(By.xpath("(//div[@class='ag-body-viewport ag-layout-normal ag-row-no-animation']//div[@col-id='first_column']/div/span)[1]")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//span[@data-cy='open-bulk-edit']//button")).click();
 			Thread.sleep(5000);
@@ -803,8 +809,341 @@ public class Loads extends GenericSkins {
 
 	public static void GetInvoiceNumber() {
 		// TODO Auto-generated method stub
-		String invoiceNumber = 	driver.findElement(By.xpath("//input[@id='invoice-number']")).getText();
+		invoiceNumber = 	driver.findElement(By.xpath("//input[@id='invoice-number']")).getAttribute("value");
 		System.out.println("Invoice Number " + invoiceNumber);
 	}
 
+	public static void PaidInvoice() throws InterruptedException {
+		// TODO Auto-generated method stub
+		LoadsPage.status().sendKeys("paid");
+		Actions action1 = new Actions(driver);
+		Thread.sleep(2000);
+		action1.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(2000);
+		LoadsPage.eSave().click();
+		Thread.sleep(2000);
+	}
+	public static void VerifyStatus(String eStatus) throws InterruptedException {
+		// TODO Auto-generated method stub
+		//invoiceNumber = "64SE5B68";
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input")).clear();
+		driver.findElement(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input")).sendKeys(invoiceNumber);
+		System.out.println("Invoice Number Entered");
+		Thread.sleep(1000);
+		Actions action1 = new Actions(driver);
+		action1.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(3000);
+		
+		String aStatus = driver.findElement(By.xpath("//div[@class='ag-center-cols-container']//div[@col-id='status']/div")).getText();
+		System.out.println("Status : " + aStatus);
+		AssertJUnit.assertEquals(eStatus, aStatus);
+		//(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]
+		//div[@col-id='first_column']/div/span/span[2]
+		
+	}
+	
+	public static boolean customizeAGgrid(String sActualTestCaseID, int rCount) throws Exception {
+		boolean bResult = false;
+
+		boolean bSelected = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "CustomizeGrid";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			sTestStepData = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && rCount == iRow) {
+				try {
+					if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && rCount == iRow) {
+						// Click on Loads menu
+						//LoadsPage.eMenuLoads().click();
+						//System.out.println("Clicked on menu loads");
+						// Click on All tab
+						//LoadsPage.SubmittedView().click();
+						//System.out.println("Clicked on all loads");
+						Thread.sleep(5000);
+						// CLick on columns button from right pane
+						LoadsPage.eColumnPane().click();
+						Thread.sleep(2000);
+						sActualResult = "Columns not found";
+						List<WebElement> eColumns = driver.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
+						// System.out.println("Number of columns:" + eColumns.size());
+						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+						// uncheck all checkboxes
+
+						for (WebElement eColumn : eColumns) {
+
+							String sName = eColumn.findElement(By.tagName("span")).getText();
+							WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+									.findElement(By.tagName("div"));
+							try {
+								WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+								// System.out.println("svg displayed:" + eCheckboxSelectedsvg.isDisplayed());
+								bSelected = eCheckboxSelectedsvg.isDisplayed();
+							} catch (Exception child_error) {
+								bSelected = false;
+							}
+							// System.out.println("checkbox selected1:" + bSelected);
+							if (bSelected == true) {
+								eCheckBox.click();
+								// System.out.println("checkbox unchecked");
+								Thread.sleep(500);
+
+							}
+							Actions action = new Actions(driver);
+							action.sendKeys(Keys.ARROW_DOWN).build().perform();
+							Thread.sleep(500);
+
+						}
+
+						//
+						// CLick on columns button from right pane
+						LoadsPage.eColumnPane().click();
+						Thread.sleep(2000);
+						Actions action = new Actions(driver);
+						action.sendKeys(Keys.F5).build().perform();
+						driver.navigate().refresh();
+						Thread.sleep(5000);
+						// click on columnspane
+						LoadsPage.eColumnPane().click();
+						// driver.findElement(By.xpath(""))
+						Thread.sleep(2000);
+						eColumns = driver.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
+						// System.out.println("Number of columns:" + eColumns.size());
+
+						switch (sOperation.toUpperCase()) {
+						case "ALL":
+							for (WebElement eColumn : eColumns) {
+								String sName = eColumn.findElement(By.tagName("span")).getText();
+								WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+										.findElement(By.tagName("div"));
+								try {
+									WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+									bSelected = eCheckboxSelectedsvg.isDisplayed();
+								} catch (Exception child_error) {
+									bSelected = false;
+								}
+								// System.out.println("checkbox selected2:" + bSelected);
+								if (bSelected == false) {
+									eCheckBox.click();
+									// System.out.println("checkbox checked");
+									Thread.sleep(100);
+
+								}
+								Actions action2 = new Actions(driver);
+								action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+								Thread.sleep(100);
+							}
+
+							bResult = true;
+							break;
+						case "SELECT":
+
+							String[] sData = sTestStepData.split(";");
+							int iSelectedCnt = 0;
+							for (int i = 0; i < sData.length; i++) {
+								for (WebElement eColumn : eColumns) {
+									String sName = eColumn.findElement(By.tagName("span")).getText();
+									// System.out.println("sName:" + sName);
+									if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
+										WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+												.findElement(By.tagName("div"));
+										try {
+											WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+											bSelected = eCheckboxSelectedsvg.isDisplayed();
+										} catch (Exception child_error) {
+											bSelected = false;
+										}
+										// System.out.println("checkbox selected2:" + bSelected);
+										if (bSelected == false) {
+											eCheckBox.click();
+											iSelectedCnt++;
+											// System.out.println("checkbox checked");
+
+										}
+										break;
+
+									}
+									Thread.sleep(100);
+									Actions action2 = new Actions(driver);
+									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+									Thread.sleep(100);
+								}
+							}
+							// click on columnspane
+							LoadsPage.eColumnPane().click();
+							Thread.sleep(4000);
+							List<WebElement> eHeaders = driver
+									.findElements(By.xpath(".//span[@class='ag-header-cell-text']"));
+							// System.out.println("Number of cols displayed:" + eHeaders.size());
+							for (int i = 0; i < sData.length; i++) {
+								int iHeadercnt = 0;
+								for (WebElement eHeader : eHeaders) {
+
+									iHeadercnt++;
+									if (eHeader.getText().trim().equalsIgnoreCase(sData[i].trim())) {
+										// System.out.println("Header value:" + eHeader.getText());
+										// System.out.println("Header Number:" + iHeadercnt);
+										aHeaderNumbers.add(iHeadercnt);
+									}
+
+								}
+							}
+							if (sData.length == eHeaders.size()) {
+								bResult = true;
+								sActualResult = "Webtable customized successfully";
+							} else {
+								sActualResult = "Webtable not customized successfully";
+								bResult = false;
+							}
+							driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+							break;
+
+						}
+
+					}
+
+				} catch (Exception error) {
+					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+					bResult = false;
+					sActualResult = error.getMessage();
+
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+
+			}
+
+			// System.out.println("class name:"+this.getClass().getName());
+			// sTestCaseID = "TestCases."+sTestCaseID;
+
+		}
+
+		return bResult;
+	}
+
+	public static void SelectRecord() throws InterruptedException {
+		// TODO Auto-generated method stub
+		Thread.sleep(2000);
+		if(driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).isSelected()) {
+			System.out.println("Record already is selected");
+		} else {
+			driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).click();
+			System.out.println("Record is selected");
+			Thread.sleep(3000);
+		}
+	}
+
+	public static void EnterCopyDetails(String sActTestCaseID, String iOperation) throws Exception {
+		// TODO Auto-generated method stub
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "Duplicate Load";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sCopy = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+
+			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID) && iOperation.equalsIgnoreCase(sOperation)) {
+				Thread.sleep(3000);
+				driver.findElement(By.xpath("//input[@id='Copies']")).clear();
+				driver.findElement(By.xpath("//input[@id='Copies']")).sendKeys(sCopy);
+				Thread.sleep(2000);
+				LoadsPage.SubmitDuplicateCopy().click();
+				Thread.sleep(4000);
+
+				switch(sOperation) {
+					
+					case "Open":
+						System.out.println("Open");
+						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();;
+						Thread.sleep(4000);
+						List<WebElement> duplicateCount = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
+						if(duplicateCount.size() == (Integer.parseInt(sCopy) +1)) {
+							sActualResult = "Record Dulicated Successfully";
+						} else {
+							sActualResult = "Record failed Dulicate";
+						}
+						break;
+						
+					case "Submitted":
+						System.out.println("Submitted");
+						driver.findElement(By.xpath("//button[@data-cy='vb-all']")).click();
+						Thread.sleep(3000);
+						try {
+							driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
+							catch(Exception error) {
+								System.out.println(error);
+							}
+						Thread.sleep(5000);
+						List<WebElement> duplicateCount2 = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
+						if(duplicateCount2.size() >= Integer.parseInt(sCopy)) {
+							sActualResult = "Record Dulicated Successfully";
+						} else {
+							sActualResult = "Record failed Dulicate";
+						}
+						break;
+						
+					case "Paid":
+						System.out.println("Paid");
+						driver.findElement(By.xpath("//button[@data-cy='vb-all']")).click();
+						Thread.sleep(3000);
+						try {
+						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
+						catch(Exception error) {
+							System.out.println(error);
+						}
+						Thread.sleep(5000);
+						List<WebElement> duplicateCount3 = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
+						if(duplicateCount3.size() >= Integer.parseInt(sCopy)) {
+							sActualResult = "Record Dulicated Successfully";
+						} else {
+							sActualResult = "Record failed Dulicate";
+						}
+						break;
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+				break;
+			}				
+		}		
+	}
+
+	public static void SelectFirstRecord() throws InterruptedException {
+		// TODO Auto-generated method stub
+		Thread.sleep(3000);
+		if(driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).isSelected()) {
+			System.out.println("Record already is selected");
+		} else {
+			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).click();
+			System.out.println("Record is selected");
+			Thread.sleep(5000);
+		}
+	}
+	
 }

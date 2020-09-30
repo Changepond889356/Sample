@@ -107,6 +107,9 @@ public class SetUp extends GenericSkins {
         if(result.getStatus() == ITestResult.FAILURE) {
         	test.log(Status.FAIL, MarkupHelper.createLabel(" FAILED ", ExtentColor.RED));
             test.fail(result.getThrowable());
+            test.info(tcDescription);
+            test.info("<html><body><b>Expected Result: </b></body></html>"+sFinalExpectedResult);
+            test.info("<html><body><b>Acutal Result: </b></body></html>"+sActualResult);
         }
         else if(result.getStatus() == ITestResult.SUCCESS) {
             test.log(Status.PASS, MarkupHelper.createLabel(" PASSED ", ExtentColor.GREEN));

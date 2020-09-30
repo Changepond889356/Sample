@@ -114,10 +114,10 @@ public class LoadsPage extends GenericSkins {
 	public static WebElement eShipperContact() {
 		try {
 			
-			element = driver.findElement(By.xpath(".//div[@id='contact_uuid']//input"));  //.//input[@id='contact_uuid']
+			element = driver.findElement(By.xpath("//input[@id='contact_uuid']"));  //.//input[@id='contact_uuid']
 			element.click();
 			Thread.sleep(1000);
-			element = driver.findElement(By.xpath(".//div[@id='contact_uuid']//input"));
+			element = driver.findElement(By.xpath("//input[@id='contact_uuid']"));
 		} catch (Exception ele) {
 			
 			sActualResult=ele.getMessage();
@@ -263,17 +263,88 @@ public static WebElement Submit() {
 	return element;
 }
 
-public static WebElement SubmitLoad() {
-	// TODO Auto-generated method stub
-	try
-	{
-		element = driver.findElement(By.xpath("(//span[contains(text(),'Submit')])[5]"));
+	public static WebElement SubmitLoad() {
+		// TODO Auto-generated method stub
+		try
+		{
+			element = driver.findElement(By.xpath("(//span[contains(text(),'Submit')])[5]"));
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
 	}
-	catch(Exception ele)
-	{
-		sActualResult=ele.getMessage();
-	}
-	return element;
-}
 
+	public static WebElement GenerateInvoice() {
+		// TODO Auto-generated method stub
+		try
+		{
+			element = driver.findElement(By.xpath("(//button//span[contains(text(),'Generate')])[2]"));
+			
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement GenerateBtn() {
+		// TODO Auto-generated method stub
+		try
+		{
+			element = driver.findElement(By.xpath("//button[@data-cy='generate-invoice-button']"));
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement status() {
+		try {
+			element = driver.findElement(By.xpath("//div[@id='status']//input"));
+			element.click();
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+
+	public static WebElement SubmittedView() {
+		// TODO Auto-generated method stub
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='vb-submitted']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement PaidView() {
+		// TODO Auto-generated method stub
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='vb-paid']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement DuplicateBtn() {
+		// TODO Auto-generated method stub
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='duplicate-load-button']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement SubmitDuplicateCopy() {
+		// TODO Auto-generated method stub
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='submit-duplicate-load']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
 }
