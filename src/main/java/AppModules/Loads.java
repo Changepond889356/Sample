@@ -809,8 +809,24 @@ public class Loads extends GenericSkins {
 
 	public static void GetInvoiceNumber() {
 		// TODO Auto-generated method stub
-		invoiceNumber = 	driver.findElement(By.xpath("//input[@id='invoice-number']")).getAttribute("value");
-		System.out.println("Invoice Number " + invoiceNumber);
+		try
+		{
+			// TODO Auto-generated method stub
+			Thread.sleep(5000);
+			invoiceNumber = driver.findElement(By.xpath("//input[@id='invoice-number']")).getAttribute("value");
+			
+		}
+		catch(Exception e)
+		{
+			invoiceNumber="NA";
+		}
+		sInvoiceNumber = invoiceNumber;
+
+		if (sInvoiceNumber.equalsIgnoreCase("") || sInvoiceNumber.equals(null)) {
+			sInvoiceNumber = "NA";
+			invoiceNumber="NA";
+		}
+		System.out.println("Invoice Number " + sInvoiceNumber);
 	}
 
 	public static void PaidInvoice() throws InterruptedException {

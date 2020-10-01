@@ -104,5 +104,30 @@ public class UserPage extends GenericSkins {
 		}
 		return element;
 	}
+	
+	public static WebElement eDelete() {
+		try {
+			Thread.sleep(3000);
+			element = driver.findElement(By.xpath(".//span[text()='Delete']"));
+		
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+
+		}
+		return element;
+	}
+
+	public static WebElement eConfirmDelete() {
+		try {
+			Thread.sleep(3000);
+			element = driver.findElement(By.xpath("(.//span[text()='Delete'])[2]"));
+		
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+
+		}
+		return element;
+	}
+	
 
 }

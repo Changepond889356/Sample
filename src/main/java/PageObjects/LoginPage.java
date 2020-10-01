@@ -31,6 +31,54 @@ public class LoginPage extends GenericSkins {
 		}
 		return element;
 	}
+	public static WebElement eResetPwd()
+	{
+		try
+		{
+			element = driver.findElement(By.xpath(".//span[text()='Reset Password']"));
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement eNewPwd()
+	{
+		try
+		{
+			element = driver.findElement(By.xpath(".//input[@id='password']"));
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement eConfirmNewPwd()
+	{
+		try
+		{
+			element = driver.findElement(By.xpath(".//input[@id='confirmPassword']"));
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement eForgotPassword()
+	{
+		try
+		{
+			element = driver.findElement(By.xpath(".//span[text()='forgot password']"));
+		}
+		catch(Exception ele)
+		{
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
 	public static WebElement ePassword()
 	{
 		try

@@ -32,7 +32,6 @@ import org.apache.xmlbeans.impl.soap.Node;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.AssertJUnit;
 import org.w3c.dom.NodeList;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -41,6 +40,9 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 
 @SuppressWarnings("rawtypes")
 public class GenericSkins {
+
+	protected static String tcDescription;
+	protected static String sFinalExpectedResult;
 	// Declaration of Global Variables
 	public static String GlobalAdminUserName;
 	public static String GlobalAdminPassword;
@@ -56,8 +58,7 @@ public class GenericSkins {
 	protected static String sScreenShotRegPackFolder;
 	protected static String sScreenShotTCFolder;
 	protected static String sDriverFile;
-	protected static String sSheetRegressionPacks;
-;
+	protected static String sSheetRegressionPacks;;
 	protected static int iTotalRegressionPacks;
 
 	protected static String sRegPackID;
@@ -69,7 +70,7 @@ public class GenericSkins {
 	protected static String sProjectName;
 	protected static String sRunReference;
 	protected static String sRunReferenceFlag;
-    protected static String sTestCaseExpectedResult="NA";
+	protected static String sTestCaseExpectedResult = "NA";
 	protected static int iColRegID;
 	protected static int iColRegName;
 	protected static int iColRegDesc;
@@ -79,7 +80,7 @@ public class GenericSkins {
 	protected static int iColRegpackTestCasesFailed;
 	protected static int iColRegpackFailedTestCases;
 	protected static int iColRegpackExecutionDurion;
-    //protected static String sSheetRegressionPacks;
+	// protected static String sSheetRegressionPacks;
 	protected static int iColRegPackTCID;
 	protected static int iColRegPackTCStatus;
 	protected static int iColRegPackTCDesc;
@@ -239,12 +240,14 @@ public class GenericSkins {
 
 	protected static String sRegPackRagStatus;
 	protected static String sRunReferenceRagStatus;
-	protected static String sTempResult="";
-	
+	protected static String sTempResult = "";
+
 	protected static ExtentHtmlReporter htmlReporter;
 	protected static ExtentReports extent;
 	protected static ExtentTest test;
-	protected static String tcDescription,sFinalExpectedResult,invoiceNumber;
+
+	protected static String sInvoiceNumber = "NA";
+	protected static String invoiceNumber="NA";
 
 	// ------------------------------------Method to create New
 	// Folder-----------------------------------------
@@ -304,10 +307,10 @@ public class GenericSkins {
 	// ________________________________Method to initialize required folder
 	// paths in test suite________________
 	protected static void InitializeTestFolderPaths() {
-		//sProjectPath = sProjectPath + "//";
-		sTestDataPath = sProjectPath + "TestData//";  //"Source//Scripts//TestData//"
-		//sPathOR = sProjectPath + "Wizard//ObjectRepository//";
-		sSystemIndependencyConfig = sProjectPath + "Config//SystemIndependencyConfig.xml"; //"Source//Scripts//Config//SystemIndependencyConfig.xml";
+		sProjectPath = sProjectPath + "//";
+		sTestDataPath = sProjectPath + "Source//Scripts//TestData//";
+		// sPathOR = sProjectPath + "Wizard//ObjectRepository//";
+		sSystemIndependencyConfig = sProjectPath + "Source//Scripts//Config//SystemIndependencyConfig.xml";
 		sBrowsserDriverPath = "BrowserDrivers//";
 		sPathReportsSource = sProjectPath + "Reports//";
 
@@ -426,7 +429,7 @@ public class GenericSkins {
 		if (iTotalTestStepsFailed > 0) {
 			SRegPackTestCaseStatus = "Failed";
 			sRegPackFailedTestCases = sRegPackFailedTestCases + "<p>" + sRegPackTestCaseID + "</p>";
-		}  else {
+		} else {
 			SRegPackTestCaseStatus = "Passed";
 		}
 
@@ -507,7 +510,7 @@ public class GenericSkins {
 		sRunReferenceFlag = FetchDataConfig("RunReferenceFlag", "DataConfig", 0);
 		GlobalAdminUserName = FetchDataConfig("GlobalAdminUserName", "DataConfig", 0);
 		GlobalAdminPassword = FetchDataConfig("GlobalAdminPassword", "DataConfig", 0);
-		
+
 		// System.out.println(sBrowserName+"||"+sScreenShotfor+"||"+sRunReference);
 
 	}
@@ -533,20 +536,19 @@ public class GenericSkins {
 		// Create a folder inside current date folder named as per current date
 		// and time stamp
 		sTestResultsPath = createfolder(sTestResultsPath, sNodeName + " " + new_log_folder);
-		System.out.println("sTestResultsPath:"+sTestResultsPath);
+		System.out.println("sTestResultsPath:" + sTestResultsPath);
 	}
 
 	// _____________________________________Method to compare actual result and
 	// expected result___________________
 	protected static void ResultComparision() {
-		System.out.println("sExpectedResult:"+sExpectedResult);
-		System.out.println("sActualResult:"+sActualResult);
-		AssertJUnit.assertEquals(sExpectedResult, sActualResult);
-		if ((sExpectedResult.trim()).equals(sActualResult.trim())) {
+		System.out.println("sExpectedResult:" + sExpectedResult);
+		System.out.println("sActualResult:" + sActualResult);
+		if (sExpectedResult.trim().equalsIgnoreCase(sActualResult.trim())) {
 			sTestStepStatus = "Passed";
 		} else {
 			sTestStepStatus = "Failed";
-			sTempResult = sTempResult+"\n"+sActualResult;
+			sTempResult = sTempResult + "\n" + sActualResult;
 		}
 
 		iTotalTestStepsExecuted += 1;
@@ -555,17 +557,19 @@ public class GenericSkins {
 		} else {
 			iTotalTestStepsFailed += 1;
 		}
-		
-		
-		/*
-		 * if (sScreenShotfor.equalsIgnoreCase("Passed") &&
-		 * sTestStepStatus.equalsIgnoreCase("Passed")) { screenshot();
-		 * 
-		 * } else if (sScreenShotfor.equalsIgnoreCase("Failed") &&
-		 * sTestStepStatus.equalsIgnoreCase("Failed")) { screenshot(); } else if
-		 * (sScreenShotfor.equalsIgnoreCase("All")) { screenshot(); } else {
-		 * System.out.println("No ScreenShot"); sScreeenShot = "NA"; }
-		 */
+
+		if (sScreenShotfor.equalsIgnoreCase("Passed") && sTestStepStatus.equalsIgnoreCase("Passed")) {
+			screenshot();
+
+		} else if (sScreenShotfor.equalsIgnoreCase("Failed") && sTestStepStatus.equalsIgnoreCase("Failed")) {
+			screenshot();
+		} else if (sScreenShotfor.equalsIgnoreCase("All")) {
+			screenshot();
+		} else {
+			System.out.println("No ScreenShot");
+			sScreeenShot = "NA";
+		}
+
 	}
 
 	// ___________________Method to get current date and
@@ -791,8 +795,9 @@ public class GenericSkins {
 
 	}
 
-	// _____________________________Method to read file config.xml___________________________________________________________________________
-	
+	// _____________________________Method to read file
+	// config.xml___________________________________________________________________________
+
 	protected static void LoadSystemIndependencyConfig() {
 
 		sAUTPath = ReadSystemIndependncyFile("AUTPath");
@@ -843,8 +848,8 @@ public class GenericSkins {
 			System.out.println("Write File:" + sFileName + ":" + error_message.getMessage());
 		}
 	}
-	
-	public static void screenshot()  {
+
+	public static void screenshot() {
 		String fileName = sTestStepID;
 		String format = ".jpg";
 		try {
@@ -871,6 +876,35 @@ public class GenericSkins {
 		sScreeenShot = sScreenShotTCFolder + fileName + format;
 		sScreeenShot = sScreeenShot.replaceAll("//", "/");
 
+	}
+
+	public static void getTestCaseExpectedResult(String sActualTestCaseID) {
+
+		try {
+			sTestCaseExpectedResult = "NA";
+			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
+			iTotalRegressionPacks = TestDataImport.GetRowCount(sSheetRegressionPacks) - 1;
+			for (int iTestCase = 1; iTestCase <= iTotalRegressionPacks; iTestCase++) {
+				SRegPackTestCaseStatus = "NA";
+				sActualResult = "NA";
+				sTempResult = "";
+				iTotalTestStepsFailed = 0; // Set SystemIndpendencyConfig File values
+
+				// TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
+				String sTestCaseID = TestDataImport.GetCellData(sSheetRegressionPacks, 0, iTestCase);
+				String sTestCaseDesc = TestDataImport.GetCellData(sSheetRegressionPacks, 1, iTestCase);
+				String sTestCaseRunMode = TestDataImport.GetCellData(sSheetRegressionPacks, 2, iTestCase);
+				sTestCaseExpectedResult = TestDataImport.GetCellData(sSheetRegressionPacks, 3, iTestCase);
+				System.out.println("Expected result of TestcaseID:" + sTestCaseID);
+				if (sTestCaseID.trim().toUpperCase().equalsIgnoreCase(sActualTestCaseID.trim().toUpperCase())) {
+					System.out.println("Expected result :" + sTestCaseExpectedResult);
+					break;
+
+				}
+			}
+		} catch (Exception error) {
+			sTestCaseExpectedResult = "NA";
+		}
 	}
 
 }

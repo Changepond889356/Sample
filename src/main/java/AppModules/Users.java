@@ -25,6 +25,7 @@ public class Users extends GenericSkins {
 		boolean bResult = false;
 		String sFileName = "Users.xlsx";
 		String sSheetName = "AddUser";
+		sTestStepID = "addUser";
 
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
@@ -113,6 +114,7 @@ public class Users extends GenericSkins {
 		boolean bResult = false;
 		String sFileName = "Users.xlsx";
 		String sSheetName = "UsersGrid";
+		sTestStepID = "UserWebTable";
 
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
@@ -262,6 +264,7 @@ public class Users extends GenericSkins {
 									&& sActualShipper.trim().equalsIgnoreCase(sShipper.trim())
 									&& sActualName.trim().equalsIgnoreCase(sName.trim())) {
 								System.out.println("Record found");
+								System.out.println("sOperation :"+sOperation);
 								switch (sOperation.toUpperCase()) {
 								case "VIEW NEW INVITE":
 									int iCHeckBox = 0;
@@ -280,21 +283,62 @@ public class Users extends GenericSkins {
 
 											// Utils.EmailFunctions.getGmailData(sEmail, "");
 											// verify email link
+											
 											/*
 											 * Thread.sleep(20000); HashMap<String, String> hm =
 											 * EmailFunctions.getGmailData(sEmail,
-											 * "Subject: You're Invited to the Roger App");
+											 * "subject:You're Invited to the Roger App");
 											 * 
 											 * System.out.println(hm.get("subject"));
-											 * System.out.println("================="); String TokenLink =
-											 * hm.get("link"); System.out.println("Token Link:" + TokenLink); sAUTPath =
-											 * TokenLink; // TestActions.LaunchApplication();
-											 */
+											 * System.out.println("================="); String TokenLink
+											 * =hm.get("link"); System.out.println("Token Link:" + TokenLink); sAUTPath
+											 * =TokenLink; // TestActions.LaunchApplication();
+											 */ 
 											bResult = true;
+											System.out.println("bResult:"+bResult);
 											break;
 										}
 									}
 									break;
+								case "ACCEPT INVITE":
+									int iCHeckBox1 = 0;
+									System.out.println("Number of checkboxes:" + eCheckBoxes.size());
+									for (WebElement eCheckBox : eCheckBoxes) {
+										iCHeckBox1++;
+										System.out.println(iCHeckBox1);
+										System.out.println(iRow1);
+										if (iCHeckBox1 == iRow1) {
+											eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+											Thread.sleep(2000);
+											// driver.findElement(By.xpath(".//span[text()='Delete']")).click();
+											WebDriverWait wait = new WebDriverWait(driver, 10);
+											wait.until(ExpectedConditions.visibilityOfElementLocated(
+													By.xpath(".//span[text()='Cancel Invite']")));
+
+											// Utils.EmailFunctions.getGmailData(sEmail, "");
+											// verify email link
+											
+											  Thread.sleep(30000); 
+											  driver.close();
+											  HashMap<String, String> hm =
+											  EmailFunctions.getGmailData(sEmail,
+											  "subject:You're Invited to the Roger App");
+											  
+											  System.out.println(hm.get("subject"));
+											  System.out.println("================="); String TokenLink =
+											  hm.get("link"); 
+											  System.out.println("Token Link:" + TokenLink); 
+											  sAUTPath = TokenLink;
+											  // TestActions.LaunchApplication();
+											  System.out.println("open link");
+											  AppModules.TestActions.LaunchApplication();
+											bResult = true;
+											
+											break;
+										}
+									}
+									break;
+
 								case "CANCEL INVITE":
 									WebDriverWait wait = new WebDriverWait(driver, 10);
 									wait.until(ExpectedConditions
@@ -352,15 +396,16 @@ public class Users extends GenericSkins {
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 11, sTestStepStatus, "NA");
 				if (sTestStepStatus.equalsIgnoreCase("Passed"))
-					;
 				{
 					bResult = true;
 				}
+				break;
 
 			}
 		}
-
+		System.out.println("user webtable:"+bResult);
 		return bResult;
+		
 	}
 
 }

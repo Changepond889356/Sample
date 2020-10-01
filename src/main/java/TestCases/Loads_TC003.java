@@ -1,19 +1,26 @@
 package TestCases;
 
+import java.io.IOException;
+
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import AppModules.Loads;
 import AppModules.TestActions;
 import PageObjects.LoadsPage;
+import Utils.GenericSkins;
 import Utils.SetUp;
 
 public class Loads_TC003 extends SetUp {
 	
 	@Test
-	public void scoularLoad_FullSubmit() {
+	public void scoularLoad_FullSubmit() throws Exception {
 
 		String sActTestCaseID = "Loads_TC003";
 		test = extent.createTest(sActTestCaseID);
+		getTestCaseExpectedResult(sActTestCaseID);
+		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
+		GenericSkins.iTotalTestStepsFailed=0;
 		boolean bResult = false;
 		try {
 			// Launch application
@@ -91,8 +98,9 @@ public class Loads_TC003 extends SetUp {
 			bResult = false;
 
 		}
-		driver.close();
-		driver.quit();
+		TestActions.CloseApplication();
+		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
+	
 	}
 
 }

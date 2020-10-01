@@ -347,4 +347,13 @@ public static WebElement Submit() {
 		}
 		return element;
 	}
+	public static WebElement eGenerateInvoice() {
+		// TODO Auto-generated method stub
+		try {
+			element = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/span/div/*[name()='svg']"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+		}
+		return element;
+	}
 }

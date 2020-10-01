@@ -2,43 +2,36 @@ package TestCases;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import AppModules.TestActions;
 import AppModules.Users;
+import PageObjects.UserPage;
 import Utils.GenericSkins;
 import Utils.SetUp;
-import Utils.TestDataImport;
-//import bsh.This;
 
-public class User_TC001 extends SetUp {
+public class User_TC004 extends SetUp {
 	@Test
 	public void main() throws Exception {
-		String sTestCaseID = "User_TC001";
+		String sTestCaseID = "User_TC004";
+		GenericSkins.iTotalTestStepsFailed = 0;
 		test = extent.createTest(sTestCaseID);
+		boolean bResult = false;
 		getTestCaseExpectedResult(sTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sTestCaseID);
-		boolean bResult = false;
 
 		try {
+			LoadSystemIndependencyConfig();
 			// Launch application
 			TestActions.LaunchApplication();
-
-			// Login as Global Admin
-			bResult = TestActions.Login_GlobalAdmin();
+			// validate forgot password
+			bResult = TestActions.resetPassword(sTestCaseID);
 			if (bResult == true) {
-				// add user
-				bResult = Users.addUser(sTestCaseID);
-				// Search for user
-				bResult = Users.UserWebTable(1, sTestCaseID);
-				// Resend invite
-				bResult = Users.UserWebTable(2, sTestCaseID);
-
-				// cancel invite
-				bResult = Users.UserWebTable(3, sTestCaseID);
-				// view canceled invite
-				bResult = Users.UserWebTable(4, sTestCaseID);
-
+				// Login wiht new password
+				bResult = TestActions.Login(sTestCaseID);
 				if (bResult == true) {
-					sActualResult = "Invitation sent successfully";
+
+					sActualResult = "Password reset successfully";
+					TestActions.LogOut();
 				}
 
 			}
@@ -46,10 +39,8 @@ public class User_TC001 extends SetUp {
 		} catch (Exception error) {
 			sActualResult = error.getMessage();
 		}
-
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
-// ResultComparision();
 
 	}
 }
