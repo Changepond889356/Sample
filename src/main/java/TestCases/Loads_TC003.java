@@ -86,7 +86,7 @@ public class Loads_TC003 extends SetUp {
 						Loads.EnterCopyDetails(sActTestCaseID, "Paid");
 						Loads.SelectRecord();
 						LoadsPage.eDelete().click();
-						
+						sActualResult = "Non-Scoular Load Paid Successfully";
 					}
 					//LoadsPage.eDelete().click();
 					

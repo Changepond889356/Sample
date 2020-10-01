@@ -1,19 +1,26 @@
 package TestCases;
 
+import java.io.IOException;
+
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import AppModules.Loads;
 import AppModules.TestActions;
 import PageObjects.LoadsPage;
+import Utils.GenericSkins;
 import Utils.SetUp;
 
 public class Loads_TC004 extends SetUp {
 
 	@Test
-	public void nonScoularLoad() {
+	public void nonScoularLoad() throws IOException {
 		
 		String sActTestCaseID = "Loads_TC004";
 		test = extent.createTest(sActTestCaseID);
+		getTestCaseExpectedResult(sActTestCaseID);
+		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
+		GenericSkins.iTotalTestStepsFailed=0;
 		boolean bResult = false;
 		try {
 			// Launch application
@@ -39,14 +46,6 @@ public class Loads_TC004 extends SetUp {
 						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
 						bResult = Loads.LoadsWebTable(6, sActTestCaseID);
-						
-						LoadsPage.DuplicateBtn().click();
-						Loads.EnterCopyDetails(sActTestCaseID, "Open");
-						Loads.SelectFirstRecord();
-						/* Delete Duplicate Record */
-						LoadsPage.eDelete().click();
-						Thread.sleep(5000);
-						Loads.SelectRecord();
 						
 						/* Generate invoice for non-Scoular load */
 						LoadsPage.GenerateBtn().click();
@@ -91,7 +90,7 @@ public class Loads_TC004 extends SetUp {
 			bResult = false;
 
 		}
-		driver.close();
-		driver.quit();
+		TestActions.CloseApplication();
+		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 	}
 }
