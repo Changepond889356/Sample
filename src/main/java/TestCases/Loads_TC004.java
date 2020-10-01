@@ -40,52 +40,47 @@ public class Loads_TC004 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTable(6, sActTestCaseID);
+					bResult = Loads.LoadsWebTable(7, sActTestCaseID);
 					if (bResult == true) {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
-						bResult = Loads.LoadsWebTable(6, sActTestCaseID);
+						bResult = Loads.LoadsWebTable(7, sActTestCaseID);
 						
-						/* Generate invoice for non-Scoular load */
-						LoadsPage.GenerateBtn().click();
+						
+						LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();
-						LoadsPage.GenerateInvoice().click();
+						//LoadsPage.GenerateInvoice().click();
+						LoadsPage.eGenerateInvoice().click();
+						Thread.sleep(1000);
+						LoadsPage.SubmitLoad().click();					
 						Thread.sleep(10000);
+						
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 
-						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
+						bResult = Loads.customizeAGgrid(sActTestCaseID,6);
 						Loads.VerifyStatus("Submitted");
-						Loads.SelectRecord();
-						LoadsPage.DuplicateBtn().click();
-						Loads.EnterCopyDetails(sActTestCaseID, "Submitted");
-						Loads.SelectRecord();
-						LoadsPage.eDelete().click();
-						LoadsPage.SubmittedView().click();
-						Thread.sleep(3000); 
-						
-						/* Mark non-Scoular load as Paid */
-						Loads.SelectRecord();
-						LoadsPage.eEdit().click();
-						Loads.PaidInvoice();
-						Thread.sleep(5000);
-						LoadsPage.PaidView().click();
-						Thread.sleep(3000);
-						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
-						Loads.VerifyStatus("Paid");
-						Loads.SelectRecord();
-						LoadsPage.DuplicateBtn().click();
-						Loads.EnterCopyDetails(sActTestCaseID, "Paid");
-						Loads.SelectRecord();
-						LoadsPage.eDelete().click();
-						
-					}
-					//LoadsPage.eDelete().click();
-					
-
-				}
+						bResult = TestActions.LogOut();
+																	
+					}					
+				}				
 			}
-
+			
+			if (bResult == true) {
+				bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
+				Thread.sleep(10000);
+				LoadsPage.SubmittedView().click();
+				bResult = Loads.customizeAGgrid(sActTestCaseID,6);
+				Loads.VerifyStatus("Submitted");
+				Loads.SelectRecord();
+				LoadsPage.eEdit().click();
+				Loads.ApprovedInvoice();
+				LoadsPage.ApprovedView().click();
+				bResult = Loads.customizeAGgrid(sActTestCaseID,6);
+				Loads.VerifyStatus("Approved");
+				
+				sActualResult = "Load Approved successfully";
+			}
 		} catch (Exception error) {
 			bResult = false;
 

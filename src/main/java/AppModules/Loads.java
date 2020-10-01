@@ -841,7 +841,7 @@ public class Loads extends GenericSkins {
 	}
 	public static void VerifyStatus(String eStatus) throws InterruptedException {
 		// TODO Auto-generated method stub
-		//invoiceNumber = "64SE5B68";
+		//invoiceNumber = "SNW56WMJ";
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input")).clear();
 		driver.findElement(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input")).sendKeys(invoiceNumber);
@@ -1161,5 +1161,14 @@ public class Loads extends GenericSkins {
 			Thread.sleep(5000);
 		}
 	}
-	
+	public static void ApprovedInvoice() throws InterruptedException {
+		// TODO Auto-generated method stub
+		LoadsPage.status().sendKeys("Approved");
+		Actions action1 = new Actions(driver);
+		Thread.sleep(2000);
+		action1.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(2000);
+		LoadsPage.eSave().click();
+		Thread.sleep(2000);
+	}
 }

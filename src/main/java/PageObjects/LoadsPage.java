@@ -111,7 +111,7 @@ public class LoadsPage extends GenericSkins {
 		}
 		return element;
 	}
-	public static WebElement eShipperContact() {
+	public static WebElement eShipperContact() throws InterruptedException {
 		try {
 			
 			element = driver.findElement(By.xpath("//input[@id='contact_uuid']"));  //.//input[@id='contact_uuid']
@@ -119,9 +119,10 @@ public class LoadsPage extends GenericSkins {
 			Thread.sleep(1000);
 			element = driver.findElement(By.xpath("//input[@id='contact_uuid']"));
 		} catch (Exception ele) {
-			
-			sActualResult=ele.getMessage();
-			element=null;;
+			element = driver.findElement(By.xpath("//div[@id='contact_uuid']//input"));  //.//input[@id='contact_uuid']
+			element.click();
+			Thread.sleep(1000);
+			element = driver.findElement(By.xpath("//div[@id='contact_uuid']//input"));
 		}
 		return element;
 	}
@@ -353,6 +354,15 @@ public static WebElement Submit() {
 			element = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/span/div/*[name()='svg']"));
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
+		}
+		return element;
+	}
+
+	public static WebElement ApprovedView() {
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='vb-approved']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
 		}
 		return element;
 	}

@@ -133,8 +133,9 @@ public class TestActions extends GenericSkins {
 	public static boolean LogOut() {
 		boolean bResult = false;
 		try {
-			driver.findElement(By.xpath(".//span[@class='MuiButton-label']")).click();
-			driver.findElement(By.xpath(".//li[text()='Log Out']")).click();
+			driver.findElement(By.xpath("//div[@data-cy='nav-menu']//button")).click();   //.//span[@class='MuiButton-label']
+			driver.findElement(By.xpath("//li[@data-cy='menu-logout']")).click();  //.//li[text()='Log Out']
+			System.out.println("Logout Happen");
 			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.visibilityOf(LoginPage.eUserName()));
 			bResult = true;
@@ -382,6 +383,78 @@ public class TestActions extends GenericSkins {
 		} catch (Exception er) {
 
 		}
+	}
+
+	public static boolean Login_ShipperAdmin(String sActualTestCaseID) throws Exception {
+		boolean bResult = false;
+		String sFileName = "Login.xlsx";
+		String sSheetName = "Shipper Admin";
+		sTestStepID = "Login";
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("Number of rows:" + iRowCnt);
+		String sOperation = "VIEW";
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+
+			String sUserName = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sPassword = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			// sTestStepData =
+			// sLoadDate+";"+sSHipper+";"+sSHipperContact+";"+sCarrier+";"+sStatus+";"+sOrigin+";"+sDestination+";"+sRate+";"+sRateUOM+";"+sCommodity+";";
+			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
+				try {
+					LoginPage.eUserName().sendKeys(sUserName);
+					Thread.sleep(3000);
+					LoginPage.sSubmit().click();
+					LoginPage.ePassword().sendKeys(sPassword);
+					Thread.sleep(2000);
+					LoginPage.eLoginButton().click();
+					Thread.sleep(10000);
+					Actions action = new Actions(driver);
+					action.sendKeys(Keys.F5).build().perform();
+					WebDriverWait wait = new WebDriverWait(driver, 30);
+					wait.until(ExpectedConditions
+							.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
+					try {
+						driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+						driver.findElement(By.xpath(".//img[@class='css-1piz8fp']")).click();
+					} catch (Exception error_child) {
+						driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+					}
+					bResult = true;
+
+				} catch (Exception error) {
+					bResult = false;
+					sActualResult = error.getMessage();
+
+				}
+				if (bResult == true) {
+					sActualResult = "Login successful";
+				} else {
+					sActualResult = "Login not successful";
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+
+				break;
+			}
+		}
+		if (bResult == true) {
+			sActualResult = "Login successful";
+		} else {
+			sActualResult = "Login not successful";
+		}
+		return bResult;
 	}
 
 }
