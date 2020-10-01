@@ -19,7 +19,7 @@ public class Loads_TC004 extends SetUp {
 			// Launch application
 			TestActions.LaunchApplication();
 
-			// Login as Global Admin
+			// Login as Global Admin //
 			bResult = TestActions.Login(sActTestCaseID);
 			 
 			if (bResult == true) {
