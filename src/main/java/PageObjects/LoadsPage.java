@@ -55,10 +55,10 @@ public class LoadsPage extends GenericSkins {
 
 	public static WebElement eListCarrier() {
 		try {
-			element = driver.findElement(By.xpath("//*[@id=\"carrier_uuid\"]/div/div/div/div"));
+			element = driver.findElement(By.xpath("//div[@id='carrier_uuid']"));
 			element.click();
 			Thread.sleep(1000);
-			element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
+			element = driver.findElement(By.xpath("//div[@id='carrier_uuid']//input"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
@@ -361,6 +361,14 @@ public static WebElement Submit() {
 	public static WebElement ApprovedView() {
 		try {
 			element = driver.findElement(By.xpath("//button[@data-cy='vb-approved']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement DispatchBtn() {
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='submit-model-button']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}

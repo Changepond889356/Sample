@@ -26,7 +26,7 @@ public class Loads_TC004 extends SetUp {
 			// Launch application
 			TestActions.LaunchApplication();
 
-			// Login as Global Admin //
+			// Login as Carrier //
 			bResult = TestActions.Login(sActTestCaseID);
 			 
 			if (bResult == true) {
@@ -67,6 +67,8 @@ public class Loads_TC004 extends SetUp {
 			}
 			
 			if (bResult == true) {
+				
+				// Login as Shipper Admin
 				bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
 				Thread.sleep(10000);
 				LoadsPage.SubmittedView().click();
