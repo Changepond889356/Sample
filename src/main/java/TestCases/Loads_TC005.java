@@ -47,6 +47,8 @@ public class Loads_TC005 extends SetUp {
 						LoadsPage.eEdit().click();
 						Thread.sleep(5000);
 						LoadsPage.DispatchBtn().click();
+						Thread.sleep(5000);
+						bResult = Loads.LoadsWebTableForDispatch(9, sActTestCaseID);
 						sActualResult = "Dispatch sent successfully and carrier has control over load.";									
 					}					
 				}				

@@ -4,9 +4,11 @@ import Utils.GenericSkins;
 import Utils.TestDataImport;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -94,13 +96,14 @@ public class Loads extends GenericSkins {
 
 					}
 					if (!(sSHipperContact.trim().equalsIgnoreCase("NA"))) {
+						
 						LoadsPage.eShipperContact().sendKeys(sSHipperContact);
 						Thread.sleep(3000);
 						// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 						// Thread.sleep(500);
 						ac.sendKeys(Keys.ENTER).build().perform();
 						Thread.sleep(2000);
-
+						
 					}
 
 					if (!(sCommodity.trim().equalsIgnoreCase("NA"))) {
@@ -115,8 +118,10 @@ public class Loads extends GenericSkins {
 
 					}
 					if (!(sOrigin.trim().equalsIgnoreCase("NA"))) {
+						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
+						sOrigin = sOrigin+"_" + datetime;
 						LoadsPage.eOrigin().sendKeys(sOrigin);
-
+						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 					}
 
 					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
@@ -916,12 +921,12 @@ public class Loads extends GenericSkins {
 							if (bSelected == true) {
 								eCheckBox.click();
 								// System.out.println("checkbox unchecked");
-								Thread.sleep(500);
+								Thread.sleep(200);
 
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
-							Thread.sleep(500);
+							Thread.sleep(200);
 
 						}
 
@@ -1240,11 +1245,11 @@ public class Loads extends GenericSkins {
 							if (iHeaderFilterCnt == iFilterNum) {
 								if (!(sData[i].equalsIgnoreCase("NA"))) {
 									eHeaderFilter.findElement(By.tagName("input")).clear();
-									Thread.sleep(2000);
+									Thread.sleep(1000);
 									eHeaderFilter.findElement(By.tagName("input")).sendKeys(sData[i]);
 									Actions acton = new Actions(driver);
 									acton.sendKeys(Keys.ENTER).build().perform();
-									Thread.sleep(3000);
+									Thread.sleep(2000);
 
 								}
 
@@ -1318,9 +1323,9 @@ public class Loads extends GenericSkins {
 								iCheckBoxcnt++;
 								if (iRow1 == iCheckBoxcnt) {
 									eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-									Thread.sleep(2000);
+									Thread.sleep(1000);
 									eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
-									Thread.sleep(2000);
+									Thread.sleep(1000);
 									try {
 										driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 										LoadsPage.eEdit().isDisplayed();

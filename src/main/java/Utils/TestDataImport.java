@@ -3,6 +3,7 @@ package Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 //import org.apache.poi.hssf.usermodel.HSSFCell;
 //import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -247,6 +248,27 @@ public class TestDataImport
  	        }
  	 }
  	
- 	
+ 	public static void writeExcel(String sTestDataPath,String sFileName,String sSheetName, String swriteData, int colNum,String sTestCaseID) throws Exception {
+		
+ 		//TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+ 		File nfile = new File(sTestDataPath+sFileName);
+ 		FileInputStream ninputStream = new FileInputStream(nfile);
+ 		XSSFWorkbook excelWbook = new XSSFWorkbook(ninputStream);
+ 		XSSFSheet excelWsheet = excelWbook.getSheet(sSheetName);
+ 		XSSFCell nCell;
+ 	    XSSFRow nRow;
+ 		int rowcount = excelWsheet.getLastRowNum();//TestDataImport.GetRowCount(sSheetName);
+ 		for(int i =0; i< rowcount; i++) {
+ 			nRow = excelWsheet.getRow(i);
+ 			if(nRow.getCell(0).getStringCellValue().equalsIgnoreCase(sTestCaseID)) {
+ 				nCell = nRow.createCell(colNum);
+ 				nCell.setCellValue(swriteData);
+ 				System.out.println("Write Done ");
+ 			}
+ 		}
+ 		FileOutputStream nfileOut = new FileOutputStream(new File(sTestDataPath+sFileName));   
+ 		excelWbook.write(nfileOut);
+ 		nfileOut.close();	
+ 	}
  		
 }
