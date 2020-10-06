@@ -181,12 +181,12 @@ public class GenericSkins {
 	protected static ArrayList aRegPackTCFailed = new ArrayList();
 	protected static ArrayList aFailedTestCases = new ArrayList();
 	protected static ArrayList aRegPackExecDuration = new ArrayList();
-	public static ArrayList<Integer> aHeaderNumbers = new ArrayList();
-	public static ArrayList<String> aHeaderNames = new ArrayList();
+	protected static ArrayList<Integer> aHeaderNumbers = new ArrayList();
+	protected static ArrayList<String> aHeaderNames = new ArrayList();
 
-	public static ArrayList aOverallExecDuration = new ArrayList();
+	protected static ArrayList aOverallExecDuration = new ArrayList();
 
-	public static String sRegPackFailedTestCases;
+	protected static String sRegPackFailedTestCases;
 
 	protected static String sParentWindowHandle;
 	protected static String sCurrentWindowHandle;

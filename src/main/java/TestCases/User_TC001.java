@@ -1,5 +1,7 @@
 package TestCases;
 
+import java.util.ArrayList;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import AppModules.TestActions;
@@ -25,6 +27,8 @@ public class User_TC001 extends SetUp {
 			// Login as Global Admin
 			bResult = TestActions.Login_GlobalAdmin();
 			if (bResult == true) {
+				//customize columns
+				Users.customizeUsergrid(sTestCaseID);
 				// add user
 				bResult = Users.addUser(sTestCaseID);
 				// Search for user
@@ -46,6 +50,11 @@ public class User_TC001 extends SetUp {
 		} catch (Exception error) {
 			sActualResult = error.getMessage();
 		}
+		
+		aHeaderNumbers = null;
+		aHeaderNames = null;
+		aHeaderNumbers = new ArrayList();
+		aHeaderNames = new ArrayList();
 
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());

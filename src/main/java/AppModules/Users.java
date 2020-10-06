@@ -163,14 +163,14 @@ public class Users extends GenericSkins {
 					}
 					// click on load icon
 					driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]"))
-							.click();
+					.click();
 					// filter by Name
 					driver.findElement(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"))
-							.clear();
+					.clear();
 					driver.findElement(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"))
-							.sendKeys(sName);
+					.sendKeys(sName);
 					WebElement eEmailFilter = driver.findElement(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[2]/div[1]/div/div/input"));
 					eEmailFilter.clear();
@@ -188,7 +188,7 @@ public class Users extends GenericSkins {
 					List<WebElement> eRows = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
 					System.out
-							.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
+					.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
 					int iRow1 = 0;
 					sActualResult = "Record not found";
 					for (WebElement eRow : eRows) {
@@ -283,17 +283,17 @@ public class Users extends GenericSkins {
 
 											// Utils.EmailFunctions.getGmailData(sEmail, "");
 											// verify email link
-											
+
 											/*
 											 * Thread.sleep(20000); HashMap<String, String> hm =
 											 * EmailFunctions.getGmailData(sEmail,
 											 * "subject:You're Invited to the Roger App");
-											 * 
+											 *
 											 * System.out.println(hm.get("subject"));
 											 * System.out.println("================="); String TokenLink
 											 * =hm.get("link"); System.out.println("Token Link:" + TokenLink); sAUTPath
 											 * =TokenLink; // TestActions.LaunchApplication();
-											 */ 
+											 */
 											bResult = true;
 											System.out.println("bResult:"+bResult);
 											break;
@@ -317,23 +317,23 @@ public class Users extends GenericSkins {
 
 											// Utils.EmailFunctions.getGmailData(sEmail, "");
 											// verify email link
-											
-											  Thread.sleep(30000); 
-											  driver.close();
-											  HashMap<String, String> hm =
-											  EmailFunctions.getGmailData(sEmail,
-											  "subject:You're Invited to the Roger App");
-											  
-											  System.out.println(hm.get("subject"));
-											  System.out.println("================="); String TokenLink =
-											  hm.get("link"); 
-											  System.out.println("Token Link:" + TokenLink); 
-											  sAUTPath = TokenLink;
-											  // TestActions.LaunchApplication();
-											  System.out.println("open link");
-											  AppModules.TestActions.LaunchApplication();
+
+											Thread.sleep(30000);
+											driver.close();
+											HashMap<String, String> hm =
+													EmailFunctions.getGmailData(sEmail,
+															"subject:You're Invited to the Roger App");
+
+											System.out.println(hm.get("subject"));
+											System.out.println("================="); String TokenLink =
+													hm.get("link");
+											System.out.println("Token Link:" + TokenLink);
+											sAUTPath = TokenLink;
+											// TestActions.LaunchApplication();
+											System.out.println("open link");
+											AppModules.TestActions.LaunchApplication();
 											bResult = true;
-											
+
 											break;
 										}
 									}
@@ -405,7 +405,205 @@ public class Users extends GenericSkins {
 		}
 		System.out.println("user webtable:"+bResult);
 		return bResult;
-		
+
 	}
+
+
+
+	// Method to customize webtable in User Page
+	public static boolean customizeUsergrid(String sActualTestCaseID) throws Exception {
+		boolean bResult = false;
+
+		boolean bSelected = false;
+		String sFileName = "Users.xlsx";
+		String sSheetName = "CustomizeGrid";
+		sTestStepID = "customizeUsergrid";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			sTestStepData = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
+				try {
+					if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
+						// Click on user menu
+						UserPage.eMenuUsers().click();
+						System.out.println("Clicked on menu loads");
+						Thread.sleep(5000);
+						// CLick on columns button from right pane
+						UserPage.eColumnPane().click();
+						Thread.sleep(2000);
+						sActualResult = "Columns not found";
+						List<WebElement> eColumns = driver.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
+						// System.out.println("Number of columns:" + eColumns.size());
+						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+						// uncheck all checkboxes
+
+						for (WebElement eColumn : eColumns) {
+
+							String sName = eColumn.findElement(By.tagName("span")).getText();
+							WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+									.findElement(By.tagName("div"));
+							try {
+								WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+								// System.out.println("svg displayed:" + eCheckboxSelectedsvg.isDisplayed());
+								bSelected = eCheckboxSelectedsvg.isDisplayed();
+							} catch (Exception child_error) {
+								bSelected = false;
+							}
+							// System.out.println("checkbox selected1:" + bSelected);
+							if (bSelected == true) {
+								eCheckBox.click();
+								// System.out.println("checkbox unchecked");
+								Thread.sleep(500);
+
+							}
+							Actions action = new Actions(driver);
+							action.sendKeys(Keys.ARROW_DOWN).build().perform();
+							Thread.sleep(500);
+
+						}
+
+						//
+						// CLick on columns button from right pane
+						UserPage.eColumnPane().click();
+						Thread.sleep(2000);
+						Actions action = new Actions(driver);
+						action.sendKeys(Keys.F5).build().perform();
+						driver.navigate().refresh();
+						Thread.sleep(5000);
+						// click on columnspane
+						UserPage.eColumnPane().click();
+						// driver.findElement(By.xpath(""))
+						Thread.sleep(2000);
+						eColumns = driver.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
+						// System.out.println("Number of columns:" + eColumns.size());
+
+						switch (sOperation.toUpperCase()) {
+						case "ALL":
+							for (WebElement eColumn : eColumns) {
+								String sName = eColumn.findElement(By.tagName("span")).getText();
+								WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+										.findElement(By.tagName("div"));
+								try {
+									WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+									bSelected = eCheckboxSelectedsvg.isDisplayed();
+								} catch (Exception child_error) {
+									bSelected = false;
+								}
+								// System.out.println("checkbox selected2:" + bSelected);
+								if (bSelected == false) {
+									eCheckBox.click();
+									// System.out.println("checkbox checked");
+									Thread.sleep(100);
+
+								}
+								Actions action2 = new Actions(driver);
+								action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+								Thread.sleep(100);
+							}
+
+							bResult = true;
+							break;
+						case "SELECT":
+
+							String[] sData = sTestStepData.split(";");
+							int iSelectedCnt = 0;
+							for (int i = 0; i < sData.length; i++) {
+								for (WebElement eColumn : eColumns) {
+									String sName = eColumn.findElement(By.tagName("span")).getText();
+									// System.out.println("sName:" + sName);
+									if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
+										WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+												.findElement(By.tagName("div"));
+										try {
+											WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+											bSelected = eCheckboxSelectedsvg.isDisplayed();
+										} catch (Exception child_error) {
+											bSelected = false;
+										}
+										// System.out.println("checkbox selected2:" + bSelected);
+										if (bSelected == false) {
+											eCheckBox.click();
+											iSelectedCnt++;
+											// System.out.println("checkbox checked");
+
+										}
+										break;
+
+									}
+									Thread.sleep(100);
+									Actions action2 = new Actions(driver);
+									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+									Thread.sleep(100);
+								}
+							}
+							// click on columnspane
+							UserPage.eColumnPane().click();
+							Thread.sleep(4000);
+							List<WebElement> eHeaders = driver
+									.findElements(By.xpath(".//span[@class='ag-header-cell-text']"));
+							// System.out.println("Number of cols displayed:" + eHeaders.size());
+							for (int i = 0; i < sData.length; i++) {
+								int iHeadercnt = 0;
+								for (WebElement eHeader : eHeaders) {
+
+									iHeadercnt++;
+									if (eHeader.getText().trim().equalsIgnoreCase(sData[i].trim())) {
+										// System.out.println("Header value:" + eHeader.getText());
+										// System.out.println("Header Number:" + iHeadercnt);
+										aHeaderNumbers.add(iHeadercnt);
+									}
+
+								}
+							}
+							if (sData.length == eHeaders.size()) {
+								bResult = true;
+								sActualResult = "Webtable customized successfully";
+							} else {
+								sActualResult = "Webtable not customized successfully";
+								bResult = false;
+							}
+							driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+							UserPage.eColumnPane().click();
+
+							break;
+
+						}
+
+					}
+
+				} catch (Exception error) {
+					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+					bResult = false;
+					sActualResult = error.getMessage();
+
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+
+			}
+
+			// System.out.println("class name:"+this.getClass().getName());
+			// sTestCaseID = "TestCases."+sTestCaseID;
+
+		}
+
+		return bResult;
+	}
+
+
 
 }

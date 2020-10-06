@@ -1,6 +1,7 @@
 package TestCases;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -64,7 +65,7 @@ public class Loads_TC002 extends SetUp {
 						Loads.uploadDestTicket("Destination");
 						//edit record
 						bResult=Loads.editLoad(sActTestCaseID);
-						bResult = Loads.LoadsWebTable(5, sActTestCaseID);
+						bResult = Loads.LoadsWebTable(4, sActTestCaseID);
 						LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();
 						
@@ -76,7 +77,7 @@ public class Loads_TC002 extends SetUp {
 							
 							
 							Thread.sleep(10000);
-							bResult = Loads.LoadsWebTable(6, sActTestCaseID);
+							bResult = Loads.LoadsWebTable(5, sActTestCaseID);
 							if(bResult==true)
 							{
 								sActualResult="Load submitted successfully";
@@ -101,9 +102,14 @@ public class Loads_TC002 extends SetUp {
 			bResult = false;
 
 		}
+		aHeaderNumbers = null;
+		aHeaderNames = null;
+		aHeaderNumbers = new ArrayList();
+		aHeaderNames = new ArrayList();
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 	
+		
 		//driver.close();
 		//driver.quit();
 		/*

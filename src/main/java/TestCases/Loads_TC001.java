@@ -1,6 +1,7 @@
 package TestCases;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -69,6 +70,10 @@ public class Loads_TC001 extends SetUp {
 			bResult = false;
 
 		}
+		aHeaderNumbers = null;
+		aHeaderNames = null;
+		aHeaderNumbers = new ArrayList();
+		aHeaderNames = new ArrayList();
 		// close application
 		TestActions.CloseApplication();
 		// set testcase status

@@ -129,5 +129,16 @@ public class UserPage extends GenericSkins {
 		return element;
 	}
 	
+	public static WebElement eColumnPane() {
+		try {
+			Thread.sleep(3000);
+			element = driver.findElement(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[1]/div[1]/button/span"));
+
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+
+		}
+		return element;
+	}
 
 }
