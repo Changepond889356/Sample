@@ -374,4 +374,12 @@ public static WebElement Submit() {
 		}
 		return element;
 	}
+	public static WebElement ViewAll() {
+		try {
+			element = driver.findElement(By.xpath("//button[@data-cy='vb-all']"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		return element;
+	}
 }

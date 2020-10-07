@@ -1368,4 +1368,158 @@ public class Loads extends GenericSkins {
 	   System.out.println("Loads Webtble:"+bResult);
 		return bResult;
 	}
+
+	public static boolean ViewPDF(String sActTestCaseID) throws Exception {						
+		boolean bResult = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "ViewPDF";
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sObject = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sValue = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+
+			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID)) {
+				
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'View PDF')]")).click();
+				Thread.sleep(2000);
+
+				//Download PDF
+				if(sObject.equalsIgnoreCase("DOWNLOAD")) {
+					try {
+						if(!driver.findElement(By.xpath("//input[@value='download']")).isSelected()) {
+							driver.findElement(By.xpath("//input[@value='download']")).click();	
+						} 
+						driver.findElement(By.xpath("//button/span[contains(text(),'Generate')]")).click();
+						Thread.sleep(5000);
+						sActualResult = "Download Successfully";
+						bResult = true;
+					} catch(Exception e) {
+						System.out.println("Unable to Download PDF " + e);
+						sActualResult = "Unable to Download PDF";
+					}					
+				}
+
+				//Send Email
+				if(sObject.equalsIgnoreCase("EMAIL")) {
+					try {
+						if(!driver.findElement(By.xpath("//input[@value='email']")).isSelected()) {
+							driver.findElement(By.xpath("//input[@value='email']")).click();
+						} 
+						//driver.findElement(By.xpath("//input[@id='email']")).clear();
+						//driver.findElement(By.xpath("//input[@id='email']")).sendKeys(sValue);
+						driver.findElement(By.xpath("//button/span[contains(text(),'Generate')]")).click();
+						Thread.sleep(5000);
+						sActualResult = "Email sent Successfully";
+						bResult = true;
+					} catch(Exception e) {
+						System.out.println("Unable to Send Email " + e);
+						sActualResult = "Unable to Send Email";
+					}
+				}
+				ResultComparision();
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
+			}		
+		}
+		return bResult;
+	}
+
+	public static boolean ExportSelectedData(String sActTestCaseID) throws Exception {
+		boolean bResult = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "ViewPDF";
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sObject = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sValue = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+
+			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID)) {
+				
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//button[@data-cy='export-loads-button']//span[contains(text(),'Export Selected Data')]")).click();
+				Thread.sleep(2000);
+
+				//Download PDF
+				if(sObject.equalsIgnoreCase("DOWNLOAD")) {
+					try {
+						if(!driver.findElement(By.xpath("//input[@value='download']")).isSelected()) {
+							driver.findElement(By.xpath("//input[@value='download']")).click();	
+						} 
+						String formatText = driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div/div")).getText();
+						if(!formatText.equalsIgnoreCase(sValue)) {
+							driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
+							Actions ac = new Actions(driver);
+							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+							ac.sendKeys(Keys.ENTER).build().perform();
+						}
+						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
+						//driver.findElement(By.xpath("//span[contains(text(),'.xlsx')]")).click();
+						driver.findElement(By.xpath("//button[@data-cy='submit-export-loads-button']")).click();
+						Thread.sleep(5000);
+						sActualResult = "Download Successfully";
+						bResult = true;
+					} catch(Exception e) {
+						System.out.println("Unable to Download PDF " + e);
+						sActualResult = "Unable to Download PDF";
+					}					
+				}
+
+				//Send Email
+				if(sObject.equalsIgnoreCase("EMAIL")) {
+					try {
+						if(!driver.findElement(By.xpath("//input[@value='email']")).isSelected()) {
+							driver.findElement(By.xpath("//input[@value='email']")).click();
+						} 
+						String formatText = driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div/div")).getText();
+						if(!formatText.equalsIgnoreCase(sValue)) {
+							driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
+							Actions ac = new Actions(driver);
+							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+							ac.sendKeys(Keys.ENTER).build().perform();
+						}
+						//driver.findElement(By.xpath("//input[@id='email']")).clear();
+						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
+						//driver.findElement(By.xpath("//span[contains(text(),'.csv')]")).click();
+						driver.findElement(By.xpath("//button[@data-cy='submit-export-loads-button']")).click();
+						Thread.sleep(5000);
+						sActualResult = "Email sent Successfully";
+						bResult = true;
+					} catch(Exception e) {
+						System.out.println("Unable to Send Email " + e);
+						sActualResult = "Unable to Send Email";
+					}
+				}
+				ResultComparision();
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 5, sActualResult, "NA");
+			}		
+		}
+		return bResult;
+	}
+	public static void ReturnedInvoice() throws InterruptedException {
+		// TODO Auto-generated method stub
+		Thread.sleep(3000);
+		LoadsPage.status().sendKeys("Returned");
+		Actions action1 = new Actions(driver);
+		Thread.sleep(2000);
+		action1.sendKeys(Keys.ENTER).build().perform();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@id='return-message']")).sendKeys("Load is returned to Carrier");
+		driver.findElement(By.xpath("//button//span[contains(text(),'Send')]")).click();
+		Thread.sleep(2000);
+		LoadsPage.eSave().click();
+		Thread.sleep(2000);
+		
+	}
 }
