@@ -26,14 +26,14 @@ public class Users extends GenericSkins {
 		String sFileName = "Users.xlsx";
 		String sSheetName = "AddUser";
 		sTestStepID = "addUser";
-
+		System.out.println("Adding new user");
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
 		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
-		System.out.println("Number of rows:" + iRowCnt);
+		// System.out.println("Number of rows:" + iRowCnt);
 
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
@@ -56,6 +56,7 @@ public class Users extends GenericSkins {
 				try {
 
 					UserPage.eMenuUsers().click();
+					Thread.sleep(3000);
 					UserPage.ebtnAddUser().click();
 					if (!(sFullName.equalsIgnoreCase("NA"))) {
 						UserPage.eFullName().sendKeys(sFullName);
@@ -115,7 +116,7 @@ public class Users extends GenericSkins {
 		String sFileName = "Users.xlsx";
 		String sSheetName = "UsersGrid";
 		sTestStepID = "UserWebTable";
-
+		System.out.println("Search record in user webtable");
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -163,14 +164,14 @@ public class Users extends GenericSkins {
 					}
 					// click on load icon
 					driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]"))
-					.click();
+							.click();
 					// filter by Name
 					driver.findElement(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"))
-					.clear();
+							.clear();
 					driver.findElement(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"))
-					.sendKeys(sName);
+							.sendKeys(sName);
 					WebElement eEmailFilter = driver.findElement(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[2]/div[1]/div/div/input"));
 					eEmailFilter.clear();
@@ -188,7 +189,7 @@ public class Users extends GenericSkins {
 					List<WebElement> eRows = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
 					System.out
-					.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
+							.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
 					int iRow1 = 0;
 					sActualResult = "Record not found";
 					for (WebElement eRow : eRows) {
@@ -264,7 +265,7 @@ public class Users extends GenericSkins {
 									&& sActualShipper.trim().equalsIgnoreCase(sShipper.trim())
 									&& sActualName.trim().equalsIgnoreCase(sName.trim())) {
 								System.out.println("Record found");
-								System.out.println("sOperation :"+sOperation);
+								System.out.println("sOperation :" + sOperation);
 								switch (sOperation.toUpperCase()) {
 								case "VIEW NEW INVITE":
 									int iCHeckBox = 0;
@@ -288,14 +289,14 @@ public class Users extends GenericSkins {
 											 * Thread.sleep(20000); HashMap<String, String> hm =
 											 * EmailFunctions.getGmailData(sEmail,
 											 * "subject:You're Invited to the Roger App");
-											 *
+											 * 
 											 * System.out.println(hm.get("subject"));
 											 * System.out.println("================="); String TokenLink
 											 * =hm.get("link"); System.out.println("Token Link:" + TokenLink); sAUTPath
 											 * =TokenLink; // TestActions.LaunchApplication();
 											 */
 											bResult = true;
-											System.out.println("bResult:"+bResult);
+											System.out.println("bResult:" + bResult);
 											break;
 										}
 									}
@@ -320,13 +321,12 @@ public class Users extends GenericSkins {
 
 											Thread.sleep(30000);
 											driver.close();
-											HashMap<String, String> hm =
-													EmailFunctions.getGmailData(sEmail,
-															"subject:You're Invited to the Roger App");
+											HashMap<String, String> hm = EmailFunctions.getGmailData(sEmail,
+													"subject:You're Invited to the Roger App");
 
 											System.out.println(hm.get("subject"));
-											System.out.println("================="); String TokenLink =
-													hm.get("link");
+											System.out.println("=================");
+											String TokenLink = hm.get("link");
 											System.out.println("Token Link:" + TokenLink);
 											sAUTPath = TokenLink;
 											// TestActions.LaunchApplication();
@@ -395,20 +395,17 @@ public class Users extends GenericSkins {
 				TestDataImport.setCellData(sSheetName, iRow, 10, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 11, sTestStepStatus, "NA");
-				if (sTestStepStatus.equalsIgnoreCase("Passed"))
-				{
+				if (sTestStepStatus.equalsIgnoreCase("Passed")) {
 					bResult = true;
 				}
 				break;
 
 			}
 		}
-		System.out.println("user webtable:"+bResult);
+		System.out.println("user webtable:" + bResult);
 		return bResult;
 
 	}
-
-
 
 	// Method to customize webtable in User Page
 	public static boolean customizeUsergrid(String sActualTestCaseID) throws Exception {
@@ -418,7 +415,7 @@ public class Users extends GenericSkins {
 		String sFileName = "Users.xlsx";
 		String sSheetName = "CustomizeGrid";
 		sTestStepID = "customizeUsergrid";
-
+		System.out.println("Customize columns in user webtable");
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -574,14 +571,16 @@ public class Users extends GenericSkins {
 								sActualResult = "Webtable not customized successfully";
 								bResult = false;
 							}
-							driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-							UserPage.eColumnPane().click();
 
 							break;
 
 						}
 
 					}
+					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+					UserPage.eColumnPane().click();
+					Actions act = new Actions(driver);
+					act.sendKeys(Keys.F5).build().perform();
 
 				} catch (Exception error) {
 					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -603,7 +602,5 @@ public class Users extends GenericSkins {
 
 		return bResult;
 	}
-
-
 
 }

@@ -27,22 +27,31 @@ public class User_TC001 extends SetUp {
 			// Login as Global Admin
 			bResult = TestActions.Login_GlobalAdmin();
 			if (bResult == true) {
-				//customize columns
-				Users.customizeUsergrid(sTestCaseID);
-				// add user
-				bResult = Users.addUser(sTestCaseID);
-				// Search for user
-				bResult = Users.UserWebTable(1, sTestCaseID);
-				// Resend invite
-				bResult = Users.UserWebTable(2, sTestCaseID);
-
-				// cancel invite
-				bResult = Users.UserWebTable(3, sTestCaseID);
-				// view canceled invite
-				bResult = Users.UserWebTable(4, sTestCaseID);
-
+				// customize columns
+				bResult = Users.customizeUsergrid(sTestCaseID);
 				if (bResult == true) {
-					sActualResult = "Invitation sent successfully";
+					// add user
+					bResult = Users.addUser(sTestCaseID);
+					// Search for user
+					bResult = Users.UserWebTable(1, sTestCaseID);
+					if (bResult == true) {
+						// Resend invite
+						bResult = Users.UserWebTable(2, sTestCaseID);
+
+						// cancel invite
+						bResult = Users.UserWebTable(3, sTestCaseID);
+						if (bResult == true) {
+							// view canceled invite
+							bResult = Users.UserWebTable(4, sTestCaseID);
+
+							if (bResult == true) {
+								sActualResult = "Invitation sent successfully";
+							}
+
+						}
+
+					}
+
 				}
 
 			}
@@ -50,7 +59,7 @@ public class User_TC001 extends SetUp {
 		} catch (Exception error) {
 			sActualResult = error.getMessage();
 		}
-		
+
 		aHeaderNumbers = null;
 		aHeaderNames = null;
 		aHeaderNumbers = new ArrayList();
@@ -58,7 +67,7 @@ public class User_TC001 extends SetUp {
 
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
-// ResultComparision();
+		// ResultComparision();
 
 	}
 }

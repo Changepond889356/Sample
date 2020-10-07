@@ -2,7 +2,7 @@
 	    <ProjectName>ROGER</ProjectName>
         <AUTPath>https://roger-uat.myriadapps.com/</AUTPath>
 		<LocalBrowserName>Chrome</LocalBrowserName>
-		<CaptureScreenShot>Failed</CaptureScreenShot>
+		<CaptureScreenShot>All</CaptureScreenShot>
 		<RunReference>Debug</RunReference>
 		<RunReferenceFlag>No</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>

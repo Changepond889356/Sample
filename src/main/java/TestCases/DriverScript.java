@@ -24,15 +24,15 @@ import Utils.TestDataImport;
 
 public class DriverScript extends GenericSkins {
 	/*@BeforeTest
-	@Parameters({ "browser", "NodeURL", "NodeName", "RegPackName" })
-	public void remote(@Optional("Chrome") String browser, @Optional("NA") String NodeURL,
-			@Optional("Log") String NodeName, @Optional("Null") String RegPackName) {
-		sNodeBrowser = browser;
-		sNodeURL = NodeURL;
-		sNodeName = NodeName;
-		sNodeRegPackName = RegPackName;
+@Parameters({ "browser", "NodeURL", "NodeName", "RegPackName" })
+public void remote(@Optional("Chrome") String browser, @Optional("NA") String NodeURL,
+@Optional("Log") String NodeName, @Optional("Null") String RegPackName) {
+sNodeBrowser = browser;
+sNodeURL = NodeURL;
+sNodeName = NodeName;
+sNodeRegPackName = RegPackName;
 
-	}*/
+}*/
 
 	@Test
 	@Parameters({ "browser", "NodeURL", "NodeName", "RegPackName" })
@@ -47,7 +47,7 @@ public class DriverScript extends GenericSkins {
 		//JFrame frame = new JFrame("InputDialog");
 		// prompt the user to enter their project location
 		//sProjectPath = JOptionPane.showInputDialog(frame, "Enter Automation Test Suite Path:", "D:\\Roger\\Development");
-		sProjectPath = "./"; //D:\\Roger\\Development\\Source\\Scripts\\
+		sProjectPath = "./";
 
 		// Initialization of TestSuite folders
 		InitializeTestFolderPaths();
@@ -70,6 +70,10 @@ public class DriverScript extends GenericSkins {
 		// Create a folder 'TestLog' inside current log folder
 		sPathTestLog = createfolder(sTestResultsPath, "TestLog");
 
+		// Create a folder 'Screenshots' inside current testresults folder
+		sScreenShotFolder = createfolder(sTestResultsPath, "ScreenShots");
+
+
 		// Set Driver File
 		TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 
@@ -81,17 +85,22 @@ public class DriverScript extends GenericSkins {
 
 		TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 		// Read the regression pack names along with run mode
-		
+
 		XmlSuite suite = new XmlSuite();
 		suite.setName("Suite");
 		XmlTest xmlTest1 = new XmlTest(suite);
 		xmlTest1.setThreadCount(5);
 		xmlTest1.setName("Test");
 		List<XmlClass> classes = new ArrayList<XmlClass>();
-		
+
 		for (int iTestCase = 1; iTestCase <= iTotalRegressionPacks; iTestCase++) {
 			SRegPackTestCaseStatus = "NA";
 			sActualResult = "NA";
+			sTempResult="";
+			iTotalTestStepsFailed=0;
+			// Set SystemIndpendencyConfig File values
+
+
 			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetRegressionPacks, 0, iTestCase);
 			String sTestCaseDesc = TestDataImport.GetCellData(sSheetRegressionPacks, 1, iTestCase);
@@ -99,23 +108,31 @@ public class DriverScript extends GenericSkins {
 			sTestCaseExpectedResult = TestDataImport.GetCellData(sSheetRegressionPacks, 3, iTestCase);
 			if (sTestCaseRunMode.equalsIgnoreCase("YES")) {
 				// String sTestCaseID = "Test2";
-				
+				//System.out.println("sTestCaseID executing:"+sTestCaseID);
 				classes.add(new XmlClass("TestCases."+ sTestCaseID));
 				xmlTest1.setXmlClasses(classes) ;
-				
-			    
+				//SetTestCaseStatus();
+				if(sTestCaseExpectedResult.trim().equalsIgnoreCase(sActualResult))
+				{
+					SRegPackTestCaseStatus="Passed";
+				}
+				else
+				{
+					SRegPackTestCaseStatus="Failed";
+				}
+
 				/*Class<?> c = Class.forName("TestCases." + sTestCaseID);
-				Object obj = c.newInstance();
-				Method method[] = obj.getClass().getMethods();
-				for (int i = 0; i < method.length; i++) {
+Object obj = c.newInstance();
+Method method[] = obj.getClass().getMethods();
+for (int i = 0; i < method.length; i++) {
 
-					if ((method[i].getName()).equalsIgnoreCase("MAIN")) {
-						method[i].invoke(obj, null);
-						SetTestCaseStatus();
+if ((method[i].getName()).equalsIgnoreCase("MAIN")) {
+method[i].invoke(obj, null);
+SetTestCaseStatus();
 
-						break;
-					}
-				}*/
+break;
+}
+}*/
 			} else {
 				sActualResult = "NA";
 				SRegPackTestCaseStatus = "No Run";
@@ -132,7 +149,7 @@ public class DriverScript extends GenericSkins {
 			{
 				sColor="NA";
 			}
-			
+
 			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 			TestDataImport.setCellData(sSheetRegressionPacks, iTestCase, 4, sActualResult, "NA");
 			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
@@ -140,26 +157,26 @@ public class DriverScript extends GenericSkins {
 			TestDataImport.SetExcelFile(sTestResultsPath, sDriverFile);
 
 		}
-			List<XmlSuite> suites = new ArrayList<XmlSuite>();
-			suites.add(suite);
-			TestNG tng = new TestNG();
-			tng.setXmlSuites(suites);
-			suite.setFileName("myTemp.xml");
-			createXmlFile(suite); 
-			tng.run(); 
-		    
+		List<XmlSuite> suites = new ArrayList<XmlSuite>();
+		suites.add(suite);
+		TestNG tng = new TestNG();
+		tng.setXmlSuites(suites);
+		suite.setFileName("myTemp.xml");
+		createXmlFile(suite);
+		tng.run();
+
 
 	}
-	public static void createXmlFile(XmlSuite mSuite)  { 
-		
-		FileWriter writer; 
-		try { 
-			writer = new FileWriter(new File(System.getProperty("user.dir") + "/myTemp.xml")); 
-			writer.write(mSuite.toXml()); 
-			writer.flush(); 
-			writer.close(); 
+	public static void createXmlFile(XmlSuite mSuite) {
+
+		FileWriter writer;
+		try {
+			writer = new FileWriter(new File(System.getProperty("user.dir") + "/myTemp.xml"));
+			writer.write(mSuite.toXml());
+			writer.flush();
+			writer.close();
 		} catch (IOException e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 		}
-    }
+	}
 }
