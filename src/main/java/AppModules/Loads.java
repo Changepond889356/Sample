@@ -120,7 +120,9 @@ public class Loads extends GenericSkins {
 					if (!(sOrigin.trim().equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sOrigin = sOrigin+"_" + datetime;
+						System.out.println("sOrigin "+ sOrigin);
 						LoadsPage.eOrigin().sendKeys(sOrigin);
+						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 						TestDataImport.writeExcel(sTestResultsPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 					}
 
@@ -468,14 +470,14 @@ public class Loads extends GenericSkins {
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
-		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		System.out.println("Number of rows:" + iRowCnt);
 		String sOperation = "VIEW";
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
-			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sCarrier = TestDataImport.GetCellData(sSheetName, 4, iRow);
 			String sLoadDate = TestDataImport.GetCellData(sSheetName, 1, iRow);
@@ -655,6 +657,7 @@ public class Loads extends GenericSkins {
 
 				}
 				ResultComparision();
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 14, sTestStepStatus, "NA");

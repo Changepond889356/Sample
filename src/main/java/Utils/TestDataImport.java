@@ -248,13 +248,13 @@ public class TestDataImport
  	        }
  	 }
  	
- 	public static void writeExcel(String sTestDataPath,String sFileName,String sSheetName, String swriteData, int colNum,String sTestCaseID) throws Exception {
+ 	public static void writeExcel(String nTestDataPath,String nFileName,String nSheetName, String swriteData, int colNum,String sTestCaseID) throws Exception {
 		
  		//TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
- 		File nfile = new File(sTestDataPath+sFileName);
+ 		File nfile = new File(nTestDataPath+nFileName);
  		FileInputStream ninputStream = new FileInputStream(nfile);
  		XSSFWorkbook excelWbook = new XSSFWorkbook(ninputStream);
- 		XSSFSheet excelWsheet = excelWbook.getSheet(sSheetName);
+ 		XSSFSheet excelWsheet = excelWbook.getSheet(nSheetName);
  		XSSFCell nCell;
  	    XSSFRow nRow;
  		int rowcount = excelWsheet.getLastRowNum();//TestDataImport.GetRowCount(sSheetName);
@@ -263,10 +263,10 @@ public class TestDataImport
  			if(nRow.getCell(0).getStringCellValue().equalsIgnoreCase(sTestCaseID)) {
  				nCell = nRow.createCell(colNum);
  				nCell.setCellValue(swriteData);
- 				System.out.println("Write Done ");
+ 				System.out.println("Write Done " +nTestDataPath+nFileName);
  			}
  		}
- 		FileOutputStream nfileOut = new FileOutputStream(new File(sTestDataPath+sFileName));   
+ 		FileOutputStream nfileOut = new FileOutputStream(new File(nTestDataPath+nFileName));   
  		excelWbook.write(nfileOut);
  		nfileOut.close();	
  	}
