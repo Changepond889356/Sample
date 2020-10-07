@@ -121,7 +121,7 @@ public class Loads extends GenericSkins {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sOrigin = sOrigin+"_" + datetime;
 						LoadsPage.eOrigin().sendKeys(sOrigin);
-						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
+						TestDataImport.writeExcel(sTestResultsPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 					}
 
 					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
