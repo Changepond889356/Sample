@@ -457,4 +457,22 @@ public class TestActions extends GenericSkins {
 		return bResult;
 	}
 
+	public static boolean Login(String sUserName, String sPassword) throws InterruptedException {
+		
+		LoginPage.eUserName().sendKeys(sUserName);
+		Thread.sleep(3000);
+		LoginPage.sSubmit().click();
+		LoginPage.ePassword().sendKeys(sPassword);
+		Thread.sleep(2000);
+		LoginPage.eLoginButton().click();
+		Thread.sleep(10000);
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.F5).build().perform();
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
+		
+		return true;
+	}
+
 }

@@ -3,6 +3,7 @@ package TestCases;
 import java.util.ArrayList;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import AppModules.Loads;
@@ -10,14 +11,15 @@ import AppModules.TestActions;
 import PageObjects.LoadsPage;
 import Utils.GenericSkins;
 import Utils.SetUp;
+import Utils.TestDataImport;
 
 public class Loads_TC006 extends SetUp {
 
-	@Test
-	public void scoularLoad_FullSubmit() throws Exception {
+	@Test(dataProvider = "getData")
+	public void scoularLoad_FullSubmit(String sAcccountType, String sUserName, String sPassword) throws Exception {
 
 		String sActTestCaseID = "Loads_TC006";
-		test = extent.createTest(sActTestCaseID);
+		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
 		GenericSkins.iTotalTestStepsFailed=0;
@@ -41,7 +43,7 @@ public class Loads_TC006 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					//bResult = Loads.LoadsWebTable(10, sActTestCaseID);
+					bResult = Loads.LoadsWebTable(10, sActTestCaseID);
 					if (bResult == true) {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
@@ -65,7 +67,8 @@ public class Loads_TC006 extends SetUp {
 					if (bResult == true) {
 						
 						// Login as Shipper Admin
-						bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
+						//bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
+						bResult = TestActions.Login(sUserName, sPassword);
 						Thread.sleep(10000);
 						LoadsPage.SubmittedView().click();
 						bResult = Loads.customizeAGgrid(sActTestCaseID,6);
@@ -93,5 +96,11 @@ public class Loads_TC006 extends SetUp {
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 	
+	}
+	@DataProvider
+	public Object[][] getData() throws Exception {
+		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin");
+		return data;
+		
 	}
 }

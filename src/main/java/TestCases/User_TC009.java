@@ -11,10 +11,10 @@ import Utils.SetUp;
 import Utils.TestDataImport;
 //import bsh.This;
 
-public class User_TC001 extends SetUp {
+public class User_TC009 extends SetUp {
 	@Test
 	public void main() throws Exception {
-		String sTestCaseID = "User_TC001";
+		String sTestCaseID = "User_TC009";
 		test = extent.createTest(sTestCaseID);
 		getTestCaseExpectedResult(sTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sTestCaseID);
@@ -25,7 +25,8 @@ public class User_TC001 extends SetUp {
 			TestActions.LaunchApplication();
 
 			// Login as Global Admin
-			bResult = TestActions.Login_GlobalAdmin();
+			//bResult = TestActions.Login_GlobalAdmin();
+			bResult = TestActions.Login(sTestCaseID);
 			if (bResult == true) {
 				// customize columns
 				bResult = Users.customizeUsergrid(sTestCaseID);
@@ -33,16 +34,16 @@ public class User_TC001 extends SetUp {
 					// add user
 					bResult = Users.addUser(sTestCaseID);
 					// Search for user
-					bResult = Users.UserWebTable(1, sTestCaseID);
+					bResult = Users.UserWebTable(26, sTestCaseID);
 					if (bResult == true) {
 						// Resend invite
-						bResult = Users.UserWebTable(2, sTestCaseID);
+						bResult = Users.UserWebTable(27, sTestCaseID);
 
 						// cancel invite
-						bResult = Users.UserWebTable(3, sTestCaseID);
+						bResult = Users.UserWebTable(28, sTestCaseID);
 						if (bResult == true) {
 							// view canceled invite
-							bResult = Users.UserWebTable(4, sTestCaseID);
+							bResult = Users.UserWebTable(29, sTestCaseID);
 
 							if (bResult == true) {
 								sActualResult = "Invitation sent successfully";

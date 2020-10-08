@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import AppModules.Loads;
@@ -11,14 +12,15 @@ import AppModules.TestActions;
 import PageObjects.LoadsPage;
 import Utils.GenericSkins;
 import Utils.SetUp;
+import Utils.TestDataImport;
 
 public class Loads_TC003 extends SetUp {
 	
-	@Test
-	public void scoularLoad_FullSubmit() throws Exception {
+	@Test(dataProvider = "getData")
+	public void scoularLoad_FullSubmit(String sAcccountType, String sUserName, String sPassword) throws Exception {
 
 		String sActTestCaseID = "Loads_TC003";
-		test = extent.createTest(sActTestCaseID);
+		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
 		GenericSkins.iTotalTestStepsFailed=0;
@@ -28,7 +30,8 @@ public class Loads_TC003 extends SetUp {
 			TestActions.LaunchApplication();
 
 			// Login as Global Admin
-			bResult = TestActions.Login(sActTestCaseID);
+			//bResult = TestActions.Login(sActTestCaseID);
+			bResult = TestActions.Login(sUserName, sPassword);
 			 
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
@@ -57,10 +60,23 @@ public class Loads_TC003 extends SetUp {
 						Loads.SelectRecord();
 						
 						/* Generate invoice for non-Scoular load */
-						LoadsPage.GenerateBtn().click();
+						/*LoadsPage.GenerateBtn().click();
 						Loads.GetInvoiceNumber();
 						LoadsPage.GenerateInvoice().click();
-						Thread.sleep(10000);
+						Thread.sleep(10000);*/
+						
+						LoadsPage.Submit().click();
+						Loads.GetInvoiceNumber();
+						if(!(sInvoiceNumber.equalsIgnoreCase("NA"))) {
+							LoadsPage.eGenerateInvoice().click();
+							Thread.sleep(1000);
+							LoadsPage.SubmitLoad().click();
+							
+							Thread.sleep(10000);
+							//bResult = Loads.LoadsWebTable(5, sActTestCaseID);
+							
+						}
+						
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 
 						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
@@ -86,7 +102,7 @@ public class Loads_TC003 extends SetUp {
 						LoadsPage.DuplicateBtn().click();
 						Loads.EnterCopyDetails(sActTestCaseID, "Paid");
 						Loads.SelectRecord();
-						LoadsPage.eDelete().click();
+						//LoadsPage.eDelete().click();
 						sActualResult = "Non-Scoular Load Paid Successfully";
 					}
 					//LoadsPage.eDelete().click();
@@ -107,5 +123,10 @@ public class Loads_TC003 extends SetUp {
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 	
 	}
-
+	@DataProvider
+	public Object[][] getData() throws Exception {
+		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin2");
+		return data;
+		
+	}
 }

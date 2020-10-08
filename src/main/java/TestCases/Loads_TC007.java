@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import AppModules.Loads;
 import AppModules.TestActions;
 import PageObjects.LoadsPage;
@@ -14,27 +13,23 @@ import Utils.GenericSkins;
 import Utils.SetUp;
 import Utils.TestDataImport;
 
-public class Loads_TC005 extends SetUp {
-	
+public class Loads_TC007 extends SetUp {
+
 	@Test(dataProvider = "getData")
-	public void dispatchLoad(String sAcccountType, String sUserName, String sPassword) throws IOException {
-		
-		String sActTestCaseID = "Loads_TC005";
+	public void importFile(String sAcccountType, String sUserName, String sPassword) throws IOException {
+		String sActTestCaseID = "Loads_TC007";
 		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
 		GenericSkins.iTotalTestStepsFailed=0;
-		
 		boolean bResult = false;
 		try {
-			LoadSystemIndependencyConfig();
 			// Launch application
 			TestActions.LaunchApplication();
 
-			// Login as Carrier //
-			//bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);
+			// Login 
 			bResult = TestActions.Login(sUserName, sPassword);
-			 
+			
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
 			}
@@ -46,21 +41,17 @@ public class Loads_TC005 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTableForDispatch(8, sActTestCaseID);
-					if (bResult == true) {
-						LoadsPage.eEdit().click();
-						Thread.sleep(5000);
-						LoadsPage.DispatchBtn().click();
-						Thread.sleep(5000);
-						bResult = Loads.LoadsWebTableForDispatch(9, sActTestCaseID);
-															
-					}	
-					sActualResult = "Dispatch sent successfully and carrier has control over load.";
-				}				
+					bResult = Loads.LoadsWebTable(13, sActTestCaseID);
+					
+					if(bResult == true) {
+						bResult = Loads.ImportFile(sActTestCaseID, "ImportSheet");
+						bResult = TestActions.LogOut();
+						sActualResult="Import Done Successfully";
+					}
+					
+				}
 			}
-			
-			
-			
+
 		} catch (Exception error) {
 			bResult = false;
 
@@ -71,7 +62,9 @@ public class Loads_TC005 extends SetUp {
 		aHeaderNames = new ArrayList();
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
+	
 	}
+	
 	@DataProvider
 	public Object[][] getData() throws Exception {
 		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin");

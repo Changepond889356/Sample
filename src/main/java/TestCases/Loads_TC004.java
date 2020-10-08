@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import AppModules.Loads;
@@ -11,14 +12,15 @@ import AppModules.TestActions;
 import PageObjects.LoadsPage;
 import Utils.GenericSkins;
 import Utils.SetUp;
+import Utils.TestDataImport;
 
 public class Loads_TC004 extends SetUp {
 
-	@Test
-	public void nonScoularLoad() throws IOException {
+	@Test(dataProvider = "getData")
+	public void nonScoularLoad(String sAcccountType, String sUserName, String sPassword) throws IOException {
 		
 		String sActTestCaseID = "Loads_TC004";
-		test = extent.createTest(sActTestCaseID);
+		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
 		GenericSkins.iTotalTestStepsFailed=0;
@@ -70,7 +72,8 @@ public class Loads_TC004 extends SetUp {
 			if (bResult == true) {
 				
 				// Login as Shipper Admin
-				bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
+				//bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
+				bResult = TestActions.Login(sUserName, sPassword);
 				Thread.sleep(10000);
 				LoadsPage.SubmittedView().click();
 				bResult = Loads.customizeAGgrid(sActTestCaseID,6);
@@ -94,5 +97,11 @@ public class Loads_TC004 extends SetUp {
 		aHeaderNames = new ArrayList();
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
+	}
+	@DataProvider
+	public Object[][] getData() throws Exception {
+		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin");
+		return data;
+		
 	}
 }

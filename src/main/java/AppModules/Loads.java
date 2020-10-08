@@ -95,6 +95,7 @@ public class Loads extends GenericSkins {
 						System.out.println("Set shipper");
 
 					}
+					try {
 					if (!(sSHipperContact.trim().equalsIgnoreCase("NA"))) {
 						
 						LoadsPage.eShipperContact().sendKeys(sSHipperContact);
@@ -103,6 +104,9 @@ public class Loads extends GenericSkins {
 						// Thread.sleep(500);
 						ac.sendKeys(Keys.ENTER).build().perform();
 						Thread.sleep(2000);
+						
+					}
+					} catch(Exception e) {
 						
 					}
 
@@ -121,9 +125,10 @@ public class Loads extends GenericSkins {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sOrigin = sOrigin+"_" + datetime;
 						System.out.println("sOrigin "+ sOrigin);
-						LoadsPage.eOrigin().sendKeys(sOrigin);
 						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 						TestDataImport.writeExcel(sTestResultsPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
+						LoadsPage.eOrigin().sendKeys(sOrigin);
+						
 					}
 
 					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
@@ -493,8 +498,8 @@ public class Loads extends GenericSkins {
 			// String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
 
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
-			sTestStepData = sLoadDate + ";" + sSHipper + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
-					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
+			sTestStepData = sLoadDate +  ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
+					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper +
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
 				try {
 					ArrayList<String> aActualRecordCell = new ArrayList();
@@ -853,8 +858,13 @@ public class Loads extends GenericSkins {
 		// TODO Auto-generated method stub
 		//invoiceNumber = "SNW56WMJ";
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input")).clear();
-		driver.findElement(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input")).sendKeys(invoiceNumber);
+		try {
+			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
+			catch(Exception error) {
+				//System.out.println(error);
+			}
+		driver.findElement(By.xpath("((//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input)[2]")).clear();
+		driver.findElement(By.xpath("((//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input)[2]")).sendKeys(invoiceNumber);
 		System.out.println("Invoice Number Entered");
 		Thread.sleep(1000);
 		Actions action1 = new Actions(driver);
@@ -1138,6 +1148,7 @@ public class Loads extends GenericSkins {
 						System.out.println("Paid");
 						driver.findElement(By.xpath("//button[@data-cy='vb-all']")).click();
 						Thread.sleep(3000);
+						
 						try {
 						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
 						catch(Exception error) {
@@ -1521,5 +1532,29 @@ public class Loads extends GenericSkins {
 		LoadsPage.eSave().click();
 		Thread.sleep(2000);
 		
+	}
+
+	public static boolean ImportFile(String sActTestCaseID,String sDocType) throws Exception {
+		boolean bResult = false;
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Import')]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@data-cy='import-loads-target']//img")).click();
+		WindowsHandle(sDocType);
+		Thread.sleep(15000);
+		driver.findElement(By.xpath("//button//span[contains(text(),'Upload')]")).click();
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//button//span[contains(text(),'Verify')]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Import')]")).click();
+		Thread.sleep(3000);
+		try {
+			driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Finish')]")).click();
+			bResult = true;
+		} catch(Exception ex) {
+			 bResult = false;
+		}
+		
+		return bResult;
 	}
 }

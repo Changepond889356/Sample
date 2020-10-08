@@ -270,5 +270,48 @@ public class TestDataImport
  		excelWbook.write(nfileOut);
  		nfileOut.close();	
  	}
- 		
+ 	
+ 	public static String[][] readExcel(String filePath,String fileName,String sheetName) throws Exception {
+		
+ 		TestDataImport.SetExcelFile(filePath, fileName);
+ 		ExcelWsheet = ExcelWbook.getSheet(sheetName);
+		int rowcount = ExcelWsheet.getLastRowNum();
+		int cellcount = ExcelWsheet.getRow(rowcount).getLastCellNum();
+		String data[][] = new String[rowcount][cellcount];		 
+		data = getData(data,0,cellcount);
+		
+		 return data;
+	 }
+ 	public static String[][] getData(String data[][],int firstcell,int cellcount) {
+		
+		 int rowcount = ExcelWsheet.getLastRowNum();
+		 
+		 for (int i = 1; i <= rowcount; i++) {
+			 Row = ExcelWsheet.getRow(i);
+			 for (int j = 0; j < cellcount; j++) {
+				 
+				 Cell = Row.getCell(j);
+				 //firstcell ++;
+				 try {
+					 if(Cell != null) {
+						 if (Cell.getCellType() == Cell.CELL_TYPE_STRING) {
+							 data[i - 1][j] = Cell.getStringCellValue();
+						 } 
+						 else if (Cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+							 data[i - 1][j] = String.valueOf((int)Cell.getNumericCellValue());
+						 }
+						 else {
+							 data[i - 1][j] = String.valueOf(Cell.getNumericCellValue());
+						 }
+					 }
+					 else {
+						 //data[i - 1][j] = "NA";
+					 }
+				 } catch (Exception e) {
+					 e.printStackTrace();
+				 }
+			 }
+		 }
+		return data;
+	 }
 }
