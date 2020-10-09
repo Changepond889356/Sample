@@ -45,10 +45,10 @@ public class Loads_TC007 extends SetUp {
 					
 					if(bResult == true) {
 						bResult = Loads.ImportFile(sActTestCaseID, "ImportSheet");
-						bResult = TestActions.LogOut();
+						
 						sActualResult="Import Done Successfully";
 					}
-					
+					bResult = TestActions.LogOut();
 				}
 			}
 

@@ -94,6 +94,7 @@ public class LoadsPage extends GenericSkins {
 			sActualResult=ele.getMessage();
 			element=null;
 			element = null;
+			
 		}
 		return element;
 	}

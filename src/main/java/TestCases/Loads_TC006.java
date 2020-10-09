@@ -30,8 +30,8 @@ public class Loads_TC006 extends SetUp {
 
 			// Login as Global Admin
 			bResult = TestActions.Login(sActTestCaseID);
-			Loads.SelectRecord();
-			Copy_File(sTestDataPath + "Loads.xlsx", sTestResultsPath);
+			//Loads.SelectRecord();
+			//Copy_File(sTestDataPath + "Loads.xlsx", sTestResultsPath);
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
 			}

@@ -257,8 +257,8 @@ public class TestDataImport
  		XSSFSheet excelWsheet = excelWbook.getSheet(nSheetName);
  		XSSFCell nCell;
  	    XSSFRow nRow;
- 		int rowcount = excelWsheet.getLastRowNum();//TestDataImport.GetRowCount(sSheetName);
- 		for(int i =0; i< rowcount; i++) {
+ 	    int rowcount = excelWsheet.getLastRowNum();//TestDataImport.GetRowCount(sSheetName);
+ 		for(int i =1; i<= rowcount; i++) {
  			nRow = excelWsheet.getRow(i);
  			if(nRow.getCell(0).getStringCellValue().equalsIgnoreCase(sTestCaseID)) {
  				nCell = nRow.createCell(colNum);

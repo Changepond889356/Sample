@@ -84,30 +84,36 @@ public class Loads extends GenericSkins {
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(2000);
 					System.out.println("Set Load Date");
-					if (!(sSHipper.trim().equalsIgnoreCase("NA"))) {
-						System.out.println("Insideshipper");
-						LoadsPage.eShipper().sendKeys(sSHipper);
-						Thread.sleep(3000);
-						// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
-						// Thread.sleep(500);
-						ac.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
-						System.out.println("Set shipper");
+					try {
+						if (!(sSHipper.trim().equalsIgnoreCase("NA"))) {
+							System.out.println("Insideshipper");
+							LoadsPage.eShipper().sendKeys(sSHipper);
+							Thread.sleep(3000);
+							// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+							// Thread.sleep(500);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							Thread.sleep(2000);
+							System.out.println("Set shipper");
+
+						}
+					} catch(Exception e) {
 
 					}
 					try {
-					if (!(sSHipperContact.trim().equalsIgnoreCase("NA"))) {
-						
-						LoadsPage.eShipperContact().sendKeys(sSHipperContact);
-						Thread.sleep(3000);
-						// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
-						// Thread.sleep(500);
-						ac.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
-						
-					}
+						if (!(sSHipperContact.trim().equalsIgnoreCase("NA"))) {
+
+							LoadsPage.eShipperContact().sendKeys(sSHipperContact);
+							//Thread.sleep(3000);
+							System.out.println("contact Enter");
+							// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+							// Thread.sleep(500);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							System.out.println(" Enter pressed");
+							Thread.sleep(2000);
+
+						}
 					} catch(Exception e) {
-						
+						System.out.println("Shipper Contact : "+ e);
 					}
 
 					if (!(sCommodity.trim().equalsIgnoreCase("NA"))) {
@@ -1554,7 +1560,7 @@ public class Loads extends GenericSkins {
 		} catch(Exception ex) {
 			 bResult = false;
 		}
-		
+		Thread.sleep(5000);
 		return bResult;
 	}
 }
