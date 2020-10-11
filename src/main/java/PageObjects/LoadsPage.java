@@ -147,19 +147,20 @@ public class LoadsPage extends GenericSkins {
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
-			element = null;
+			System.out.println("Save " + ele.getMessage());
 		}
 		return element;
 	}
-	public static WebElement eEdit() {
+	public static WebElement eEdit() throws InterruptedException {
 		try {
 			element = driver.findElement(By.xpath(".//span[contains(text(),'Edit')]"));
 			// element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
-			element = null;
+			System.out.println("Edit - " +ele.getMessage() );
 		}
+		Thread.sleep(4000);
 		return element;
 	}
 
@@ -274,6 +275,7 @@ public static WebElement Submit() {
 		catch(Exception ele)
 		{
 			sActualResult=ele.getMessage();
+			System.out.println("Submit load "+ ele.getMessage());
 		}
 		return element;
 	}
@@ -337,6 +339,7 @@ public static WebElement Submit() {
 			element = driver.findElement(By.xpath("//button[@data-cy='duplicate-load-button']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
+			System.out.println("Duplicate Btn : " + ele.getMessage());
 		}
 		return element;
 	}
@@ -359,12 +362,14 @@ public static WebElement Submit() {
 		return element;
 	}
 
-	public static WebElement ApprovedView() {
+	public static WebElement ApprovedView() throws InterruptedException {
 		try {
 			element = driver.findElement(By.xpath("//button[@data-cy='vb-approved']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
+			System.out.println("Approved View " + ele.getMessage());
 		}
+		Thread.sleep(4000);
 		return element;
 	}
 	public static WebElement DispatchBtn() {
@@ -375,12 +380,13 @@ public static WebElement Submit() {
 		}
 		return element;
 	}
-	public static WebElement ViewAll() {
+	public static WebElement ViewAll() throws InterruptedException {
 		try {
 			element = driver.findElement(By.xpath("//button[@data-cy='vb-all']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
+		Thread.sleep(4000);
 		return element;
 	}
 }
