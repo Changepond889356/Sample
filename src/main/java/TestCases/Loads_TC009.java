@@ -11,11 +11,11 @@ import AppModules.TestActions;
 import Utils.GenericSkins;
 import Utils.SetUp;
 
-public class Loads_TC008 extends SetUp {
+public class Loads_TC009 extends SetUp {
 	
 	@Test
 	public void importFile() throws IOException {
-		String sActTestCaseID = "Loads_TC008";
+		String sActTestCaseID = "Loads_TC009";
 		test = extent.createTest(sActTestCaseID);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
@@ -39,10 +39,10 @@ public class Loads_TC008 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTable(14, sActTestCaseID);
+					bResult = Loads.LoadsWebTable(15, sActTestCaseID);
 					
 					if(bResult == true) {
-						bResult = Loads.ImportFile(sActTestCaseID, "ImportSheetGlobal");
+						bResult = Loads.ImportFile(sActTestCaseID, "ImportSheetShipperUser");
 						
 						sActualResult="Import Done Successfully";
 					}
@@ -62,5 +62,4 @@ public class Loads_TC008 extends SetUp {
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 	
 	}
-
 }

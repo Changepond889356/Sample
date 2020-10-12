@@ -29,9 +29,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.xmlbeans.impl.soap.Node;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.w3c.dom.NodeList;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -248,6 +252,8 @@ public class GenericSkins {
 
 	protected static String sInvoiceNumber = "NA";
 	protected static String invoiceNumber="NA";
+	
+	protected static WebDriverWait wait;
 
 	// ------------------------------------Method to create New
 	// Folder-----------------------------------------
@@ -906,5 +912,15 @@ public class GenericSkins {
 			sTestCaseExpectedResult = "NA";
 		}
 	}
-
+	
+	public static void WaitForElementVisibility(By element) {
+		wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(element));			
+	}
+	
+	public static void WaitForElementTobeClickable(By element) {
+		wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.elementToBeClickable(element));			
+	}
+	
 }

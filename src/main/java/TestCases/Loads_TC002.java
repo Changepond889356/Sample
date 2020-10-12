@@ -71,7 +71,7 @@ public class Loads_TC002 extends SetUp {
 						
 						if(!(sInvoiceNumber.equalsIgnoreCase("NA")))
 						{
-							LoadsPage.eGenerateInvoice().click();
+							//LoadsPage.eGenerateInvoice().click();
 							Thread.sleep(1000);
 							LoadsPage.SubmitLoad().click();
 							

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import AppModules.Loads;
 import AppModules.TestActions;
@@ -37,6 +38,7 @@ public class Loads_TC001 extends SetUp {
 
 			// Login as Global Admin
 			bResult = TestActions.Login_GlobalAdmin();
+			
 			if (bResult == true) {
 
 				// Add new Load
@@ -80,4 +82,5 @@ public class Loads_TC001 extends SetUp {
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 
 	}
+	
 }

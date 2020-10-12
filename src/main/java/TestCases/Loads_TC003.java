@@ -60,12 +60,12 @@ public class Loads_TC003 extends SetUp {
 						Loads.SelectRecord();
 						
 						/* Generate invoice for non-Scoular load */
-						/*LoadsPage.GenerateBtn().click();
+						LoadsPage.GenerateBtn().click();
 						Loads.GetInvoiceNumber();
 						LoadsPage.GenerateInvoice().click();
-						Thread.sleep(10000);*/
+						Thread.sleep(10000);
 						
-						LoadsPage.Submit().click();
+						/*LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();
 						if(!(sInvoiceNumber.equalsIgnoreCase("NA"))) {
 							LoadsPage.eGenerateInvoice().click();
@@ -75,7 +75,7 @@ public class Loads_TC003 extends SetUp {
 							Thread.sleep(10000);
 							//bResult = Loads.LoadsWebTable(5, sActTestCaseID);
 							
-						}
+						}*/
 						
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 

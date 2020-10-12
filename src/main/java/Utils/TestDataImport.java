@@ -250,7 +250,7 @@ public class TestDataImport
  	
  	public static void writeExcel(String nTestDataPath,String nFileName,String nSheetName, String swriteData, int colNum,String sTestCaseID) throws Exception {
 		
- 		//TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+ 		TestDataImport.SetExcelFile(nTestDataPath, nFileName);
  		File nfile = new File(nTestDataPath+nFileName);
  		FileInputStream ninputStream = new FileInputStream(nfile);
  		XSSFWorkbook excelWbook = new XSSFWorkbook(ninputStream);
@@ -270,6 +270,7 @@ public class TestDataImport
  		excelWbook.write(nfileOut);
  		nfileOut.close();	
  	}
+	
  	
  	public static String[][] readExcel(String filePath,String fileName,String sheetName) throws Exception {
 		
@@ -312,6 +313,42 @@ public class TestDataImport
 				 }
 			 }
 		 }
+		return data;
+	 }
+ 	public static String[] readExcel(String filePath,String fileName,String sheetName,int nRow, String sTestCaseID) throws Exception {
+		
+ 		TestDataImport.SetExcelFile(filePath, fileName);
+ 		ExcelWsheet = ExcelWbook.getSheet(sheetName);
+		int cellcount = ExcelWsheet.getRow(nRow).getLastCellNum();
+		String data[] = new String[cellcount];		 
+		data = getDataRow(data,nRow,cellcount);		
+		return data;
+	 }
+ 	
+ 	public static String[] getDataRow(String data[],int nRow,int cellcount) {
+ 		Row = ExcelWsheet.getRow(nRow);
+ 		for (int j = 0; j < cellcount; j++) {
+ 			Cell = Row.getCell(j);
+ 			try {
+ 				if(Cell != null) {
+ 					if (Cell.getCellType() == Cell.CELL_TYPE_STRING) {
+ 						data[j] = Cell.getStringCellValue();
+ 					} 
+ 					else if (Cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+ 						data[j] = String.valueOf((int)Cell.getNumericCellValue());
+ 					}
+ 					else {
+ 						data[j] = String.valueOf(Cell.getNumericCellValue());
+ 					}
+ 				}
+ 				else {
+ 					//data[i - 1][j] = "NA";
+ 				}
+ 			} catch (Exception e) {
+ 				e.printStackTrace();
+ 			}
+ 		}
+
 		return data;
 	 }
 }

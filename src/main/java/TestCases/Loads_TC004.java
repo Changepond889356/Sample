@@ -54,7 +54,7 @@ public class Loads_TC004 extends SetUp {
 						LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();
 						//LoadsPage.GenerateInvoice().click();
-						LoadsPage.eGenerateInvoice().click();
+						//LoadsPage.eGenerateInvoice().click();
 						Thread.sleep(1000);
 						LoadsPage.SubmitLoad().click();					
 						Thread.sleep(10000);

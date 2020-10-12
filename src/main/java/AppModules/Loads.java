@@ -413,7 +413,7 @@ public class Loads extends GenericSkins {
 									Thread.sleep(100);
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-									Thread.sleep(100);
+									//Thread.sleep(100);
 								}
 							}
 							// click on columnspane
@@ -628,9 +628,9 @@ public class Loads extends GenericSkins {
 								iCheckBoxcnt++;
 								if (iRow1 == iCheckBoxcnt) {
 									eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-									Thread.sleep(2000);
+									Thread.sleep(1000);
 									eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
-									Thread.sleep(2000);
+									Thread.sleep(1000);
 									try {
 										driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 										LoadsPage.eEdit().isDisplayed();
@@ -977,7 +977,7 @@ public class Loads extends GenericSkins {
 								}
 								Actions action2 = new Actions(driver);
 								action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-								Thread.sleep(100);
+								//Thread.sleep(100);
 							}
 
 							bResult = true;
@@ -1012,7 +1012,7 @@ public class Loads extends GenericSkins {
 									Thread.sleep(100);
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-									Thread.sleep(100);
+									//Thread.sleep(100);
 								}
 							}
 							// click on columnspane
@@ -1075,11 +1075,11 @@ public class Loads extends GenericSkins {
 		Thread.sleep(1000);
 		if(driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).isSelected()) {
 			System.out.println("Record already is selected");
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} else {
 			driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).click();
 			System.out.println("Record is selected");
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		}
 	}
 
@@ -1113,7 +1113,7 @@ public class Loads extends GenericSkins {
 					
 					case "Open":
 						System.out.println("Open");
-						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();;
+						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();
 						Thread.sleep(4000);
 						List<WebElement> duplicateCount = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
 						if(duplicateCount.size() == (Integer.parseInt(sCopy) +1)) {
@@ -1132,7 +1132,7 @@ public class Loads extends GenericSkins {
 							catch(Exception error) {
 								System.out.println(error);
 							}
-						Thread.sleep(5000);
+						Thread.sleep(4000);
 						List<WebElement> duplicateCount2 = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
 						if(duplicateCount2.size() >= Integer.parseInt(sCopy)) {
 							sActualResult = "Record Dulicated Successfully";
@@ -1151,7 +1151,7 @@ public class Loads extends GenericSkins {
 						catch(Exception error) {
 							System.out.println(error);
 						}
-						Thread.sleep(5000);
+						Thread.sleep(4000);
 						List<WebElement> duplicateCount3 = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
 						if(duplicateCount3.size() >= Integer.parseInt(sCopy)) {
 							sActualResult = "Record Dulicated Successfully";
