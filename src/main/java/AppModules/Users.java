@@ -498,12 +498,12 @@ public class Users extends GenericSkins {
 							if (bSelected == true) {
 								eCheckBox.click();
 								// System.out.println("checkbox unchecked");
-								Thread.sleep(500);
+								Thread.sleep(100);
 
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
-							Thread.sleep(500);
+							Thread.sleep(100);
 
 						}
 

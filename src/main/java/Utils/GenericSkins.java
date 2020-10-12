@@ -252,6 +252,8 @@ public class GenericSkins {
 
 	protected static String sInvoiceNumber = "NA";
 	protected static String invoiceNumber="NA";
+	protected static String sGenericOrigin="NA";
+	protected static String sGenericShipperName="NA";
 	
 	protected static WebDriverWait wait;
 
@@ -914,12 +916,12 @@ public class GenericSkins {
 	}
 	
 	public static void WaitForElementVisibility(By element) {
-		wait = new WebDriverWait(driver, 30);
+		wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(element));			
 	}
 	
 	public static void WaitForElementTobeClickable(By element) {
-		wait = new WebDriverWait(driver, 30);
+		wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.elementToBeClickable(element));			
 	}
 	

@@ -134,6 +134,7 @@ public class TestActions extends GenericSkins {
 		boolean bResult = false;
 		try {
 			driver.findElement(By.xpath("//div[@data-cy='nav-menu']//button")).click();   //.//span[@class='MuiButton-label']
+			Thread.sleep(1000);
 			driver.findElement(By.xpath("//li[@data-cy='menu-logout']")).click();  //.//li[text()='Log Out']
 			System.out.println("Logout Happen");
 			WebDriverWait wait = new WebDriverWait(driver, 20);

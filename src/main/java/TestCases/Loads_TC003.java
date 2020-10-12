@@ -30,8 +30,8 @@ public class Loads_TC003 extends SetUp {
 			TestActions.LaunchApplication();
 
 			// Login as Global Admin
-			//bResult = TestActions.Login(sActTestCaseID);
-			bResult = TestActions.Login(sUserName, sPassword);
+			bResult = TestActions.Login(sActTestCaseID);
+			//bResult = TestActions.Login(sUserName, sPassword);
 			 
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
@@ -81,29 +81,38 @@ public class Loads_TC003 extends SetUp {
 						Thread.sleep(5000); 
 						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
 						Loads.VerifyStatus("Submitted");
-						Loads.SelectRecord();
-						LoadsPage.DuplicateBtn().click();
-						Loads.EnterCopyDetails(sActTestCaseID, "Submitted");
-						Loads.SelectRecord();
-						LoadsPage.eDelete().click();
-						LoadsPage.SubmittedView().click();
-						Thread.sleep(3000); 
+						bResult = TestActions.LogOut();
 						
-						/* Mark non-Scoular load as Paid */
-						Loads.SelectRecord();
-						LoadsPage.eEdit().click();
-						Loads.PaidInvoice();
-						Thread.sleep(5000);
-						LoadsPage.PaidView().click();
-						Thread.sleep(3000);
-						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
-						Loads.VerifyStatus("Paid");
-						Loads.SelectRecord();
-						LoadsPage.DuplicateBtn().click();
-						Loads.EnterCopyDetails(sActTestCaseID, "Paid");
-						Loads.SelectRecord();
-						//LoadsPage.eDelete().click();
-						sActualResult = "Non-Scoular Load Paid Successfully";
+						if(bResult) {
+							bResult = TestActions.Login(sUserName, sPassword);
+							LoadsPage.SubmittedView().click();
+							Thread.sleep(5000); 
+							bResult = Loads.customizeAGgrid(sActTestCaseID,4);
+							Loads.VerifyStatus("Submitted");
+							Loads.SelectRecord();
+							LoadsPage.DuplicateBtn().click();
+							Loads.EnterCopyDetails(sActTestCaseID, "Submitted");
+							Loads.SelectRecord();
+							LoadsPage.eDelete().click();
+							LoadsPage.SubmittedView().click();
+							Thread.sleep(3000); 
+
+							/* Mark non-Scoular load as Paid */
+							Loads.SelectRecord();
+							LoadsPage.eEdit().click();
+							Loads.PaidInvoice();
+							Thread.sleep(5000);
+							LoadsPage.PaidView().click();
+							Thread.sleep(3000);
+							bResult = Loads.customizeAGgrid(sActTestCaseID,4);
+							Loads.VerifyStatus("Paid");
+							Loads.SelectRecord();
+							LoadsPage.DuplicateBtn().click();
+							Loads.EnterCopyDetails(sActTestCaseID, "Paid");
+							Loads.SelectRecord();
+							//LoadsPage.eDelete().click();
+							sActualResult = "Non-Scoular Load Paid Successfully";
+						}
 					}
 					//LoadsPage.eDelete().click();
 					
@@ -125,7 +134,7 @@ public class Loads_TC003 extends SetUp {
 	}
 	@DataProvider
 	public Object[][] getData() throws Exception {
-		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin2");
+		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin");
 		return data;
 		
 	}
