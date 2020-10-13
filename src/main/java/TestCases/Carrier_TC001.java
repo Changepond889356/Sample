@@ -1,7 +1,9 @@
 package TestCases;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -29,7 +31,7 @@ public class Carrier_TC001 extends SetUp {
 			TestActions.LaunchApplication();
 			
 			// Login 
-			bResult = true;
+			//bResult = true;
 			bResult = TestActions.Login(sUserName, sPassword);
 			
 			Carrier.SelectCarrierMenu();
@@ -111,17 +113,26 @@ public class Carrier_TC001 extends SetUp {
 					}
 					
 					Carrier.SelectCarrierMenu();
+					//bResult = Carrier.CustomiseGrid(sActTestCaseID);
 					Carrier.DeleteCarrier();
 					System.out.println("Carrier Deleted Successfully");
 					bResult = TestActions.LogOut();
 				}
-				sActualResult = "Carrier Validated Successfully";
+				if(bResult) {
+					sActualResult = "Carrier Validated Successfully";
+				}
+				
 			}
 			
 		} catch(Exception e) {
 			
 		}
-		
+		aHeaderNumbers = null;
+		aHeaderNames = null;
+		aHeaderNumbers = new ArrayList();
+		aHeaderNames = new ArrayList();
+		TestActions.CloseApplication();
+		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 	}
 	
 	@DataProvider

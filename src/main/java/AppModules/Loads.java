@@ -1125,6 +1125,7 @@ public class Loads extends GenericSkins {
 						
 					case "Submitted":
 						System.out.println("Submitted");
+						Thread.sleep(2000);
 						driver.findElement(By.xpath("//button[@data-cy='vb-all']")).click();
 						Thread.sleep(3000);
 						try {

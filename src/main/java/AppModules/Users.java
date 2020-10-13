@@ -393,7 +393,7 @@ public class Users extends GenericSkins {
 										 System.out.println(iCHeckBox11);
 										 System.out.println(iRow1);
 										 if (iCHeckBox11 == iRow1) {
-											 eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+											 //eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
 											 try {
 												 eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
 

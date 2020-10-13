@@ -35,48 +35,73 @@ public class Carrier extends GenericSkins {
 		String sFileName = "Carrier.xlsx";
 		String sSheetName = "Carrier Details";
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
-		String [] data = TestDataImport.readExcel(sTestDataPath,sFileName,sSheetName,1, sActTestCaseID);
-		try {
-			CarrierPage.addCarrierBtn().click();
-			Thread.sleep(1000);
-			CarrierPage.CarrierName().sendKeys(data[1]);
-			CarrierPage.SearchBtn().click();
-			Thread.sleep(1000);
-			try {
-				GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Add New Carrier')]"));
-				CarrierPage.AddNewCarrierBtn().click();
-				GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[2]")).sendKeys(data[2]);
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[3]")).sendKeys(data[3]);
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[4]")).sendKeys(data[4]);
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[5]")).sendKeys(data[5]);
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[7]")).sendKeys(data[6]);
-				GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Submit Request')]"));
-				CarrierPage.SubmitRequestBtn().click();
-			} catch(Exception e) {
-				GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='carrier-options-radio-group']"));
-				driver.findElement(By.xpath("//input[@name='Carrier Select']")).click();
-				Thread.sleep(1000);
-				CarrierPage.NextBtn().click();
-				GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[4]")).sendKeys(data[4]);
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[5]")).sendKeys(data[5]);
-				driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[7]")).sendKeys(data[6]);
-				if(!driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).isSelected()) {
-					driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).click();
-					GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
-					CarrierPage.InviteRequestBtn().click();
-				}
-			}
+		//String [] data = TestDataImport.readExcel(sTestDataPath,sFileName,sSheetName,1, sActTestCaseID);
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		// System.out.println("Number of rows:" + iRowCnt);
 
-			GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Finish')]"));
-			CarrierPage.FinishBtn().click();
-			Thread.sleep(3000);
-			System.out.println("Company Added Successfully");
-			bResult = true;
-		} catch(Exception e) {
-			System.out.println();
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sMC = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			String sDot = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			String sCarrierRef = TestDataImport.GetCellData(sSheetName, 4, iRow);
+			String sContactName = TestDataImport.GetCellData(sSheetName, 5, iRow);
+			String sEmailID = TestDataImport.GetCellData(sSheetName, 6, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
+			
+			if (sTestCaseID.equalsIgnoreCase(sActTestCaseID)) {
+				try {
+					CarrierPage.addCarrierBtn().click();
+					Thread.sleep(1000);
+					CarrierPage.CarrierName().sendKeys(sCarrierName);
+					CarrierPage.SearchBtn().click();
+					Thread.sleep(1000);
+					try {
+						GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Add New Carrier')]"));
+						CarrierPage.AddNewCarrierBtn().click();
+						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[2]")).sendKeys(sMC);
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[3]")).sendKeys(sDot);
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[4]")).sendKeys(sCarrierRef);
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[5]")).sendKeys(sContactName);
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[7]")).sendKeys(sEmailID);
+						GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Submit Request')]"));
+						CarrierPage.SubmitRequestBtn().click();
+					} catch(Exception e) {
+						GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='carrier-options-radio-group']"));
+						driver.findElement(By.xpath("//input[@name='Carrier Select']")).click();
+						Thread.sleep(1000);
+						CarrierPage.NextBtn().click();
+						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[4]")).sendKeys(sCarrierRef);
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[5]")).sendKeys(sContactName);
+						driver.findElement(By.xpath("(//div[@id='add-screen']//div//input)[7]")).sendKeys(sEmailID);
+						if(!driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).isSelected()) {
+							driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).click();
+							GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
+							CarrierPage.InviteRequestBtn().click();
+						}
+					}
+
+					GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Finish')]"));
+					CarrierPage.FinishBtn().click();
+					Thread.sleep(3000);
+					System.out.println("Company Added Successfully");
+					sActualResult = "Company Added Successfully";
+					bResult = true;
+				} catch(Exception e) {
+					System.out.println();
+				}
+				break;
+			}
 		}
+		ResultComparision();
+		TestDataImport.setCellData(sSheetName, 1, 8, sActualResult, "NA");
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		TestDataImport.setCellData(sSheetName, 1, 9, sTestStepStatus, "NA");
 		return bResult;
 	}
 

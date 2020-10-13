@@ -92,8 +92,8 @@ public class Loads_TC003 extends SetUp {
 							Loads.SelectRecord();
 							LoadsPage.DuplicateBtn().click();
 							Loads.EnterCopyDetails(sActTestCaseID, "Submitted");
-							Loads.SelectRecord();
-							LoadsPage.eDelete().click();
+							//Loads.SelectRecord();
+							//LoadsPage.eDelete().click();
 							LoadsPage.SubmittedView().click();
 							Thread.sleep(3000); 
 

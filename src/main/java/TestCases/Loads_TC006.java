@@ -59,22 +59,29 @@ public class Loads_TC006 extends SetUp {
 						Thread.sleep(10000);
 						
 						bResult = Loads.LoadsWebTable(11, sActTestCaseID);
+						if(bResult) {
+							bResult = false;
+							bResult = TestActions.LogOut();
+						}
 					}
-					bResult = Loads.ViewPDF(sActTestCaseID);
-					if(bResult == true) {
-						bResult = Loads.ExportSelectedData(sActTestCaseID);
-						bResult = TestActions.LogOut();
-						//sActualResult="Load able to download from View PDF";
-					}
+					
 					if (bResult == true) {
-						
-						// Login as Shipper Admin
-						//bResult = TestActions.Login_ShipperAdmin(sActTestCaseID);	
+						bResult = false;
 						bResult = TestActions.Login(sUserName, sPassword);
 						Thread.sleep(10000);
+						
 						LoadsPage.SubmittedView().click();
 						bResult = Loads.customizeAGgrid(sActTestCaseID,6);
 						Loads.VerifyStatus("Submitted");
+						Loads.SelectRecord();
+						
+						bResult = Loads.ViewPDF(sActTestCaseID);
+						if(bResult == true) {
+							bResult = false;
+							bResult = Loads.ExportSelectedData(sActTestCaseID);
+							//sActualResult="Load able to download from View PDF";
+						}
+						
 						Loads.SelectRecord();
 						LoadsPage.eEdit().click();
 						Loads.ReturnedInvoice();
