@@ -24,7 +24,7 @@ public class Carrier_TC001 extends SetUp {
 		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
-		GenericSkins.iTotalTestStepsFailed=0;
+		
 		boolean bResult = false;
 		try {
 			// Launch application
