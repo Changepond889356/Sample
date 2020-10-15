@@ -33,8 +33,10 @@ public class ShipperContacts_TC001 extends SetUp {
 			if(bResult) {
 				ShipperContact.SelectShipperContactMenu();
 				bResult = ShipperContact.AddShipperContact(sActTestCaseID);
+				//bResult = TestActions.LogOut();
 				//bResult = true;
 			}
+			
 			if(bResult) {
 				bResult = ShipperContact.customizeGrid(sActTestCaseID);
 			}
@@ -43,6 +45,9 @@ public class ShipperContacts_TC001 extends SetUp {
 			}
 			if(bResult) {
 				bResult = ShipperContact.LoadWebTable(3,sActTestCaseID);
+			}
+			if(bResult) {
+				bResult = ShipperContact.LoadWebTable(4,sActTestCaseID);
 			}
 			if(bResult) {
 				bResult = ShipperContact.LoadWebTable(2,sActTestCaseID);

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -228,20 +229,15 @@ public class ShipperContact  extends GenericSkins {
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sEmail = TestDataImport.GetCellData(sSheetName, 2, iRow);
-			String sPhone = TestDataImport.GetCellData(sSheetName, 3, iRow);
-			String sCompany = TestDataImport.GetCellData(sSheetName, 4, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 6, iRow);
 			String sStatus = TestDataImport.GetCellData(sSheetName, 5, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
-			//sName = sGenericShipperName;
-			// System.out.println("class name:"+this.getClass().getName());
-			// sTestCaseID = "TestCases."+sTestCaseID;
+			
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && (iUserNum == iRow)) {
 				try {
 					String sActualName = "NA";
 					String sACtualEmail = "NA";
 					String sActualStatus = "NA";
-					WebElement eStatusColumn=null;
 					
 					try {
 						// click on clear filter
@@ -266,13 +262,6 @@ public class ShipperContact  extends GenericSkins {
 					Thread.sleep(1000);
 					eNameFilter.sendKeys(sName);
 					Thread.sleep(3000);
-					
-					/*WebElement eCarrierFilter = driver
-							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
-					eCarrierFilter.clear();
-					Thread.sleep(1000);
-					eCarrierFilter.sendKeys(sEmail);
-					eCarrierFilter.sendKeys(Keys.ENTER);*/
 
 					System.out.println("loading...");
 					Thread.sleep(3000);
@@ -324,7 +313,6 @@ public class ShipperContact  extends GenericSkins {
 							System.out.println("sActualStatus:" + sActualStatus + " status:" + sStatus);							
 
 							if (sActualName.trim().equalsIgnoreCase(sName.trim())
-									
 									&& sActualStatus.trim().equalsIgnoreCase(sStatus.trim())) {
 								
 								System.out.println("Record found");
@@ -341,10 +329,6 @@ public class ShipperContact  extends GenericSkins {
 									Thread.sleep(1000);
 									driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']")).click();
 									Thread.sleep(2000);
-									/*ac.sendKeys(Keys.ARROW_UP).build().perform();
-									Thread.sleep(1000);
-									ac.sendKeys(Keys.ENTER).build().perform();
-									Thread.sleep(1000);*/
 									if(driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).getText().equalsIgnoreCase("ACTIVE")) {
 										bResult = false;
 										sActualResult = "Shipper Contact in Active State";
@@ -352,6 +336,13 @@ public class ShipperContact  extends GenericSkins {
 									} else {
 										bResult = true;
 										sActualResult = "Shipper Contact in InActive State";
+									}
+									break;
+								case "VERIFY":
+									bResult = false;
+									if(driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]")).getText().equalsIgnoreCase(sEmail)) {
+										bResult = true;
+										sActualResult = "Shipper Contact Edited Successfully";
 									}
 									break;
 								case "EDIT":
@@ -363,78 +354,22 @@ public class ShipperContact  extends GenericSkins {
 									driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]//input")).sendKeys(sEmail);
 									//driver.findElement(By.xpath("//div[@class='ag-virtual-list-container']//span[text()='"+sCompany+"']")).click();
 									Thread.sleep(1000);
-									
-									if(sActualStatus.trim().equalsIgnoreCase("ACTIVE")) {
-										driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										GenericSkins.WaitForElementTobeClickable(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']"));
-										driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']")).click();
-										Thread.sleep(2000);
-										driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										GenericSkins.WaitForElementTobeClickable(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Active']"));
-										driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Active']")).click();
-										Thread.sleep(1000);
-										/*ac.sendKeys(Keys.ARROW_UP).build().perform();
-										Thread.sleep(2000);
-										ac.sendKeys(Keys.ENTER).build().perform();
-										Thread.sleep(4000);
-										driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										ac.sendKeys(Keys.ARROW_DOWN).build().perform();
-										Thread.sleep(2000);
-										ac.sendKeys(Keys.ENTER).build().perform();
-										Thread.sleep(4000);*/
-										
-									} else {
-										driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										GenericSkins.WaitForElementTobeClickable(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Active']"));
-										driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Active']")).click();
-										Thread.sleep(2000);
-										driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										GenericSkins.WaitForElementTobeClickable(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']"));
-										driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']")).click();
-										Thread.sleep(1000);
-										/*driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										ac.sendKeys(Keys.ARROW_DOWN).build().perform();
-										Thread.sleep(2000);
-										ac.sendKeys(Keys.ENTER).build().perform();
-										Thread.sleep(4000);
-										driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-										Thread.sleep(1000);
-										ac.sendKeys(Keys.ARROW_UP).build().perform();
-										Thread.sleep(2000);
-										ac.sendKeys(Keys.ENTER).build().perform();
-										Thread.sleep(4000);*/
-									}
-									if(driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]")).getText().equalsIgnoreCase(sEmail)) {
-										bResult = true;
-										sActualResult = "Shipper Contact Edited Successfully";
-									}
+									sActualResult = "Shipper Contact Edited Successfully";
 									
 									break;
 								}
-								break;
 								
-							}
-						//}
-						
+							}						
 					}
 
-					// return bResult;
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
-					error.printStackTrace();
-					// throw error;
-
+					error.printStackTrace();					
 				}
 				ResultComparision();
-				TestDataImport.setCellData(sSheetName, iRow, 7, sActualResult, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 8, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
-				TestDataImport.setCellData(sSheetName, iRow, 8, sTestStepStatus, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 9, sTestStepStatus, "NA");
 				if (sTestStepStatus.equalsIgnoreCase("Passed")) {
 					bResult = true;
 				}
