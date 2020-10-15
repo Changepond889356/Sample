@@ -62,7 +62,7 @@ public class ActivateShippers_TC003 extends SetUp {
 
 											}
 
-											//sActualResult = "Shipper added successfully";
+											//sActualResult = "Shipper added success fully";
 										}
 									}
 

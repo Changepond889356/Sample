@@ -23,7 +23,7 @@ public class AddShippers_TC001 extends SetUp {
 		boolean bResult = false;
 
 		try {
-			// Launch application
+			// Launch application 
 			TestActions.LaunchApplication();
 
 			// Login as Global Admin

@@ -55,6 +55,10 @@ public class Loads extends GenericSkins {
 			String sDestination = TestDataImport.GetCellData(sSheetName, 9, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 10, iRow);
 			System.out.println("Add Load:" + "sTestCaseID:" + sTestCaseID + "sActualTestCaseID:" + sActualTestCaseID);
+			if(sSHipper.equalsIgnoreCase("New Shipper"))
+			{
+			sSHipper=sGenericShipperName;
+			}
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID.trim())) {
 				System.out.println("inside if");
 				try {
@@ -296,6 +300,10 @@ public class Loads extends GenericSkins {
 			sTestStepData = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			aHeaderNumbers = null;
+			aHeaderNames = null;
+			aHeaderNumbers = new ArrayList();
+			aHeaderNames = new ArrayList();
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
 				try {
 					if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
@@ -503,9 +511,13 @@ public class Loads extends GenericSkins {
 			String sReadytoSubmit = TestDataImport.GetCellData(sSheetName, 11, iRow);
 			// String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
 
+			if(sSHipper.equalsIgnoreCase("New Shipper")) {
+				sSHipper=sGenericShipperName;
+			}
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
-			sTestStepData = sLoadDate +  ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
+			sTestStepData = sLoadDate + ";" + sSHipper + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
 					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper +
+			
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
 				try {
 					ArrayList<String> aActualRecordCell = new ArrayList();
