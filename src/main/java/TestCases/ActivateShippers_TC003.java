@@ -52,7 +52,7 @@ public class ActivateShippers_TC003 extends SetUp {
 												if (bResult == true) {
 													bResult = Loads.addNewLoad(sTestCaseID);
 													if (bResult == true) {
-														bResult = Loads.LoadsWebTable(12, sTestCaseID);
+														bResult = Loads.LoadsWebTable(17, sTestCaseID);
 														if (bResult == true) {
 
 															sActualResult = "Shipper activated successfully";
@@ -62,7 +62,7 @@ public class ActivateShippers_TC003 extends SetUp {
 
 											}
 
-											//sActualResult = "Shipper added success fully";
+											//sActualResult = "Shipper added successfully";
 										}
 									}
 

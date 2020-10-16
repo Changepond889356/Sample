@@ -280,99 +280,7 @@ public class Carrier extends GenericSkins {
 						}
 													
 					}
-				/*	//Thread.sleep(5000); 
-					eCheckBoxes = driver
-							.findElements(By.xpath("//*[@id='myGrid']/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div/div[1]"));
-					//*[@id='myGrid']/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div/div[1]
 				
-					List<WebElement> eRows = driver.findElements(
-							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
-					
-					int iRow1 = 0;
-					for (WebElement eRow : eRows) {
-						iRow1++;
-						List<WebElement> eCols = eRow.findElements(
-								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div[" + iRow1
-										+ "]/div"));
-						System.out.println("Number of cols in AG grid:" + eCols.size());
-						
-
-						for (WebElement eCol : eCols) {
-							String sValue = eCol.getText();
-							try {
-								driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-								sValue = eCol.findElement(By.tagName("svg")).findElement(By.tagName("path"))
-										.getAttribute("fill");
-								System.out.println("sValue:" + sValue);
-								if (sValue.equals("#B1C82C")) {
-									sValue = "GREEN";
-									Actions action = new Actions(driver);
-									action.moveToElement(eCol).build().perform();
-									Thread.sleep(3000);
-								} else {
-									sValue = "NA";
-								}
-								driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
-							} catch (Exception err) {
-								driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
-							}
-
-							System.out.println("col text:" + sValue);
-							if (sValue.equalsIgnoreCase("") || sValue.equals(null)) {
-								sValue = "NA";
-
-							}
-							aActualRecordCell.add(sValue);
-						}
-						int iDisplayedcnt = 0;
-						ArrayList<Integer> aMatchedIndex = new ArrayList();
-						for (int i = 0; i < sData.length; i++) {
-
-							for (int j = 0; j < aActualRecordCell.size(); j++) {
-								
-								if (aActualRecordCell.get(j).trim().equalsIgnoreCase(sData[i].trim())) {
-									aMatchedIndex.add(j);
-									iDisplayedcnt++;
-									break;
-								}
-							}
-						}
-						// remove cells of this row from arraylist
-						for (int i = 0; i < aActualRecordCell.size(); i++) {
-							aActualRecordCell.remove(i);
-						}
-						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
-						int iCheckBoxcnt = 0;
-							for (WebElement eCheckBox : eCheckBoxes) {
-								iCheckBoxcnt++;
-								if (iRow1 == iCheckBoxcnt) {
-									eCheckBox.findElement(By.cssSelector(".ag-cell-wrapper"))
-										.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-									Thread.sleep(1000);
-									System.out.println("Here to Click on record");
-									//eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
-									//Thread.sleep(1000);
-									try {
-										driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-										LoadsPage.eEdit().isDisplayed();
-
-									} catch (Exception error_child) {
-										eCheckBox.findElement(By.cssSelector(".ag-cell-wrapper"))
-										.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-										driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-									}
-									break;
-								}
-								break;
-							}
-							Thread.sleep(2000);
-							bResult = true;
-
-							sActualResult = "Webtable validated successfully";
-							break;						
-					}*/
 				sActualResult = "Webtable validated successfully";
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
@@ -605,6 +513,78 @@ public class Carrier extends GenericSkins {
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//button[@data-cy='confirm-model-deletion']//span[contains(text(),'Delete')]")).click();
 		Thread.sleep(3000);
+	}
+
+	public static boolean ChangePassword(String sUserName, String sActTestCaseID, int iDataRow) throws Exception {
+		boolean bResult = false;
+		String sFileName = "Settings.xlsx";
+		String sSheetName = "ChangePassword";
+
+		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sCurrentPassword = TestDataImport.GetCellData(sSheetName, 1, iRow);	
+			String sNewPassword = TestDataImport.GetCellData(sSheetName, 2, iRow);	
+			String sConfirmPassword = TestDataImport.GetCellData(sSheetName, 3, iRow);	
+			String sOperation = TestDataImport.GetCellData(sSheetName, 4, iRow);	
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 5, iRow);			
+			
+			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
+				int flag =0;
+				switch(sOperation.toUpperCase()) {
+				
+				case "CHANGEPASSWORD":
+					CarrierPage.changePasswordBtn().click();
+					Thread.sleep(3000);
+					CarrierPage.CurrentPassword().sendKeys(sCurrentPassword);
+					CarrierPage.NewPassword().sendKeys(sNewPassword);
+					CarrierPage.ConfirmPassword().sendKeys(sConfirmPassword);
+					CarrierPage.SavePasswordBtn().click();
+					Thread.sleep(3000);
+					flag = 1;
+					bResult = true;
+					sActualResult = "Password Change Successfully";
+					break;
+
+				case "REVERTPASSWORD":
+					CarrierPage.changePasswordBtn().click();
+					Thread.sleep(3000);
+					CarrierPage.CurrentPassword().sendKeys(sCurrentPassword);
+					CarrierPage.NewPassword().sendKeys(sNewPassword);
+					CarrierPage.ConfirmPassword().sendKeys(sConfirmPassword);
+					CarrierPage.SavePasswordBtn().click();
+					Thread.sleep(3000);
+					flag = 1;
+					bResult = true;
+					sActualResult = "Password Change Successfully";
+					break;
+				
+				case "RELOGIN":
+					bResult = TestActions.Login(sUserName, sNewPassword);
+					if(bResult) {
+						sActualResult = "Password Change Successfully";
+					}
+					break;
+				}
+				if(flag == 1) {
+					driver.findElement(By.xpath("//div[@id='root']//img")).click();
+					Thread.sleep(3000);
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 6, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 7, sTestStepStatus, "NA");
+				break;
+			}
+		}
+
+		
+		
+		return bResult;
 	}
 
 	

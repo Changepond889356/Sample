@@ -116,4 +116,57 @@ public class CarrierPage extends GenericSkins {
 		}
 		return element;
 	}
+
+	public static WebElement changePasswordBtn() {
+		try {
+			element = driver.findElement(By.xpath("//button//span[contains(text(),'Change Password')]"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+			System.out.println("changePassword Btn : " +ele.getMessage());
+		}
+		return element;
+	}
+
+	public static WebElement CurrentPassword() {
+		try {
+			element = driver.findElement(By.id("currentPassword"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+			System.out.println("Current Password : " +ele.getMessage());
+		}
+		return element;
+	}
+	public static WebElement NewPassword() {
+		try {
+			element = driver.findElement(By.id("newPassword"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+			System.out.println("New Password : " +ele.getMessage());
+		}
+		return element;
+	}
+	public static WebElement ConfirmPassword() {
+		try {
+			element = driver.findElement(By.id("confirmNewPassword"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+			System.out.println("Confirm Password : " +ele.getMessage());
+		}
+		return element;
+	}
+
+	public static WebElement SavePasswordBtn() {
+		try {
+			element = driver.findElement(By.xpath("//button//span[contains(text(),'Submit')]"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+			System.out.println("Save Password Btn : " +ele.getMessage());
+		}
+		return element;
+	}
 }
