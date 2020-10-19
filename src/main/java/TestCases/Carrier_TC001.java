@@ -44,7 +44,9 @@ public class Carrier_TC001 extends SetUp {
 				
 				if (bResult == true) {
 					Carrier.LoadWebTable(sActTestCaseID, 1); 
-					bResult = Carrier.AcceptCarrier(); 
+					if(!sAcccountType.equalsIgnoreCase("Global Admin")) {
+						bResult = Carrier.AcceptCarrier();
+					}				 
 					bResult = TestActions.LogOut();
 				}
 				

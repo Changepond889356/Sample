@@ -137,6 +137,10 @@ public class TestActions extends GenericSkins {
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//li[@data-cy='menu-logout']")).click();  //.//li[text()='Log Out']
 			System.out.println("Logout Happen");
+			Thread.sleep(3000);
+			Actions action = new Actions(driver);
+			action.sendKeys(Keys.F5).build().perform();
+			driver.navigate().refresh();
 			WebDriverWait wait = new WebDriverWait(driver, 20);
 			wait.until(ExpectedConditions.visibilityOf(LoginPage.eUserName()));
 			bResult = true;

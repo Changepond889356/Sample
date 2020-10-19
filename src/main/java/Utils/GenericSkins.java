@@ -254,6 +254,8 @@ public class GenericSkins {
 	protected static String invoiceNumber="NA";
 	protected static String sGenericOrigin="NA";
 	protected static String sGenericShipperName="NA";
+	protected static String sGenericCommodityName="NA";
+
 	
 	protected static WebDriverWait wait;
 

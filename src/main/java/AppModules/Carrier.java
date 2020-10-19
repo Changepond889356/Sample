@@ -59,7 +59,66 @@ public class Carrier extends GenericSkins {
 					CarrierPage.CarrierName().sendKeys(sCarrierName);
 					CarrierPage.SearchBtn().click();
 					Thread.sleep(1000);
+					
 					try {
+						GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Add New Carrier')]"));
+						CarrierPage.AddNewCarrierBtn().click();
+						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
+
+						List<WebElement> eCarrierInp = driver.findElements(By.xpath("//div[@id='add-screen']//form/div"));
+						for(WebElement inpCol: eCarrierInp) {
+							String colName = inpCol.getText();
+							if(colName.equalsIgnoreCase("MC #")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sMC);
+							}
+							if(colName.equalsIgnoreCase("DOT #")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sDot);
+							}
+							if(colName.equalsIgnoreCase("Carrier Reference #")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sCarrierRef);
+							}
+							if(colName.equalsIgnoreCase("Contact Name")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sContactName);
+							}
+							if(colName.equalsIgnoreCase("Contact Email")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sEmailID);
+							}
+						}
+						GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Submit Request')]"));
+						CarrierPage.SubmitRequestBtn().click();
+					} catch(Exception e) {
+						GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='carrier-options-radio-group']"));
+						driver.findElement(By.xpath("//input[@name='Carrier Select']")).click();
+						Thread.sleep(1000);
+						CarrierPage.NextBtn().click();
+						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
+						List<WebElement> eCarrierInp = driver.findElements(By.xpath("//div[@id='add-screen']//form/div"));
+						for(WebElement inpCol: eCarrierInp) {
+							String colName = inpCol.getText();
+
+							if(colName.equalsIgnoreCase("Carrier Reference #")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sCarrierRef);
+							}
+							if(colName.equalsIgnoreCase("Contact Name")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sContactName);
+							}
+							if(colName.equalsIgnoreCase("Contact Email")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sEmailID);
+							}
+						}
+						try {
+							if(!driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).isSelected()) {
+								driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).click();
+								GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
+								CarrierPage.InviteRequestBtn().click();
+							}
+						} catch(Exception ex) {
+							CarrierPage.InviteRequestBtn().click();
+						}
+
+					}
+					
+					/*try {
 						GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Add New Carrier')]"));
 						CarrierPage.AddNewCarrierBtn().click();
 						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
@@ -84,7 +143,7 @@ public class Carrier extends GenericSkins {
 							GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
 							CarrierPage.InviteRequestBtn().click();
 						}
-					}
+					}*/
 
 					GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Finish')]"));
 					CarrierPage.FinishBtn().click();
@@ -171,8 +230,12 @@ public class Carrier extends GenericSkins {
 								String sName = eColumn.findElement(By.tagName("span")).getText();								
 								if(sName.trim().equalsIgnoreCase(sData[i].trim())) {
 									try {
-										eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("div")).click();										
+										if(eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("svg")).isDisplayed()) {
+											
+										}
+																				
 									} catch(Exception e) {
+										eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("div")).click();
 									}
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
@@ -244,7 +307,7 @@ public class Carrier extends GenericSkins {
 			String sDot = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			String sMC = TestDataImport.GetCellData(sSheetName, 3, iRow);
 					
-			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
 			sTestStepData = sCarrierName + ";" + sDot + ";" + sMC + ";";  //";" + sSHipper +
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 				try {
@@ -272,15 +335,15 @@ public class Carrier extends GenericSkins {
 					for (int i = 0; i < sData.length; i++) {
 						if (!(sData[i].equalsIgnoreCase("NA"))) {
 							eHeaderFilters.get(i).findElement(By.tagName("input")).clear();
-							Thread.sleep(2000);
+							Thread.sleep(500);
 							eHeaderFilters.get(i).findElement(By.tagName("input")).sendKeys(sData[i]);
 							Actions acton = new Actions(driver);
 							acton.sendKeys(Keys.ENTER).build().perform();
-							Thread.sleep(3000);									
+							Thread.sleep(2000);									
 						}
 													
 					}
-				
+					bResult =true;
 				sActualResult = "Webtable validated successfully";
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
@@ -307,9 +370,13 @@ public class Carrier extends GenericSkins {
 		System.out.println("Inside Accept Carrier");
 		driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Accept')]")).click();
 		Thread.sleep(5000);
-		if(driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Accept')]")).isDisplayed()) {
-			bResult = false;
-			sActualResult = "Failed to Accept the Invitation";
+		try {
+			if(driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Accept')]")).isDisplayed()) {
+				bResult = false;
+				sActualResult = "Failed to Accept the Invitation";
+			}
+		}catch(Exception e) {
+			System.out.println("Accepted ");
 		}
 		return bResult;
 	}
@@ -441,9 +508,13 @@ public class Carrier extends GenericSkins {
 					if(actReqText.contains(sCarrierName)) {
 						CarrierPage.AcceptBtn().click();
 						Thread.sleep(3000);
-						TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
-						driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
-						System.out.println("Request Accepted ");
+						try {
+							TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
+							driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
+							System.out.println("Request Accepted ");
+						}catch(Exception e) {
+							System.out.println("Request Accepted ");
+						}
 						bResult = true;
 						break;
 					}
