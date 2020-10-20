@@ -39,7 +39,7 @@ public class Loads_TC002 extends SetUp {
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
 			}
-
+			
 			if (bResult == true) {
 				bResult = false;
 				// Add new Load
@@ -65,7 +65,8 @@ public class Loads_TC002 extends SetUp {
 						Loads.uploadDestTicket("Destination");
 						//edit record
 						bResult=Loads.editLoad(sActTestCaseID);
-						bResult = Loads.LoadsWebTable(4, sActTestCaseID);
+						//bResult = Loads.LoadsWebTable(4, sActTestCaseID);
+						Loads.SelectRecord();
 						LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();
 						
@@ -77,7 +78,8 @@ public class Loads_TC002 extends SetUp {
 							
 							
 							Thread.sleep(10000);
-							bResult = Loads.LoadsWebTable(5, sActTestCaseID);
+							//bResult = Loads.LoadsWebTable(5, sActTestCaseID);
+							bResult=true;
 							if(bResult==true)
 							{
 								sActualResult="Load submitted successfully";

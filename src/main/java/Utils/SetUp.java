@@ -98,8 +98,14 @@ public class SetUp extends GenericSkins {
 	}
 	
 	@AfterSuite
-	public void CloseReport() {
+	public void CloseReport() throws Exception {
 		extent.flush();
+		if(sRunReferenceFlag.equalsIgnoreCase("Yes"))
+		{
+		//Email notification
+		Utils.EmailNotifications.SendNotification();
+
+		}
 	}
 	
 	public static void getResult(ITestResult result) throws IOException {

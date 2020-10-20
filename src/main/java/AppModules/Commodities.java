@@ -64,7 +64,7 @@ public class Commodities extends GenericSkins {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sCommodityName = sCommodityName + "_" + datetime;
 						sGenericCommodityName = sCommodityName;
-						System.out.println("sShipperName:" + sCommodityName);
+						System.out.println("commodity:" + sCommodityName);
 						CommoditiesPage.ecommodityName().sendKeys(sCommodityName);
 					}
 					if (!(sUpperLimit.equalsIgnoreCase("NA"))) {
@@ -139,6 +139,9 @@ public class Commodities extends GenericSkins {
 					//Thread.sleep(3000);
 					//CommoditiesPage.ebtnAddCommodity().click();
 					if (!(sCommodityName.equalsIgnoreCase("NA"))) {
+						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
+						sCommodityName = sCommodityName + "_" + datetime;
+						sGenericCommodityName = sCommodityName;
 						eCommodityName.click();
 						Thread.sleep(2000);
 						Actions action3 = new Actions(driver);

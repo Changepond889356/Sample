@@ -3,8 +3,8 @@
         <AUTPath>https://roger-uat.myriadapps.com/</AUTPath>
 		<LocalBrowserName>Chrome</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
-		<RunReference>Debug</RunReference>
-		<RunReferenceFlag>No</RunReferenceFlag>
+		<RunReference>Run20OCT2020</RunReference>
+		<RunReferenceFlag>YES</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
 		<ReportsDBJDBCDriver>NA</ReportsDBJDBCDriver>
@@ -12,5 +12,9 @@
 		<ReportsDBName>NA</ReportsDBName>
 		<ReportsDBUserName>NA</ReportsDBUserName>
 		<ReportsDBPassword>NA</ReportsDBPassword>
+		<ToEmail>thiruvatta.p@changepond.com,aniket.g@changepond.com,mohammadfaheem.s@changepond.com</ToEmail>
+		<FromEmail>aniket.g@changepond.com</FromEmail>
+		<EmailUsername>Aniket.G</EmailUsername>
+		<EmailPassword>pr+?echaFoM6x07</EmailPassword>
 		
     </config>

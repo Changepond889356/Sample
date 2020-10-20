@@ -62,7 +62,7 @@ public class Settings_TC001 extends SetUp {
 	
 	@DataProvider
 	public Object[][] getData() throws Exception {
-		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin");
+		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Settings.xlsx","Login");
 		return data;
 		
 	}

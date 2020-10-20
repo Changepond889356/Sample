@@ -48,8 +48,8 @@ public class Loads_TC004 extends SetUp {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
-						bResult = Loads.LoadsWebTable(7, sActTestCaseID);
-						
+						//bResult = Loads.LoadsWebTable(7, sActTestCaseID);
+						Loads.SelectRecord();
 						
 						LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();

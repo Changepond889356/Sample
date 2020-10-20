@@ -255,9 +255,10 @@ public class Loads extends GenericSkins {
 							driver.findElement(By.xpath("//span[text()='Yes']")).click();
 							Thread.sleep(3000);
 							LoadsPage.eSave().click();
+							Thread.sleep(5000);
 
 						} catch (Exception er) {
-							System.out.println(er);
+							//System.out.println(er);
 							
 						}
 						sActualResult = "Load Edited Successfully";
@@ -481,7 +482,7 @@ public class Loads extends GenericSkins {
 	}
 
 	// Method to handle Loads Webtable
-	public static boolean LoadsWebTable(int iDataRow, String sActualTestCaseID) throws Exception {
+	/*public static boolean LoadsWebTable(int iDataRow, String sActualTestCaseID) throws Exception {
 		boolean bResult = false;
 		String sFileName = "Loads.xlsx";
 		String sSheetName = "View Load";
@@ -659,9 +660,7 @@ public class Loads extends GenericSkins {
 
 							sActualResult = "Webtable validated successfully";
 							break;
-						/*} else {
-							sActualResult = "Record not found";
-						}*/
+						
 
 					}
 					// List<>
@@ -681,6 +680,228 @@ public class Loads extends GenericSkins {
 		}
 
 	   System.out.println("Loads Webtble:"+bResult);
+		return bResult;
+	}
+*/
+	// Method to handle Loads Webtable
+	public static boolean LoadsWebTable(int iDataRow, String sActualTestCaseID) throws Exception {
+		boolean bResult = false;
+		String sFileName = "Loads.xlsx";
+		String sSheetName = "View Load";
+		sTestStepID = "LoadsWebTable";
+
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("Number of rows:" + iRowCnt);
+		String sOperation = "VIEW";
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sCarrier = TestDataImport.GetCellData(sSheetName, 4, iRow);
+			String sLoadDate = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sSHipper = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			/*if(sSHipper.equalsIgnoreCase("New Shipper"))
+			{
+				sSHipper=sGenericShipperName;
+			}*/
+			String sSHipperContact = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			String sStatus = TestDataImport.GetCellData(sSheetName, 5, iRow);
+			String sOrigin = TestDataImport.GetCellData(sSheetName, 6, iRow);
+			String sDestination = TestDataImport.GetCellData(sSheetName, 7, iRow);
+			String sRate = TestDataImport.GetCellData(sSheetName, 8, iRow);
+			String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
+			String sCommodity = TestDataImport.GetCellData(sSheetName, 10, iRow);
+			String sReadytoSubmit = TestDataImport.GetCellData(sSheetName, 11, iRow);
+			// String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
+
+			/*
+			 * String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
+			 * sOrigin = sOrigin+"_" + datetime;
+			 */
+			//sOrigin = sGenericOrigin;
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
+			sTestStepData = sLoadDate + ";" + sSHipper + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
+					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
+			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
+				try {
+					ArrayList<String> aActualRecordCell = new ArrayList();
+					;
+
+					try {
+						Thread.sleep(5000);
+						driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+						driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
+						Thread.sleep(5000);
+					} catch (Exception error_message) {
+
+					}
+
+					driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					LocalDateTime t1 = LocalDateTime.now();
+					sTestStepData = sTestStepData.replace("Current Date", t1.format(dateandtime));
+
+					String sData[] = sTestStepData.split(";");
+					// List<WebElement> eCheckBoxes =
+					// driver.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					// *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					sActualResult = "Record not found";
+					Thread.sleep(5000);
+					List<WebElement> eCheckBoxes = driver
+							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					List<WebElement> eHeaderFilters = driver.findElements(
+							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div"));
+					System.out.println("Number of filters:" + eHeaderFilters.size());
+					for (int i = 0; i < aHeaderNumbers.size(); i++) {
+						int iFilterNum = aHeaderNumbers.get(i);
+						System.out.println("Header Number from arraylist:" + iFilterNum);
+						int iHeaderFilterCnt = 0;
+						for (WebElement eHeaderFilter : eHeaderFilters) {
+							iHeaderFilterCnt++;
+							if (iHeaderFilterCnt == iFilterNum) {
+								if (!(sData[i].equalsIgnoreCase("NA"))) {
+									eHeaderFilter.findElement(By.tagName("input")).clear();
+									Thread.sleep(2000);
+									eHeaderFilter.findElement(By.tagName("input")).sendKeys(sData[i]);
+									Actions acton = new Actions(driver);
+									acton.sendKeys(Keys.ENTER).build().perform();
+									Thread.sleep(3000);
+
+								}
+
+								break;
+							}
+						}
+					}
+
+					Thread.sleep(5000); // *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					eCheckBoxes = driver
+							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					List<WebElement> eRows = driver.findElements(
+							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
+					// System.out.println("Number of rows:" + eRows.size());
+					// System.out.println("Number of eCheckBoxes:" + eCheckBoxes.size());
+					int iRow1 = 0;
+					for (WebElement eRow : eRows) {
+						iRow1++;
+						List<WebElement> eCols = eRow.findElements(
+								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div[" + iRow1
+										+ "]/div"));
+						System.out.println("Number of cols in AG grid:" + eCols.size());
+						/*
+						 * for(int i=0;i<aHeaderNames.size();i++) { WebElement eColTemp = null; String
+						 * sHeaderName=aHeaderNames.get(i); switch(sHeaderName.toUpperCase()) { case
+						 * "LOAD DATE": for(WebElement eCol : eCols) {
+						 * if(eCol.getAttribute("col-id").trim().equalsIgnoreCase("load_date")) {
+						 * eColTemp = eCol; break; } }
+						 *
+						 * } }
+						 */
+
+						for (WebElement eCol : eCols) {
+							String sValue = eCol.getText();
+							try {
+								driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+								sValue = eCol.findElement(By.tagName("svg")).findElement(By.tagName("path"))
+										.getAttribute("fill");
+								System.out.println("sValue:" + sValue);
+								if (sValue.equals("#B1C82C")) {
+									sValue = "GREEN";
+									Actions action = new Actions(driver);
+									action.moveToElement(eCol).build().perform();
+									Thread.sleep(3000);
+								} else {
+									sValue = "NA";
+								}
+								driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+							} catch (Exception err) {
+								driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+							}
+
+							System.out.println("col text:" + sValue);
+							if (sValue.equalsIgnoreCase("") || sValue.equals(null)) {
+								sValue = "NA";
+
+							}
+							aActualRecordCell.add(sValue);
+						}
+						int iDisplayedcnt = 0;
+						ArrayList<Integer> aMatchedIndex = new ArrayList();
+						for (int i = 0; i < sData.length; i++) {
+
+							for (int j = 0; j < aActualRecordCell.size(); j++) {
+								// System.out.println("sData[i]:" + sData[i] + "aActualRecordCell[j]:" +
+								// aActualRecordCell.get(j));
+								// System.out.println();
+
+								if (aActualRecordCell.get(j).trim().equalsIgnoreCase(sData[i].trim())) {
+									aMatchedIndex.add(j);
+									// System.out.println("Matched");
+									iDisplayedcnt++;
+									break;
+								}
+							}
+						}
+						// remove cells of this row from arraylist
+						for (int i = 0; i < aActualRecordCell.size(); i++) {
+							aActualRecordCell.remove(i);
+						}
+
+						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
+						if (iDisplayedcnt == sData.length) {
+							int iCheckBoxcnt = 0;
+							for (WebElement eCheckBox : eCheckBoxes) {
+								iCheckBoxcnt++;
+								if (iRow1 == iCheckBoxcnt) {
+									eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+									Thread.sleep(2000);
+									eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
+									Thread.sleep(2000);
+									try {
+										driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+										LoadsPage.eEdit().isDisplayed();
+
+									} catch (Exception error_child) {
+										eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+									}
+									break;
+								}
+								break;
+							}
+							bResult = true;
+
+							sActualResult = "Webtable validated successfully";
+							break;
+						} else {
+							sActualResult = "Record not found";
+						}
+
+					}
+					// List<>
+				} catch (Exception error) {
+					sActualResult = error.getMessage();
+					error.printStackTrace();
+					throw error;
+
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 14, sTestStepStatus, "NA");
+				break;
+			}
+
+		}
+
+		System.out.println("Loads Webtble:" + bResult);
 		return bResult;
 	}
 
@@ -1085,6 +1306,12 @@ public class Loads extends GenericSkins {
 	public static void SelectRecord() throws InterruptedException {
 		// TODO Auto-generated method stub
 		Thread.sleep(1000);
+		try {
+			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span)[1]")).click();
+		}catch(Exception e) {
+			
+		}
+		
 		if(driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).isSelected()) {
 			System.out.println("Record already is selected");
 			Thread.sleep(2000);
@@ -1185,10 +1412,10 @@ public class Loads extends GenericSkins {
 	public static void SelectFirstRecord() throws InterruptedException {
 		// TODO Auto-generated method stub
 		Thread.sleep(3000);
-		if(driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[1]")).isSelected()) {
+		if(driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).isSelected()) {
 			System.out.println("Record already is selected");
 		} else {
-			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[1]")).click();
+			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).click();
 			System.out.println("Record is selected");
 			Thread.sleep(5000);
 		}
@@ -1214,16 +1441,18 @@ public class Loads extends GenericSkins {
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
-		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		System.out.println("Number of rows:" + iRowCnt);
+		String sOperation = "VIEW";
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
-			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sCarrier = TestDataImport.GetCellData(sSheetName, 4, iRow);
 			String sLoadDate = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sSHipper = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			String sSHipperContact = TestDataImport.GetCellData(sSheetName, 3, iRow);
 			String sStatus = TestDataImport.GetCellData(sSheetName, 5, iRow);
 			String sOrigin = TestDataImport.GetCellData(sSheetName, 6, iRow);
@@ -1231,10 +1460,15 @@ public class Loads extends GenericSkins {
 			String sRate = TestDataImport.GetCellData(sSheetName, 8, iRow);
 			String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
 			String sCommodity = TestDataImport.GetCellData(sSheetName, 10, iRow);
-			
+			String sReadytoSubmit = TestDataImport.GetCellData(sSheetName, 11, iRow);			
+
+			if(sSHipper.equalsIgnoreCase("New Shipper")) {
+				sSHipper=sGenericShipperName;
+			}
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
 			sTestStepData = sLoadDate + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
-					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
+					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper +
+			
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
 				try {
 					ArrayList<String> aActualRecordCell = new ArrayList();
@@ -1255,6 +1489,7 @@ public class Loads extends GenericSkins {
 					sTestStepData = sTestStepData.replace("Current Date", t1.format(dateandtime));
 
 					String sData[] = sTestStepData.split(";");
+					
 					sActualResult = "Record not found";
 					List<WebElement> eCheckBoxes = driver
 							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
@@ -1270,14 +1505,12 @@ public class Loads extends GenericSkins {
 							if (iHeaderFilterCnt == iFilterNum) {
 								if (!(sData[i].equalsIgnoreCase("NA"))) {
 									eHeaderFilter.findElement(By.tagName("input")).clear();
-									Thread.sleep(1000);
+									Thread.sleep(500);
 									eHeaderFilter.findElement(By.tagName("input")).sendKeys(sData[i]);
 									Actions acton = new Actions(driver);
 									acton.sendKeys(Keys.ENTER).build().perform();
-									Thread.sleep(2000);
-
+									Thread.sleep(1000);
 								}
-
 								break;
 							}
 						}
@@ -1287,6 +1520,7 @@ public class Loads extends GenericSkins {
 							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
 					List<WebElement> eRows = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
+					
 					int iRow1 = 0;
 					for (WebElement eRow : eRows) {
 						iRow1++;
@@ -1295,6 +1529,7 @@ public class Loads extends GenericSkins {
 										+ "]/div"));
 						System.out.println("Number of cols in AG grid:" + eCols.size());
 						
+
 						for (WebElement eCol : eCols) {
 							String sValue = eCol.getText();
 							try {
@@ -1342,7 +1577,7 @@ public class Loads extends GenericSkins {
 							aActualRecordCell.remove(i);
 						}
 						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
-						if (iDisplayedcnt == sData.length) {
+						//if (iDisplayedcnt == sData.length) {
 							int iCheckBoxcnt = 0;
 							for (WebElement eCheckBox : eCheckBoxes) {
 								iCheckBoxcnt++;
@@ -1367,18 +1602,15 @@ public class Loads extends GenericSkins {
 
 							sActualResult = "Webtable validated successfully";
 							break;
-						} else {
-							sActualResult = "Record not found";
-						}
-
 					}
-				
+					
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
 					throw error;
 
 				}
 				ResultComparision();
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 13, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 14, sTestStepStatus, "NA");

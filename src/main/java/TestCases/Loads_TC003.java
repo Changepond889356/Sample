@@ -36,7 +36,7 @@ public class Loads_TC003 extends SetUp {
 			if (bResult == true) {
 				bResult = Loads.customizeAGgrid(sActTestCaseID);
 			}
-
+			
 			if (bResult == true) {
 				bResult = false; 
 				// Add new Load
@@ -49,8 +49,8 @@ public class Loads_TC003 extends SetUp {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
-						bResult = Loads.LoadsWebTable(6, sActTestCaseID);
-						
+						//bResult = Loads.LoadsWebTableForDispatch(6, sActTestCaseID);
+						Loads.SelectRecord();
 						LoadsPage.DuplicateBtn().click();
 						Loads.EnterCopyDetails(sActTestCaseID, "Open");
 						Loads.SelectFirstRecord();
@@ -60,22 +60,22 @@ public class Loads_TC003 extends SetUp {
 						Loads.SelectRecord();
 						
 						/* Generate invoice for non-Scoular load */
-						LoadsPage.GenerateBtn().click();
+						/*LoadsPage.GenerateBtn().click();
 						Loads.GetInvoiceNumber();
 						LoadsPage.GenerateInvoice().click();
-						Thread.sleep(10000);
+						Thread.sleep(10000);*/
 						
-						/*LoadsPage.Submit().click();
+						LoadsPage.Submit().click();
 						Loads.GetInvoiceNumber();
 						if(!(sInvoiceNumber.equalsIgnoreCase("NA"))) {
-							LoadsPage.eGenerateInvoice().click();
+							//LoadsPage.eGenerateInvoice().click();
 							Thread.sleep(1000);
 							LoadsPage.SubmitLoad().click();
 							
 							Thread.sleep(10000);
 							//bResult = Loads.LoadsWebTable(5, sActTestCaseID);
 							
-						}*/
+						}
 						
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 
@@ -90,6 +90,11 @@ public class Loads_TC003 extends SetUp {
 							bResult = Loads.customizeAGgrid(sActTestCaseID,4);
 							Loads.VerifyStatus("Submitted");
 							Loads.SelectRecord();
+							
+							bResult = Loads.ViewPDF(sActTestCaseID);
+							bResult = Loads.ExportSelectedData(sActTestCaseID);
+							Loads.SelectRecord();
+							
 							LoadsPage.DuplicateBtn().click();
 							Loads.EnterCopyDetails(sActTestCaseID, "Submitted");
 							//Loads.SelectRecord();

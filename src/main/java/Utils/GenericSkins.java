@@ -255,7 +255,10 @@ public class GenericSkins {
 	protected static String sGenericOrigin="NA";
 	protected static String sGenericShipperName="NA";
 	protected static String sGenericCommodityName="NA";
-
+	protected static String sToEmail="NA";
+	protected static String  fromEmailID = "NA";
+	protected static String  emailUsername = "NA";
+	protected static String  emailPassword = "NA";
 	
 	protected static WebDriverWait wait;
 
@@ -808,7 +811,7 @@ public class GenericSkins {
 	// _____________________________Method to read file
 	// config.xml___________________________________________________________________________
 
-	protected static void LoadSystemIndependencyConfig() {
+	/*protected static void LoadSystemIndependencyConfig() {
 
 		sAUTPath = ReadSystemIndependncyFile("AUTPath");
 		sProjectName = ReadSystemIndependncyFile("ProjectName");
@@ -824,7 +827,28 @@ public class GenericSkins {
 		GlobalAdminUserName = ReadSystemIndependncyFile("GlobalAdminUserName");
 		GlobalAdminPassword = ReadSystemIndependncyFile("GlobalAdminPassword");
 
-	}
+	}*/
+	protected static void LoadSystemIndependencyConfig() {
+
+		sAUTPath = ReadSystemIndependncyFile("AUTPath");
+		sProjectName = ReadSystemIndependncyFile("ProjectName");
+		sBrowserName = ReadSystemIndependncyFile("LocalBrowserName");
+		sScreenShotfor = ReadSystemIndependncyFile("CaptureScreenShot");
+		sRunReference = ReadSystemIndependncyFile("RunReference");
+		sRunReferenceFlag = ReadSystemIndependncyFile("RunReferenceFlag");
+		sReportsDBURL = ReadSystemIndependncyFile("ReportsDBURL");
+		sReportsDBJDBCDriver = ReadSystemIndependncyFile("ReportsDBJDBCDriver");
+		sReportsDBName = ReadSystemIndependncyFile("ReportsDBName");
+		sReportsDBUserName = ReadSystemIndependncyFile("ReportsDBUserName");
+		sReportsDBPassword = ReadSystemIndependncyFile("ReportsDBPassword");
+		GlobalAdminUserName = ReadSystemIndependncyFile("GlobalAdminUserName");
+		GlobalAdminPassword = ReadSystemIndependncyFile("GlobalAdminPassword");
+		sToEmail = ReadSystemIndependncyFile("ToEmail");
+		fromEmailID = ReadSystemIndependncyFile("FromEmail");
+		emailUsername = ReadSystemIndependncyFile("EmailUsername");
+		emailPassword = ReadSystemIndependncyFile("EmailPassword");
+
+		}
 
 	// _______________________________Method to create
 	// file____________________________________________________

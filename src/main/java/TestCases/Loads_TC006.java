@@ -43,12 +43,13 @@ public class Loads_TC006 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTable(10, sActTestCaseID);
+					bResult = Loads.LoadsWebTableForDispatch(10, sActTestCaseID);
 					if (bResult == true) {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
-						bResult = Loads.LoadsWebTable(10, sActTestCaseID);
+						//bResult = Loads.LoadsWebTableForDispatch(10, sActTestCaseID);
+						Loads.SelectRecord();
 						
 						// Generate invoice load 
 						LoadsPage.Submit().click();
@@ -58,7 +59,7 @@ public class Loads_TC006 extends SetUp {
 						LoadsPage.SubmitLoad().click();
 						Thread.sleep(10000);
 						
-						bResult = Loads.LoadsWebTable(11, sActTestCaseID);
+						bResult = Loads.LoadsWebTableForDispatch(11, sActTestCaseID);
 						if(bResult) {
 							bResult = false;
 							bResult = TestActions.LogOut();
@@ -75,14 +76,14 @@ public class Loads_TC006 extends SetUp {
 						Loads.VerifyStatus("Submitted");
 						Loads.SelectRecord();
 						
-						bResult = Loads.ViewPDF(sActTestCaseID);
+						/*bResult = Loads.ViewPDF(sActTestCaseID);
 						if(bResult == true) {
 							bResult = false;
 							bResult = Loads.ExportSelectedData(sActTestCaseID);
 							//sActualResult="Load able to download from View PDF";
 						}
 						
-						Loads.SelectRecord();
+						Loads.SelectRecord();*/
 						LoadsPage.eEdit().click();
 						Loads.ReturnedInvoice();
 						LoadsPage.ViewAll().click();

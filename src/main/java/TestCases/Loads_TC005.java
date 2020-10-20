@@ -46,13 +46,14 @@ public class Loads_TC005 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTableForDispatch(8, sActTestCaseID);
+					bResult = Loads.LoadsWebTable(8, sActTestCaseID);
 					if (bResult == true) {
 						LoadsPage.eEdit().click();
 						Thread.sleep(5000);
 						LoadsPage.DispatchBtn().click();
 						Thread.sleep(5000);
-						bResult = Loads.LoadsWebTableForDispatch(9, sActTestCaseID);
+						//bResult = Loads.LoadsWebTableForDispatch(9, sActTestCaseID);
+						Loads.SelectRecord();
 															
 					}	
 					sActualResult = "Dispatch sent successfully and carrier has control over load.";
@@ -74,7 +75,7 @@ public class Loads_TC005 extends SetUp {
 	}
 	@DataProvider
 	public Object[][] getData() throws Exception {
-		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin");
+		Object[][] data = TestDataImport.readExcel(sTestDataPath,"Login.xlsx","MultiLogin2");
 		return data;
 		
 	}

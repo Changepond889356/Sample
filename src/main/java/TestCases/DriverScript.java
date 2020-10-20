@@ -164,6 +164,7 @@ break;
 		suite.setFileName("myTemp.xml");
 		createXmlFile(suite);
 		tng.run();
+		
 
 
 	}
