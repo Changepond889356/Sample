@@ -855,7 +855,7 @@ public class Loads extends GenericSkins {
 						}
 
 						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
-						if (iDisplayedcnt == sData.length) {
+						//if (iDisplayedcnt == sData.length) {
 							int iCheckBoxcnt = 0;
 							for (WebElement eCheckBox : eCheckBoxes) {
 								iCheckBoxcnt++;
@@ -880,9 +880,9 @@ public class Loads extends GenericSkins {
 
 							sActualResult = "Webtable validated successfully";
 							break;
-						} else {
+						/*} else {
 							sActualResult = "Record not found";
-						}
+						}*/
 
 					}
 					// List<>
@@ -1466,8 +1466,8 @@ public class Loads extends GenericSkins {
 				sSHipper=sGenericShipperName;
 			}
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
-			sTestStepData = sLoadDate + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
-					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper +
+			sTestStepData = sLoadDate + ";" + sSHipperContact + ";"  + sStatus + ";"
+					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper ++ sCarrier + ";"
 			
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
 				try {

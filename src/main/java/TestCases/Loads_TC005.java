@@ -46,7 +46,7 @@ public class Loads_TC005 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTable(8, sActTestCaseID);
+					bResult = Loads.LoadsWebTableForDispatch(8, sActTestCaseID);
 					if (bResult == true) {
 						LoadsPage.eEdit().click();
 						Thread.sleep(5000);

@@ -59,7 +59,7 @@ public class Loads_TC006 extends SetUp {
 						LoadsPage.SubmitLoad().click();
 						Thread.sleep(10000);
 						
-						bResult = Loads.LoadsWebTableForDispatch(11, sActTestCaseID);
+						//bResult = Loads.LoadsWebTableForDispatch(11, sActTestCaseID);
 						if(bResult) {
 							bResult = false;
 							bResult = TestActions.LogOut();

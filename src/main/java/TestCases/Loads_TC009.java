@@ -39,7 +39,7 @@ public class Loads_TC009 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTable(15, sActTestCaseID);
+					bResult = Loads.LoadsWebTableForDispatch(15, sActTestCaseID);
 					
 					if(bResult == true) {
 						bResult = Loads.ImportFile(sActTestCaseID, "ImportSheetShipperUser");

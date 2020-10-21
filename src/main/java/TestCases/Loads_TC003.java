@@ -44,7 +44,7 @@ public class Loads_TC003 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTable(6, sActTestCaseID);
+					bResult = Loads.LoadsWebTableForDispatch(6, sActTestCaseID);
 					if (bResult == true) {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
