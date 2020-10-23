@@ -260,7 +260,7 @@ public class Users extends GenericSkins {
 								 }
 								 break;
 							 }
-
+						 }
 							 System.out.println("sActualName:" + sActualName + " Name:" + sName);
 							 System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
 							 System.out.println("sActualPhone:" + sActualPhone + " Phone:" + sPhone);
@@ -413,7 +413,7 @@ public class Users extends GenericSkins {
 								 }
 								 break;
 							 }
-						 }
+						 //}
 						 if (bResult == true) {
 							 sActualResult = "WebTable Validated successfully";
 							 break;

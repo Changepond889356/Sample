@@ -214,6 +214,8 @@ public class Loads extends GenericSkins {
 						action.sendKeys(Keys.ENTER).build().perform();
 						Thread.sleep(2000);
 						LoadsPage.eSave().click();
+						Thread.sleep(3000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 					case "DRIVER":
@@ -224,6 +226,8 @@ public class Loads extends GenericSkins {
 						action1.sendKeys(Keys.ENTER).build().perform();
 						Thread.sleep(2000);
 						LoadsPage.eSave().click();
+						Thread.sleep(3000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 					case "ORIGIN WEIGHT":
@@ -1308,6 +1312,7 @@ public class Loads extends GenericSkins {
 		Thread.sleep(1000);
 		try {
 			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span)[1]")).click();
+			Thread.sleep(1000);
 		}catch(Exception e) {
 			
 		}
@@ -1587,7 +1592,7 @@ public class Loads extends GenericSkins {
 									eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
 									Thread.sleep(1000);
 									try {
-										driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+										driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 										LoadsPage.eEdit().isDisplayed();
 
 									} catch (Exception error_child) {
@@ -1719,6 +1724,7 @@ public class Loads extends GenericSkins {
 						}
 						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
 						//driver.findElement(By.xpath("//span[contains(text(),'.xlsx')]")).click();
+						Thread.sleep(3000);
 						driver.findElement(By.xpath("//button[@data-cy='submit-export-loads-button']")).click();
 						Thread.sleep(5000);
 						sActualResult = "Download Successfully";
@@ -1745,6 +1751,7 @@ public class Loads extends GenericSkins {
 						//driver.findElement(By.xpath("//input[@id='email']")).clear();
 						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
 						//driver.findElement(By.xpath("//span[contains(text(),'.csv')]")).click();
+						Thread.sleep(3000);
 						driver.findElement(By.xpath("//button[@data-cy='submit-export-loads-button']")).click();
 						Thread.sleep(5000);
 						sActualResult = "Email sent Successfully";
@@ -1770,6 +1777,7 @@ public class Loads extends GenericSkins {
 		action1.sendKeys(Keys.ENTER).build().perform();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//input[@id='return-message']")).sendKeys("Load is returned to Carrier");
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//button//span[contains(text(),'Send')]")).click();
 		Thread.sleep(2000);
 		LoadsPage.eSave().click();

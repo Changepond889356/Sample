@@ -72,6 +72,7 @@ public class Loads_TC006 extends SetUp {
 						Thread.sleep(10000);
 						
 						LoadsPage.SubmittedView().click();
+						Thread.sleep(3000);
 						bResult = Loads.customizeAGgrid(sActTestCaseID,6);
 						Loads.VerifyStatus("Submitted");
 						Loads.SelectRecord();
