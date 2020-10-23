@@ -726,7 +726,7 @@ public class Loads extends GenericSkins {
 			//sOrigin = sGenericOrigin;
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
 			sTestStepData = sLoadDate + ";" + sSHipper + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
-					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
+					+ sOrigin + ";" ;//+ sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
 				try {
 					ArrayList<String> aActualRecordCell = new ArrayList();
@@ -1466,8 +1466,8 @@ public class Loads extends GenericSkins {
 				sSHipper=sGenericShipperName;
 			}
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
-			sTestStepData = sLoadDate + ";" + sSHipperContact + ";"  + sStatus + ";"
-					+ sOrigin + ";" + sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper ++ sCarrier + ";"
+			sTestStepData = sLoadDate + ";" + sSHipperContact + ";"+ sCarrier + ";"  + sStatus + ";"
+					+ sOrigin + ";" + sDestination + ";" ;//+ sRate + ";" + sRateUOM + ";" + sCommodity + ";";  //";" + sSHipper ++ sCarrier + ";"
 			
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && (iDataRow == iRow)) {
 				try {

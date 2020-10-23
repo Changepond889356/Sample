@@ -383,9 +383,9 @@ public class Carrier extends GenericSkins {
 
 	public static void OpenSettings() {
 		try {
-			driver.findElement(By.xpath("//div[@data-cy='nav-menu']//button")).click();   //.//span[@class='MuiButton-label']
+			driver.findElement(By.xpath("//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']")).click();   //.//span[@class='MuiButton-label']//div[@data-cy='nav-menu']//button
 			Thread.sleep(1000);
-			driver.findElement(By.xpath("//li[contains(text(),'Settings')]")).click();  //.//li[text()='Log Out']
+			driver.findElement(By.xpath("//ul//div[contains(text(),'Settings')]")).click();  //.//li[text()='Log Out']//li[contains(text(),'Settings')]
 			Thread.sleep(5000);
 			
 		} catch (Exception error) {
