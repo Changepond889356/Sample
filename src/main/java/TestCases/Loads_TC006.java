@@ -89,7 +89,7 @@ public class Loads_TC006 extends SetUp {
 						Loads.ReturnedInvoice();
 						LoadsPage.ViewAll().click();
 						//bResult = Loads.LoadsWebTable(12, sActTestCaseID);
-						
+						bResult = TestActions.LogOut();
 						sActualResult = "Load Returned successfully";
 					}
 
