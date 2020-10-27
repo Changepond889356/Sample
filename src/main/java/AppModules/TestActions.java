@@ -134,8 +134,9 @@ public class TestActions extends GenericSkins {
 		boolean bResult = false;
 		try {
 			Thread.sleep(2000);
-			GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']"));
-			driver.findElement(By.xpath("//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']")).click();   //.//span[@class='MuiButton-label']  //div[@data-cy='nav-menu']//button
+			GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button"));
+			GenericSkins.WaitForElementTobeClickable(By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button")); //button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']
+			driver.findElement(By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button")).click();   //.//span[@class='MuiButton-label']  //div[@data-cy='nav-menu']//button
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//ul//div[contains(text(),'Log Out')]")).click();  //.//li[text()='Log Out']   //li[@data-cy='menu-logout']
 			System.out.println("Logout Happen");

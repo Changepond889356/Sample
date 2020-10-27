@@ -155,7 +155,7 @@ public class Loads extends GenericSkins {
 					}
 
 					LoadsPage.eSave().click();
-					WebDriverWait wait = new WebDriverWait(driver, 10);
+					WebDriverWait wait = new WebDriverWait(driver, 30);
 					wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(
 							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[1]/div[1]/div[3]/div")));
 					sActualResult = "Added new load successfully";

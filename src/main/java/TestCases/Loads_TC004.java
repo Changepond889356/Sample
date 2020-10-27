@@ -84,7 +84,7 @@ public class Loads_TC004 extends SetUp {
 				LoadsPage.ApprovedView().click();
 				bResult = Loads.customizeAGgrid(sActTestCaseID,6);
 				Loads.VerifyStatus("Approved");
-				
+				bResult = TestActions.LogOut();
 				sActualResult = "Load Approved successfully";
 			}
 		} catch (Exception error) {
