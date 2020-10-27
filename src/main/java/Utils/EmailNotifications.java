@@ -55,7 +55,7 @@ public class EmailNotifications extends GenericSkins{
 		//Email body content
 		//sContent=htmlview();
 		//sContent = sRunReference+" execution has completed. Please find attached report!";
-		sContent = "Dear All,<br><br> Regression scripts Run "+sRunReference+" execution has completed. <br><br> Please find attached report! <br><br>"
+		sContent = "Dear All,<br><br> Regression scripts "+sRunReference+" execution has completed. <br><br> Please find attached report! <br><br>"
 				+ "<br><br> ******************** Auto Generated Email ******************** ";
 		
 		//sContent=sContent+"\n\n Regards,\n Faheem Muhammad.";
