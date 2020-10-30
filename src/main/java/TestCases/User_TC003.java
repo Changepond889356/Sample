@@ -54,7 +54,7 @@ public class User_TC003 extends SetUp {
 		} catch (Exception error) {
 			sActualResult = error.getMessage();
 		}
-		TestActions.CloseApplication();
+		//TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 
 	}
