@@ -9,6 +9,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -76,10 +79,29 @@ public class TestActions extends GenericSkins {
 			case "FIREFOX":
 
 				System.setProperty("webdriver.gecko.driver", sBrowsserDriverPath + "geckodriver.exe");
-				// driver = new MarionetteDriver();
+				FirefoxProfile profile = new FirefoxProfile();
+				DesiredCapabilities capabilities  = DesiredCapabilities.firefox();
+				profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/csv,application/xls,application/xlsx, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel,application/x-msexcel,application/excel,application/x-excel, text/html, text/csv, text/plain, application/msword, application/octet-stream doc xlsx pdf txt");
+	            profile.setPreference("browser.helperApps.neverAsk.openFile", "application/csv,application/xls,application/xlsx, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel,application/x-msexcel,application/excel,application/x-excel, text/html, text/csv, text/plain, application/msword, application/octet-stream doc xlsx pdf txt");
+	           	profile.setPreference("browser.download.manager.showWhenStarting", false );
+	            profile.setPreference("browser.download.manager.focusWhenStarting", false);
+	            profile.setPreference("browser.download.useDownloadDir", true);
+	            profile.setPreference("browser.helperApps.alwaysAsk.force", false);
+	            profile.setPreference("browser.download.manager.closeWhenDone", true);
+	            profile.setPreference("browser.download.manager.showAlertOnComplete", false);
+	            profile.setPreference("browser.download.manager.useWindow", false);
+	            profile.setPreference("services.sync.prefs.sync.browser.download.manager.showWhenStarting", false);
+	            profile.setPreference("pdfjs.disabled", true); 
+	            capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+	            driver = new FirefoxDriver(capabilities);
+				driver.manage().deleteAllCookies();
+				break;
+			
+			case "EDGE":
+				System.setProperty("webdriver.edge.driver", sBrowsserDriverPath + "msedgedriver.exe");
+				driver = new EdgeDriver();
 				break;
 			}
-
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
 			System.out.println("Application URL;" + sAUTPath);
