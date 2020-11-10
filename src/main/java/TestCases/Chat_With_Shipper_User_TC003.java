@@ -14,7 +14,7 @@ import Utils.TestDataImport;
 public class Chat_With_Shipper_User_TC003 extends SetUp {
 	
 	@Test(dataProvider = "getData")
-	public void chatFeatures(String sAcccountType, String sUserName, String sPassword) throws Exception {
+	public void chatFeatures(String sAcccountType, String sName, String sUserName, String sPassword) throws Exception {
 		
 		String sTestCaseID = "Chat_With_Shipper_User_TC003";
 		test = extent.createTest(sAcccountType + "_" + sTestCaseID );
@@ -27,34 +27,61 @@ public class Chat_With_Shipper_User_TC003 extends SetUp {
 			TestActions.LaunchApplication();
 
 			bResult = TestActions.Login(sUserName, sPassword);
-			
-			//Chat Invite 
 			if (bResult == true) {				
-				bResult = Chat.ChatValidation(sTestCaseID, 11); 
+				//Chat Invite 
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 17); 				
+
+				if (bResult == true) {				
+					//Send Message
+					bResult = Chat.ChatValidation(sTestCaseID, sName,18); 
+					if(bResult) {
+						bResult = TestActions.LogOut();
+					}
+				}
 			}
 			
-			//Send Message
-			if (bResult == true) {				
-				bResult = Chat.ChatValidation(sTestCaseID, 12); 
+			bResult = TestActions.Login(sTestCaseID);
+			if (bResult == true) {	
+				//Verify Message
+				bResult = Chat.ChatValidation(sTestCaseID, sName,19); 
+
+				if (bResult == true) {				
+					//Send Image 
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 20); 
+					if(bResult) {
+						bResult = TestActions.LogOut();
+					}
+				}
 			}
 			
-			//Send Image 
-			if (bResult == true) {				
-				bResult = Chat.ChatValidation(sTestCaseID, 13); 
+			bResult = TestActions.Login(sUserName, sPassword);
+			if (bResult == true) {	
+				//Verify Image
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 21); 
+								
+				if (bResult == true) {				
+					//Send Document
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 22); 
+					if(bResult) {
+						bResult = TestActions.LogOut();
+					}
+				}
 			}
 			
-			//Send Document
-			if (bResult == true) {				
-				bResult = Chat.ChatValidation(sTestCaseID, 14); 
+			bResult = TestActions.Login(sTestCaseID);
+			if (bResult == true) {	
+				//Verify Document
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 23); 
+
+				if (bResult == true) {
+					//Quit Chat
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 24); 
+					if(bResult) {
+						bResult = TestActions.LogOut();
+					}
+				}
 			}
-			
-			//Close Chat
-			if (bResult == true) {				
-				bResult = Chat.ChatValidation(sTestCaseID, 15); 
-			}
-			
 			sActualResult = "Chat Validated successfully";
-			bResult = TestActions.LogOut();
 			
 		} catch (Exception error) {
 			sActualResult = error.getMessage();
@@ -76,6 +103,5 @@ public class Chat_With_Shipper_User_TC003 extends SetUp {
 		return data;
 		
 	}
-
 }
 

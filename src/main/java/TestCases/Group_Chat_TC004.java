@@ -11,17 +11,17 @@ import AppModules.TestActions;
 import Utils.SetUp;
 import Utils.TestDataImport;
 
-public class Chat_With_Shipper_Admin_TC002 extends SetUp {
+public class Group_Chat_TC004 extends SetUp {
 	
 	@Test(dataProvider = "getData")
 	public void chatFeatures(String sAcccountType,String sName, String sUserName, String sPassword) throws Exception {
 		
-		String sTestCaseID = "Chat_With_Shipper_Admin_TC002";
-		test = extent.createTest(sAcccountType + "_" + sTestCaseID);
+		String sTestCaseID = "Group_Chat_TC004";
+		test = extent.createTest(sAcccountType + "_" +sTestCaseID);
 		getTestCaseExpectedResult(sTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sTestCaseID);
 		boolean bResult = false;
-		
+
 		try {
 			// Launch application
 			TestActions.LaunchApplication();
@@ -29,11 +29,11 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 			bResult = TestActions.Login(sUserName, sPassword);
 			if (bResult == true) {				
 				//Chat Invite 
-				bResult = Chat.ChatValidation(sTestCaseID, sName, 9); 				
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 25); 				
 
 				if (bResult == true) {				
 					//Send Message
-					bResult = Chat.ChatValidation(sTestCaseID,sName, 10); 
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 26); 
 					if(bResult) {
 						bResult = TestActions.LogOut();
 					}
@@ -43,11 +43,11 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 			bResult = TestActions.Login(sTestCaseID);
 			if (bResult == true) {	
 				//Verify Message
-				bResult = Chat.ChatValidation(sTestCaseID,sName, 11); 
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 27); 
 
 				if (bResult == true) {				
 					//Send Image 
-					bResult = Chat.ChatValidation(sTestCaseID,sName, 12); 
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 28); 
 					if(bResult) {
 						bResult = TestActions.LogOut();
 					}
@@ -57,11 +57,11 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 			bResult = TestActions.Login(sUserName, sPassword);
 			if (bResult == true) {	
 				//Verify Image
-				bResult = Chat.ChatValidation(sTestCaseID,sName, 13); 
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 29); 
 								
 				if (bResult == true) {				
 					//Send Document
-					bResult = Chat.ChatValidation(sTestCaseID,sName, 14); 
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 30); 
 					if(bResult) {
 						bResult = TestActions.LogOut();
 					}
@@ -71,11 +71,11 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 			bResult = TestActions.Login(sTestCaseID);
 			if (bResult == true) {	
 				//Verify Document
-				bResult = Chat.ChatValidation(sTestCaseID,sName, 15); 
+				bResult = Chat.ChatValidation(sTestCaseID,sName, 31); 
 
 				if (bResult == true) {
 					//Quit Chat
-					bResult = Chat.ChatValidation(sTestCaseID,sName, 16); 
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 32); 
 					if(bResult) {
 						bResult = TestActions.LogOut();
 					}

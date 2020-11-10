@@ -56,5 +56,14 @@ public class ChatPage extends GenericSkins {
 		}
 		return element;
 	}
+	public static WebElement leaveChatButton() {
+		try {
+			element = driver.findElement(By.xpath("//div[contains(text(),'Leave Chat')]"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			System.out.println("Chat Button : " +sActualResult);
+		}
+		return element;
+	}
 
 }
