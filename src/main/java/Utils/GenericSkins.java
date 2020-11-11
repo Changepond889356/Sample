@@ -950,5 +950,13 @@ public class GenericSkins {
 		wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.elementToBeClickable(element));			
 	}
-	
+	protected static void WindowsHandle(String sFileName) throws Exception {
+		try {
+			Thread.sleep(2000);
+			Runtime.getRuntime().exec(sTestDataPath + "Docs//" + sFileName + ".exe");
+			sActualResult = "Handled windows";
+		} catch (Exception Error_Message) {
+			sActualResult = Error_Message.getMessage();
+		}
+	}
 }
