@@ -84,7 +84,7 @@ public class GenericSkins {
 	protected static int iColRegpackTestCasesFailed;
 	protected static int iColRegpackFailedTestCases;
 	protected static int iColRegpackExecutionDurion;
-	// protected static String sSheetRegressionPacks;
+	// protected static String sSheetRegressionPacks;1
 	protected static int iColRegPackTCID;
 	protected static int iColRegPackTCStatus;
 	protected static int iColRegPackTCDesc;
