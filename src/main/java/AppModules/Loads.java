@@ -66,6 +66,8 @@ public class Loads extends GenericSkins {
 					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 					LocalDateTime t1 = LocalDateTime.now();
 					sLoadDate = sLoadDate.replace("Current Date", t1.format(dateandtime));
+					String[] currentDate = t1.format(dateandtime).split("/");
+					String sDay = currentDate[1];
 					LoadsPage.eMenuLoads().click();
 					Thread.sleep(2000);
 					System.out.println("Clicking on add new load");
@@ -83,7 +85,8 @@ public class Loads extends GenericSkins {
 					}
 
 					Thread.sleep(2000);
-					LoadsPage.eAddNewLoadDate().sendKeys(sLoadDate);
+					//LoadsPage.eAddNewLoadDate().sendKeys(sLoadDate);
+					LoadsPage.LoadDatePicker(sDay);
 					ac = new Actions(driver);
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(2000);

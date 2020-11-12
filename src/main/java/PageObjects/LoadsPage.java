@@ -1,5 +1,7 @@
 package PageObjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import Utils.GenericSkins;
@@ -388,5 +390,19 @@ public static WebElement Submit() {
 		}
 		Thread.sleep(4000);
 		return element;
+	}
+	
+	public static void LoadDatePicker(String sDay) throws InterruptedException {
+		driver.findElement(By.xpath(
+				"(.//div[@class='react-datepicker-wrapper'])[1]/div[1]/div/div/input")).click();
+		Thread.sleep(500);
+		List<WebElement> daylist = driver.findElements(By.xpath("//div[@class='react-datepicker__month']//div"));
+		for(WebElement day: daylist) {
+			if(day.getText().equalsIgnoreCase(sDay)) {
+				day.click();
+				Thread.sleep(1000);
+				break;
+			}
+		}
 	}
 }
