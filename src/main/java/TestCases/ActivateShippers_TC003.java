@@ -80,6 +80,10 @@ public class ActivateShippers_TC003 extends SetUp {
 			sActualResult = error.getMessage();
 		}
 
+		aHeaderNumbers = null;
+		aHeaderNames = null;
+		aHeaderNumbers = new ArrayList();
+		aHeaderNames = new ArrayList();
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 		// ResultComparision();

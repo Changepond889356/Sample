@@ -41,7 +41,7 @@ public class EditShippers_TC002 extends SetUp {
 							if (bResult == true) {
 								bResult = Loads.addNewLoad(sTestCaseID);
 								if (bResult == true) {
-									bResult = Loads.LoadsWebTable(11, sTestCaseID);
+									bResult = Loads.LoadsWebTable(16, sTestCaseID);
 									if (bResult == true) {
 
 										sActualResult = "Shipper edited successfully";
@@ -59,7 +59,10 @@ public class EditShippers_TC002 extends SetUp {
 		} catch (Exception error) {
 			sActualResult = error.getMessage();
 		}
-
+		aHeaderNumbers = null;
+		aHeaderNames = null;
+		aHeaderNumbers = new ArrayList();
+		aHeaderNames = new ArrayList();
 		TestActions.CloseApplication();
 		Assert.assertEquals(sActualResult.toUpperCase().trim(), sTestCaseExpectedResult.toUpperCase().trim());
 		// ResultComparision();

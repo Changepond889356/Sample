@@ -2,6 +2,7 @@ package PageObjects;
 
 import java.util.List;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import Utils.GenericSkins;
@@ -404,5 +405,33 @@ public static WebElement Submit() {
 				break;
 			}
 		}
+	}
+
+	public static WebElement eDestRef() throws InterruptedException {
+		try {
+			element = driver.findElement(By.xpath("(//*[@id='fields-to-map']//input)[1]"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		Thread.sleep(4000);
+		return element;
+	}
+	public static WebElement eOriginRef() throws InterruptedException {
+		try {
+			element = driver.findElement(By.xpath("(//*[@id='fields-to-map']//input)[2]"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		Thread.sleep(4000);
+		return element;
+	}
+	public static WebElement eTransID() throws InterruptedException {
+		try {
+			element = driver.findElement(By.xpath("(//*[@id='fields-to-map']//input)[3]"));
+		} catch(Exception ele) {
+			sActualResult=ele.getMessage();
+		}
+		Thread.sleep(4000);
+		return element;
 	}
 }
