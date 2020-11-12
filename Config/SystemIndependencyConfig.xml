@@ -3,7 +3,7 @@
         <AUTPath>https://roger-uat.myriadapps.com/</AUTPath>
 		<LocalBrowserName>Chrome</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
-		<RunReference>Run04Nov2020</RunReference>
+		<RunReference>Run12Nov2020</RunReference>
 		<RunReferenceFlag>Yes</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
