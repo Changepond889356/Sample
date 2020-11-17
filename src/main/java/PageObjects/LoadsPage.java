@@ -434,4 +434,17 @@ public static WebElement Submit() {
 		Thread.sleep(4000);
 		return element;
 	}
+	public static WebElement eAmount() {
+		try {
+			element = driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input"));
+			element.click();
+			Thread.sleep(2000);
+			element = driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input"));
+			// element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+		}
+		return element;
+	}
 }

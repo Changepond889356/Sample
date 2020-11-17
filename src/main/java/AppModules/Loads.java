@@ -281,8 +281,107 @@ public class Loads extends GenericSkins {
 						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
+						
+					case "LOAD DATE":
+						bResult = false;
+						DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+						LocalDateTime t1 = LocalDateTime.now();
+						String[] currentDate = t1.minusDays(1).format(dateandtime).split("/");
+						String sDay = currentDate[1];
+						LoadsPage.LoadDatePicker(sDay);
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
+						bResult = true;
+						break;
+						
+					case "COMMODITY":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							LoadsPage.eCommodity().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
+						
+					case "ORIGIN":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							LoadsPage.eOrigin().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
+						
+					case "DESTINATION":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							driver.findElement(By.xpath("//*[@id='destination_uuid']")).clear();
+							LoadsPage.eDestination().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
+						
+					case "RATE":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input")).clear();
+							LoadsPage.eRateUOM().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
+					
+					case "SHIPPERCONTACT":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							LoadsPage.eShipperContact().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
+						
+					case "UOM":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							LoadsPage.eRateUOM().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
+						
+					case "AMOUNT":
+						if(!sValue.equalsIgnoreCase("NA")) {
+							bResult = false;
+							LoadsPage.eAmount().sendKeys(sValue);
+							ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							LoadsPage.eSave().click();
+							Thread.sleep(2000);
+						}
+						bResult = true;
+						break;
 					}
 
+				
 					if (bResult == true) {
 						//LoadsPage.eSave().click();
 						try {
@@ -929,10 +1028,10 @@ public class Loads extends GenericSkins {
 		driver.findElement(By.xpath("((//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input)[2]")).clear();
 		driver.findElement(By.xpath("((//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input)[2]")).sendKeys(invoiceNumber);
 		System.out.println("Invoice Number Entered");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		Actions action1 = new Actions(driver);
 		action1.sendKeys(Keys.ENTER).build().perform();
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		
 		String aStatus = driver.findElement(By.xpath("//div[@class='ag-center-cols-container']//div[@col-id='status']/div")).getText();
 		System.out.println("Status : " + aStatus);
