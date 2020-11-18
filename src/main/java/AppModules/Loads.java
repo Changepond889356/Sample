@@ -326,7 +326,7 @@ public class Loads extends GenericSkins {
 							LoadsPage.eDestination().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-						}
+						} 
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
 						bResult = true;

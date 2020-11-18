@@ -66,7 +66,7 @@ public class EditLoad_TC001 extends SetUp {
 						Loads.VerifyStatus("Submitted");
 						bResult = TestActions.LogOut();
 						
-						if(bResult) {
+						if(bResult) { 
 							bResult = TestActions.Login_GlobalAdmin();
 							LoadsPage.SubmittedView().click();
 							Thread.sleep(5000); 
