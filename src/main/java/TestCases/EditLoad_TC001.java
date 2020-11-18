@@ -43,7 +43,7 @@ public class EditLoad_TC001 extends SetUp {
 				if (bResult == true) {
 					bResult = false;
 					
-					bResult = Loads.LoadsWebTableForDispatch(6, sActTestCaseID);
+					bResult = Loads.LoadsWebTableForDispatch(19, sActTestCaseID);
 					if (bResult == true) {
 						Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
@@ -62,7 +62,7 @@ public class EditLoad_TC001 extends SetUp {
 						
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 
-						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
+						bResult = Loads.customizeAGgrid(sActTestCaseID,16);
 						Loads.VerifyStatus("Submitted");
 						bResult = TestActions.LogOut();
 						
@@ -70,7 +70,7 @@ public class EditLoad_TC001 extends SetUp {
 							bResult = TestActions.Login_GlobalAdmin();
 							LoadsPage.SubmittedView().click();
 							Thread.sleep(5000); 
-							bResult = Loads.customizeAGgrid(sActTestCaseID,4);
+							bResult = Loads.customizeAGgrid(sActTestCaseID,16);
 							Loads.VerifyStatus("Submitted");
 							Loads.SelectRecord();
 							

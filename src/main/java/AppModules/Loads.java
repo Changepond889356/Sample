@@ -300,9 +300,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eCommodity().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 						
@@ -312,9 +312,10 @@ public class Loads extends GenericSkins {
 							LoadsPage.eOrigin().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 						
@@ -325,9 +326,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eDestination().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 						
@@ -338,9 +339,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eRateUOM().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 					
@@ -350,9 +351,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eShipperContact().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 						
@@ -362,9 +363,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eRateUOM().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 						
@@ -374,9 +375,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eAmount().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							LoadsPage.eSave().click();
-							Thread.sleep(2000);
 						}
+						LoadsPage.eSave().click();
+						Thread.sleep(2000);
 						bResult = true;
 						break;
 					}
