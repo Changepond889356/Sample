@@ -75,7 +75,7 @@ public class EditLoad_TC001 extends SetUp {
 							Loads.SelectRecord();
 							
 							bResult=Loads.editLoad(sActTestCaseID);
-
+ 
 							bResult = TestActions.LogOut();
 							sActualResult = "Load Edited Successfully";
 						}

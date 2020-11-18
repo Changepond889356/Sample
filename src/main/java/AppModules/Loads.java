@@ -331,7 +331,7 @@ public class Loads extends GenericSkins {
 						Thread.sleep(2000);
 						bResult = true;
 						break;
-						
+						 
 					case "RATE":
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
