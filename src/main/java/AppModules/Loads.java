@@ -291,6 +291,7 @@ public class Loads extends GenericSkins {
 						LoadsPage.LoadDatePicker(sDay);
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						
@@ -303,6 +304,7 @@ public class Loads extends GenericSkins {
 						}
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						
@@ -316,6 +318,7 @@ public class Loads extends GenericSkins {
 
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						
@@ -329,6 +332,7 @@ public class Loads extends GenericSkins {
 						} 
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						 
@@ -342,6 +346,7 @@ public class Loads extends GenericSkins {
 						}
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 					
@@ -354,6 +359,7 @@ public class Loads extends GenericSkins {
 						}
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						
@@ -366,6 +372,7 @@ public class Loads extends GenericSkins {
 						}
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						
@@ -378,6 +385,7 @@ public class Loads extends GenericSkins {
 						}
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
+						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 					}

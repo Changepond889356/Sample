@@ -45,7 +45,7 @@ public class EditLoad_TC001 extends SetUp {
 					
 					bResult = Loads.LoadsWebTableForDispatch(19, sActTestCaseID);
 					if (bResult == true) {
-						Loads.uploadOriginTicket("Origin");
+						/*Loads.uploadOriginTicket("Origin");
 						Loads.uploadDestTicket("Destination");
 						bResult=Loads.editLoad(sActTestCaseID);
 						//bResult = Loads.LoadsWebTableForDispatch(6, sActTestCaseID);
@@ -63,19 +63,22 @@ public class EditLoad_TC001 extends SetUp {
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 
 						bResult = Loads.customizeAGgrid(sActTestCaseID,16);
-						Loads.VerifyStatus("Submitted");
+						Loads.VerifyStatus("Submitted");*/
 						bResult = TestActions.LogOut();
 						
 						if(bResult) { 
 							bResult = TestActions.Login_GlobalAdmin();
-							LoadsPage.SubmittedView().click();
-							Thread.sleep(5000); 
-							bResult = Loads.customizeAGgrid(sActTestCaseID,16);
-							Loads.VerifyStatus("Submitted");
-							Loads.SelectRecord();
-							
-							bResult=Loads.editLoad(sActTestCaseID);
- 
+							//LoadsPage.SubmittedView().click();
+							//Thread.sleep(5000); 
+							//bResult = Loads.customizeAGgrid(sActTestCaseID,16);
+							//Loads.VerifyStatus("Submitted");
+							bResult = Loads.customizeAGgrid(sActTestCaseID);
+							if(bResult) {
+								bResult = Loads.LoadsWebTableForDispatch(19, sActTestCaseID);
+							}
+							if(bResult) {
+								bResult=Loads.editLoad(sActTestCaseID);
+							}
 							bResult = TestActions.LogOut();
 							sActualResult = "Load Edited Successfully";
 						}
