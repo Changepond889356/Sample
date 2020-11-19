@@ -36,13 +36,13 @@ public class Loads extends GenericSkins {
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
-		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		// System.out.println("Number of rows:"+iRowCnt);
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
-			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sCarrier = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sLoadDate = TestDataImport.GetCellData(sSheetName, 2, iRow);
@@ -194,13 +194,13 @@ public class Loads extends GenericSkins {
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
-		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		System.out.println("Number of rows:" + iRowCnt);
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
-			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sField = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sValue = TestDataImport.GetCellData(sSheetName, 2, iRow);
@@ -296,8 +296,12 @@ public class Loads extends GenericSkins {
 						break;
 						
 					case "COMMODITY":
+						Thread.sleep(3000);
 						if(!sValue.equalsIgnoreCase("NA")) {
-							bResult = false;
+							//bResult = false;
+							System.out.println("Commodity " + sValue);
+							GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='commodity_uuid']//input"));
+							Thread.sleep(5000);
 							LoadsPage.eCommodity().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
@@ -309,8 +313,15 @@ public class Loads extends GenericSkins {
 						break;
 						
 					case "ORIGIN":
+						Thread.sleep(3000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
+							driver.findElement(By.xpath("//*[@id=\"origin_uuid\"]")).clear();
+							String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
+							sValue = sValue+"_" + datetime;
+							//System.out.println("sOrigin "+ sValue);
+							//TestDataImport.SetExcelFile(sTestDataPath, sFileName);
+							//TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sValue, 6, sTestCaseID);
 							LoadsPage.eOrigin().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
@@ -319,10 +330,12 @@ public class Loads extends GenericSkins {
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
 						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
+						//bResult = Loads.LoadsWebTableForDispatch(19, sTestCaseID);
 						bResult = true;
 						break;
 						
 					case "DESTINATION":
+						Thread.sleep(3000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							driver.findElement(By.xpath("//*[@id='destination_uuid']")).clear();
@@ -337,10 +350,12 @@ public class Loads extends GenericSkins {
 						break;
 						 
 					case "RATE":
+						Thread.sleep(3000);
 						if(!sValue.equalsIgnoreCase("NA")) {
-							bResult = false;
+							System.out.println("Rate " + sValue);
 							driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input")).clear();
-							LoadsPage.eRateUOM().sendKeys(sValue);
+							Thread.sleep(3000);
+							LoadsPage.eRate().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
 						}
@@ -351,6 +366,7 @@ public class Loads extends GenericSkins {
 						break;
 					
 					case "SHIPPERCONTACT":
+						Thread.sleep(3000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							LoadsPage.eShipperContact().sendKeys(sValue);
@@ -364,6 +380,7 @@ public class Loads extends GenericSkins {
 						break;
 						
 					case "UOM":
+						Thread.sleep(3000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							LoadsPage.eRateUOM().sendKeys(sValue);

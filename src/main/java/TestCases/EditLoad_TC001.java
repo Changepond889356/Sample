@@ -45,27 +45,9 @@ public class EditLoad_TC001 extends SetUp {
 					
 					bResult = Loads.LoadsWebTableForDispatch(19, sActTestCaseID);
 					if (bResult == true) {
-						/*Loads.uploadOriginTicket("Origin");
-						Loads.uploadDestTicket("Destination");
-						bResult=Loads.editLoad(sActTestCaseID);
-						//bResult = Loads.LoadsWebTableForDispatch(6, sActTestCaseID);
 						
-						Loads.SelectRecord();						
-						LoadsPage.Submit().click();
-						Loads.GetInvoiceNumber();
-						if(!(sInvoiceNumber.equalsIgnoreCase("NA"))) {
-							Thread.sleep(1000);
-							LoadsPage.SubmitLoad().click();
-							Thread.sleep(10000);
-							//bResult = Loads.LoadsWebTable(5, sActTestCaseID);
-						}
-						
-						LoadsPage.SubmittedView().click();
-						Thread.sleep(5000); 
-						bResult = Loads.customizeAGgrid(sActTestCaseID,16);
-						Loads.VerifyStatus("Submitted");*/
 						bResult = TestActions.LogOut();
-						
+			bResult = true;
 						if(bResult) { 
 							bResult = TestActions.Login_GlobalAdmin();
 							//LoadsPage.SubmittedView().click();
