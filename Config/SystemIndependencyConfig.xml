@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
 	    <ProjectName>ROGER</ProjectName>
         <AUTPath>https://roger-uat.myriadapps.com/</AUTPath>
-		<LocalBrowserName>Chrome</LocalBrowserName>
+		<LocalBrowserName>Edge</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
 		<RunReference>Run24Nov2020</RunReference>
 		<RunReferenceFlag>Yes</RunReferenceFlag>
