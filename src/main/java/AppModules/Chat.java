@@ -71,7 +71,7 @@ public class Chat extends GenericSkins {
 				case "SEND_MESSAGE":
 					System.out.println("Original msg : "+sSendMsg);
 					ChatPage.enterMessage().sendKeys(sSendMsg);
-					Thread.sleep(500);
+					Thread.sleep(1000);
 					ChatPage.sendMessageButton().click();
 					Thread.sleep(5000);
 					GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
@@ -135,7 +135,7 @@ public class Chat extends GenericSkins {
 					WindowsHandle(sImgAtt);
 					Thread.sleep(5000);
 					GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
-					Thread.sleep(2000);
+					Thread.sleep(5000);
 					ChatPage.sendMessageButton().click();
 					Thread.sleep(5000);
 					int iSum = iTotalMsg.size()+1;
@@ -181,7 +181,7 @@ public class Chat extends GenericSkins {
 					WindowsHandle(sDocAtt);
 					Thread.sleep(5000);
 					GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
-					Thread.sleep(2000);
+					Thread.sleep(5000);
 					ChatPage.sendMessageButton().click();
 					Thread.sleep(5000);
 					int sSum = dTotalMsg.size()+1;
