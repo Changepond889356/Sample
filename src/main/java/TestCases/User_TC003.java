@@ -38,12 +38,8 @@ public class User_TC003 extends SetUp {
 					if (bResult == true) {
 						bResult = TestActions.Login(sTestCaseID);
 						if (bResult == true) {
-							//bResult = TestActions.LogOut();
-							if (bResult == true) {
 								sActualResult = "Invitation Accepted successfully";
 								TestActions.LogOut();
-
-							}
 						}
 					}
 

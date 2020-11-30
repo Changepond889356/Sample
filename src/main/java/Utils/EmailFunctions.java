@@ -188,19 +188,21 @@ public class EmailFunctions extends GenericSkins {
             JsonPath jp = new JsonPath(message.toString());
             String subject = jp.getString("payload.headers.find { it.name == 'Subject' }.value");
             String body = new String(Base64.getUrlDecoder().decode(jp.getString("payload.parts[0].body.data")));
+            System.out.println("Email Body : " + body);
             String link = null;
             String arr[] = body.split("=");
             for(String s: arr) {
                 s = s.trim();
                 if(s.contains("http://roger-uat.myriadapps.com/api/v1/emails/registration")) {
                     link = s.trim();
+                    System.out.println("Link - " + link);
                     break;
                 }
             }
             
          
             String Token = link.concat("=email&amp;associated_token=");
-            String TokenLink[] = Token.split(">");
+            String TokenLink[] = Token.split("\"");
             link = TokenLink[1];
             HashMap<String, String> hm = new HashMap<String, String>();
             hm.put("subject", subject);
