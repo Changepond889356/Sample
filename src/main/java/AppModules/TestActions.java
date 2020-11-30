@@ -288,7 +288,7 @@ public class TestActions extends GenericSkins {
 					LoginPage.eForgotPassword().click();
 					Thread.sleep(40000);
 					driver.close();
-					HashMap<String, String> hm = EmailFunctions.getGmailData(sUserName,
+					HashMap<String, String> hm = EmailFunctions.getGmailDataReset(sUserName,
 							"subject:Reset Password Notification");
 
 					System.out.println(hm.get("subject"));

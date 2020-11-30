@@ -279,6 +279,49 @@ public class EmailFunctions extends GenericSkins {
                 return messages;
             }
         }
+		public static HashMap<String, String> getGmailDataReset(String mailID, String query) throws IOException {
+       
+    	
+    	System.out.println("Before mail id");
+    		setApplicationProperties(mailID);
+    		
+    		System.out.println("after mail id");
+    	
+    		
+    		try {   	
+        	      	
+            Gmail service = getService();
+            List<Message> messages = listMessagesMatchingQuery(service, USER_ID, query);
+            Message message = getMessage(service, USER_ID, messages, 0);
+            JsonPath jp = new JsonPath(message.toString());
+            String subject = jp.getString("payload.headers.find { it.name == 'Subject' }.value");
+            String body = new String(Base64.getUrlDecoder().decode(jp.getString("payload.parts[0].body.data")));
+            System.out.println("Email Body : " + body);
+            String link = null;
+            String arr[] = body.split("=");
+            for(String s: arr) {
+                s = s.trim();
+                if(s.contains("http://roger-uat.myriadapps.com/reset-password/")) {
+                    link = s.trim();
+                    System.out.println("Link - " + link);
+                    break;
+                }
+            }
+            
+         
+           // String Token = link.concat("=email&amp;associated_token=");
+            String TokenLink[] = link.split("\"");
+            link = TokenLink[1];
+            HashMap<String, String> hm = new HashMap<String, String>();
+            hm.put("subject", subject);
+            hm.put("body", body);
+            hm.put("link", link);
+            return hm;
+        } catch (Exception e) {
+        		System.out.println("email not found....");
+            throw new RuntimeException(e);
+        }
+		}
     
     
     
