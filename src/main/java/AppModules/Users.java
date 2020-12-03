@@ -170,9 +170,9 @@ public class Users extends GenericSkins {
 							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[1]"));
 
 					eNameFilter.clear();
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					eNameFilter.sendKeys(sName);
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 					/*
 					 * driver.findElement(By.xpath(
 					 * "//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"
@@ -184,11 +184,11 @@ public class Users extends GenericSkins {
 					 */WebElement eEmailFilter = driver
 							 .findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
 					 eEmailFilter.clear();
-					 Thread.sleep(2000);
+					 Thread.sleep(1000);
 					 eEmailFilter.sendKeys(sEmail);
 					 eEmailFilter.sendKeys(Keys.ENTER);
 					 System.out.println("loading...");
-					 Thread.sleep(8000);
+					 Thread.sleep(3000);
 
 					 WebElement usergrid = driver.findElement(By.xpath(".//div[@role='grid']"));
 					 // take list of checkboxes from grid
@@ -577,10 +577,10 @@ public class Users extends GenericSkins {
 										break;
 
 									}
-									Thread.sleep(100);
+									Thread.sleep(50);
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-									Thread.sleep(100);
+									Thread.sleep(50);
 								}
 							}
 
