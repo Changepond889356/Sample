@@ -927,7 +927,7 @@ public class Loads extends GenericSkins {
 		// ResultComparision();
 	}
 
-	public static boolean LoadsNewRecord() throws Exception {
+/*	public static boolean LoadsNewRecord() throws Exception {
 		// TODO Auto-generated method stub
 		boolean bResult = false;
 
@@ -967,13 +967,13 @@ public class Loads extends GenericSkins {
 
 		return bResult;
 	}
-	
+	*/
 	public static boolean uploadOriginTicket(String sDocType) {
 		boolean bResult = false;
 		try {
 			Thread.sleep(2000);
 
-			driver.findElement(By.xpath("//div[@data-cy='images-origin']//img")).click();
+			driver.findElement(By.xpath("(//div[@class='images']//img)[1]")).click();
 			WindowsHandle(sDocType);
 			Thread.sleep(15000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -995,7 +995,7 @@ public class Loads extends GenericSkins {
 		try {
 			Thread.sleep(2000);
 
-			driver.findElement(By.xpath("//div[@data-cy='images-destination']//img")).click();
+			driver.findElement(By.xpath("(//div[@class='images']//img)[3]")).click();
 			WindowsHandle(sDocType);
 			Thread.sleep(15000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -1324,7 +1324,7 @@ public class Loads extends GenericSkins {
 					case "Submitted":
 						System.out.println("Submitted");
 						Thread.sleep(2000);
-						driver.findElement(By.xpath("//button[@data-cy='vb-all']")).click();
+						driver.findElement(By.xpath(".//p[./text()='All']")).click();
 						Thread.sleep(3000);
 						try {
 							driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
@@ -1342,7 +1342,7 @@ public class Loads extends GenericSkins {
 						
 					case "Paid":
 						System.out.println("Paid");
-						driver.findElement(By.xpath("//button[@data-cy='vb-all']")).click();
+						driver.findElement(By.xpath(".//p[./text()='All']")).click();
 						Thread.sleep(3000);
 						
 						try {
@@ -1599,7 +1599,7 @@ public class Loads extends GenericSkins {
 			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID)) {
 				
 				Thread.sleep(1000);
-				driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'View PDF')]")).click();
+				driver.findElement(By.xpath(".//span[./text()='View PDF']")).click();
 				Thread.sleep(2000);
 
 				//Download PDF
@@ -1660,7 +1660,7 @@ public class Loads extends GenericSkins {
 			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID)) {
 				
 				Thread.sleep(1000);
-				driver.findElement(By.xpath("//button[@data-cy='export-loads-button']//span[contains(text(),'Export Selected Data')]")).click();
+				driver.findElement(By.xpath(".//span[./text()='Export Selected Data']")).click();
 				Thread.sleep(2000);
 
 				//Download PDF
@@ -1679,7 +1679,7 @@ public class Loads extends GenericSkins {
 						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
 						//driver.findElement(By.xpath("//span[contains(text(),'.xlsx')]")).click();
 						Thread.sleep(3000);
-						driver.findElement(By.xpath("//button[@data-cy='submit-export-loads-button']")).click();
+						driver.findElement(By.xpath(".//span[./text()='Export Loads']")).click();
 						Thread.sleep(5000);
 						sActualResult = "Download Successfully";
 						bResult = true;
@@ -1706,7 +1706,7 @@ public class Loads extends GenericSkins {
 						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
 						//driver.findElement(By.xpath("//span[contains(text(),'.csv')]")).click();
 						Thread.sleep(3000);
-						driver.findElement(By.xpath("//button[@data-cy='submit-export-loads-button']")).click();
+						driver.findElement(By.xpath(".//span[./text()='Export Loads']")).click();
 						Thread.sleep(5000);
 						sActualResult = "Email sent Successfully";
 						bResult = true;
@@ -1742,19 +1742,19 @@ public class Loads extends GenericSkins {
 	public static boolean ImportFile(String sActTestCaseID,String sDocType) throws Exception {
 		boolean bResult = false;
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Import')]")).click();
+		driver.findElement(By.xpath(".//span[./text()='Import']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//div[@data-cy='import-loads-target']//img")).click();
+		driver.findElement(By.xpath(".//div[contains(text(),'Drop files or click to upload')]")).click();
 		WindowsHandle(sDocType);
 		Thread.sleep(15000);
 		driver.findElement(By.xpath("//button//span[contains(text(),'Upload')]")).click();
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//button//span[contains(text(),'Verify')]")).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Import')]")).click();
+		driver.findElement(By.xpath(".//span[./text()='Import']")).click();
 		Thread.sleep(3000);
 		try {
-			driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Finish')]")).click();
+			driver.findElement(By.xpath(".//span[./text()='Finish']")).click();
 			bResult = true;
 		} catch(Exception ex) {
 			 bResult = false;

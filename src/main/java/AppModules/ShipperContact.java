@@ -23,9 +23,9 @@ public class ShipperContact  extends GenericSkins {
 	
 	public static void SelectShipperContactMenu() throws InterruptedException {
 		
-		GenericSkins.WaitForElementTobeClickable(By.xpath("//a[@data-cy='shipper-contacts']"));
+		GenericSkins.WaitForElementTobeClickable(By.xpath("*//span[contains(text(),'Shipper Contacts')]"));
 		ShipperContactPage.ShipperContactMenu().click();
-		GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Add a Contact')]"));
+		GenericSkins.WaitForElementTobeClickable(By.xpath("*//span[contains(text(),'Add a Contact')]"));
 		Thread.sleep(5000);
 	}
 
@@ -57,7 +57,7 @@ public class ShipperContact  extends GenericSkins {
 						sName = sName + "_" + datetime;
 						System.out.println("sName "+ sName);
 						TestDataImport.writeExcel(sTestDataPath,"ShipperContact.xlsx", "View Carrier Details", sName, 1, sTestCaseID);
-						TestDataImport.writeExcel(sTestResultsPath,"ShipperContact.xlsx", "View Carrier Details", sName, 1, sTestCaseID);
+						//TestDataImport.writeExcel(sTestResultsPath,"ShipperContact.xlsx", "View Carrier Details", sName, 1, sTestCaseID);
 						ShipperContactPage.eName().sendKeys(sName);
 					}
 					if(!sPhone.equalsIgnoreCase("NA")) {

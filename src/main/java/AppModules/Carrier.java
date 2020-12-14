@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -25,7 +26,7 @@ public class Carrier extends GenericSkins {
 
 	public static void SelectCarrierMenu() throws InterruptedException {
 		
-		GenericSkins.WaitForElementTobeClickable(By.xpath("//a[@data-cy='carriers']"));
+		GenericSkins.WaitForElementTobeClickable(By.xpath("*//span[contains(text(),'Carriers')]"));
 		CarrierPage.CarrierMenu().click();
 		Thread.sleep(3000);
 	}
@@ -39,7 +40,7 @@ public class Carrier extends GenericSkins {
 		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
-		// System.out.println("Number of rows:" + iRowCnt);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
@@ -84,7 +85,10 @@ public class Carrier extends GenericSkins {
 								inpCol.findElement(By.tagName("input")).sendKeys(sEmailID);
 							}
 						}
-						GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Submit Request')]"));
+						
+						WebElement m=driver.findElement(By.xpath("//div[@id='left-button-area']"));
+						js.executeScript("arguments[0].scrollIntoView(true);", m);
+						GenericSkins.WaitForElementTobeClickable(By.xpath(".//span[./text()='Submit Request']"));
 						CarrierPage.SubmitRequestBtn().click();
 					} catch(Exception e) {
 						GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='carrier-options-radio-group']"));
@@ -109,10 +113,14 @@ public class Carrier extends GenericSkins {
 						try {
 							if(!driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).isSelected()) {
 								driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).click();
+								WebElement m=driver.findElement(By.xpath("//div[@id='left-button-area']"));
+								js.executeScript("arguments[0].scrollIntoView(true);", m);
 								GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
 								CarrierPage.InviteRequestBtn().click();
 							}
 						} catch(Exception ex) {
+							WebElement m=driver.findElement(By.xpath("//div[@id='left-button-area']"));
+							js.executeScript("arguments[0].scrollIntoView(true);", m);
 							CarrierPage.InviteRequestBtn().click();
 						}
 
@@ -438,7 +446,7 @@ public class Carrier extends GenericSkins {
 		System.out.println("Inside Cancel Carrier");
 		driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Cancel Invite')]")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[@data-cy='confirm-model-deletion']//span[contains(text(),'Continue')]")).click();
+		driver.findElement(By.xpath(".//span[./text()='Continue']")).click();
 		Thread.sleep(5000);
 		System.out.println("Invitation Cancelled ");
 		/*if(driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Cancel Invite')]")).isDisplayed()) {
@@ -573,7 +581,7 @@ public class Carrier extends GenericSkins {
 	public static void DeleteUser() throws InterruptedException {
 		LoadsPage.eDelete().click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@data-cy='confirm-model-deletion']//span[contains(text(),'Delete')]")).click();
+		driver.findElement(By.xpath(".//span[./text()='Delete']")).click();
 		Thread.sleep(3000);
 	}
 
@@ -582,7 +590,7 @@ public class Carrier extends GenericSkins {
 		Thread.sleep(1000);
 		LoadsPage.eDelete().click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath("//button[@data-cy='confirm-model-deletion']//span[contains(text(),'Delete')]")).click();
+		driver.findElement(By.xpath(".//span[./text()='Delete']")).click();
 		Thread.sleep(3000);
 	}
 

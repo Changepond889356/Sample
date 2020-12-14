@@ -10,7 +10,7 @@ public class ShipperContactPage  extends GenericSkins {
 	static WebElement element;
 	public static WebElement addShipperContactBtn() {
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Add a Contact')]"));
+			element = driver.findElement(By.xpath("*//span[contains(text(),'Add a Contact')]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
@@ -20,7 +20,7 @@ public class ShipperContactPage  extends GenericSkins {
 	}
 	public static WebElement ShipperContactMenu() {
 		try {
-			element = driver.findElement(By.xpath("//a[@data-cy='shipper-contacts']"));
+			element = driver.findElement(By.xpath("*//span[contains(text(),'Shipper Contacts')]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
@@ -68,7 +68,7 @@ public class ShipperContactPage  extends GenericSkins {
 	}
 	public static WebElement eAddBtn() {
 		try {			
-			element = driver.findElement(By.xpath("//button[@data-cy='submit-model-button']//span[contains(text(),'Add')]"));
+			element = driver.findElement(By.xpath("*//span[./text()='Add']"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;	

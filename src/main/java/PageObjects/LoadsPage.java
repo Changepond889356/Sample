@@ -260,7 +260,7 @@ public static WebElement Submit() {
 	// TODO Auto-generated method stub
 	try
 	{
-		element = driver.findElement(By.xpath("//button[@data-cy='submit-loads-button']"));
+		element = driver.findElement(By.xpath(".//span[./text()='Submit Load(s)']"));
 	}
 	catch(Exception ele)
 	{
@@ -321,7 +321,7 @@ public static WebElement Submit() {
 	public static WebElement SubmittedView() {
 		// TODO Auto-generated method stub
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='vb-submitted']"));
+			element = driver.findElement(By.xpath(".//p[./text()='Submitted']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
@@ -330,7 +330,7 @@ public static WebElement Submit() {
 	public static WebElement PaidView() {
 		// TODO Auto-generated method stub
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='vb-paid']"));
+			element = driver.findElement(By.xpath(".//p[./text()='Paid']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
@@ -339,7 +339,7 @@ public static WebElement Submit() {
 	public static WebElement DuplicateBtn() {
 		// TODO Auto-generated method stub
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='duplicate-load-button']"));
+			element = driver.findElement(By.xpath(".//span[./text()='Duplicate']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 			System.out.println("Duplicate Btn : " + ele.getMessage());
@@ -349,7 +349,7 @@ public static WebElement Submit() {
 	public static WebElement SubmitDuplicateCopy() {
 		// TODO Auto-generated method stub
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='submit-duplicate-load']"));
+			element = driver.findElement(By.xpath(".//span[./text()='Submit']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
@@ -367,7 +367,7 @@ public static WebElement Submit() {
 
 	public static WebElement ApprovedView() throws InterruptedException {
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='vb-approved']"));
+			element = driver.findElement(By.xpath(".//p[./text()='Approved']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 			System.out.println("Approved View " + ele.getMessage());
@@ -377,7 +377,7 @@ public static WebElement Submit() {
 	}
 	public static WebElement DispatchBtn() {
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='submit-model-button']"));
+			element = driver.findElement(By.xpath(".//span[./text()='Dispatch']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
@@ -385,7 +385,7 @@ public static WebElement Submit() {
 	}
 	public static WebElement ViewAll() throws InterruptedException {
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='vb-all']"));
+			element = driver.findElement(By.xpath(".//p[./text()='All']"));
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}

@@ -11,7 +11,7 @@ public class CarrierPage extends GenericSkins {
 	
 	public static WebElement CarrierMenu() {
 		try {
-			element = driver.findElement(By.xpath("//a[@data-cy='carriers']"));
+			element = driver.findElement(By.xpath("*//span[contains(text(),'Carriers')]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
@@ -22,7 +22,7 @@ public class CarrierPage extends GenericSkins {
 
 	public static WebElement addCarrierBtn() {
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Add a Carrier')]"));
+			element = driver.findElement(By.xpath("*//span[contains(text(),'Add a Carrier')]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
@@ -65,7 +65,7 @@ public class CarrierPage extends GenericSkins {
 
 	public static WebElement SubmitRequestBtn() {
 		try {
-			element = driver.findElement(By.xpath("//button//span[contains(text(),'Submit Request')]"));
+			element = driver.findElement(By.xpath(".//span[./text()='Submit Request']"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
@@ -108,7 +108,7 @@ public class CarrierPage extends GenericSkins {
 
 	public static WebElement AcceptBtn() {
 		try {
-			element = driver.findElement(By.xpath("//button[@data-cy='add-model-button']//span[contains(text(),'Accept')]"));
+			element = driver.findElement(By.xpath("*//span[contains(text(),'Accept')]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
