@@ -1751,7 +1751,7 @@ public class Loads extends GenericSkins {
 		Thread.sleep(5000);
 		driver.findElement(By.xpath("//button//span[contains(text(),'Verify')]")).click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath(".//span[./text()='Import']")).click();
+		driver.findElement(By.xpath("(.//span[./text()='Import'])[2]")).click();
 		Thread.sleep(3000);
 		try {
 			driver.findElement(By.xpath(".//span[./text()='Finish']")).click();

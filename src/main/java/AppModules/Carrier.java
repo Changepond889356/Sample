@@ -507,13 +507,11 @@ public class Carrier extends GenericSkins {
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);					
-			
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
-				List<WebElement> totalReq = driver.findElements(By.xpath("//div[@class='css-pcnrks e1a5e5n25']"));
-				
+				/*List<WebElement> totalReq = driver.findElements(By.xpath("//div[@class='css-pcnrks e1a5e5n25']"));
 				for(WebElement rTotalRecord : totalReq){
 					String actReqText = rTotalRecord.getText();
-					if(actReqText.contains(sCarrierName)) {
+					if(actReqText.contains(sCarrierName)) {*/
 						CarrierPage.AcceptBtn().click();
 						Thread.sleep(3000);
 						try {
@@ -521,17 +519,17 @@ public class Carrier extends GenericSkins {
 							driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
 							System.out.println("Request Accepted ");
 						}catch(Exception e) {
-							System.out.println("Request Accepted ");
+							System.out.println("Failed to Accepted ");
 						}
 						bResult = true;
-						break;
+						/*	break;
 					}
 				}
-				break;
+				break;*/
 			}
 		}
 		if(bResult) {
-			System.out.println("Request cancelled Successfully");
+			System.out.println("Request Accept Successfully");
 		}
 		
 		driver.findElement(By.xpath("//div[@id='root']//img")).click();
@@ -581,7 +579,7 @@ public class Carrier extends GenericSkins {
 	public static void DeleteUser() throws InterruptedException {
 		LoadsPage.eDelete().click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath(".//span[./text()='Delete']")).click();
+		driver.findElement(By.xpath("(.//span[./text()='Delete'])[2]")).click();
 		Thread.sleep(3000);
 	}
 
@@ -590,7 +588,7 @@ public class Carrier extends GenericSkins {
 		Thread.sleep(1000);
 		LoadsPage.eDelete().click();
 		Thread.sleep(3000);
-		driver.findElement(By.xpath(".//span[./text()='Delete']")).click();
+		driver.findElement(By.xpath("(.//span[./text()='Delete'])[2]")).click();
 		Thread.sleep(3000);
 	}
 
