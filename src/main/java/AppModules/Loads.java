@@ -63,7 +63,7 @@ public class Loads extends GenericSkins {
 				System.out.println("inside if");
 				try {
 
-					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/d/yyyy");
 					LocalDateTime t1 = LocalDateTime.now();
 					sLoadDate = sLoadDate.replace("Current Date", t1.format(dateandtime));
 					String[] currentDate = t1.format(dateandtime).split("/");

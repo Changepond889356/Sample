@@ -397,7 +397,7 @@ public static WebElement Submit() {
 		driver.findElement(By.xpath(
 				"(.//div[@class='react-datepicker-wrapper'])[1]/div[1]/div/div/input")).click();
 		Thread.sleep(500);
-		List<WebElement> daylist = driver.findElements(By.xpath("//div[@class='react-datepicker__month']//div"));
+		List<WebElement> daylist = driver.findElements(By.xpath("//div[@class='react-datepicker__month']//div//div"));
 		for(WebElement day: daylist) {
 			if(day.getText().equalsIgnoreCase(sDay)) {
 				day.click();
