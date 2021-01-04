@@ -181,8 +181,8 @@ public class Users extends GenericSkins {
 					 * ]/div/div/input driver.findElement(By.xpath(
 					 * "//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"
 					 * )) .sendKeys(sName);
-					 */WebElement eEmailFilter = driver
-							 .findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
+					 */
+					WebElement eEmailFilter = driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
 					 eEmailFilter.clear();
 					 Thread.sleep(1000);
 					 eEmailFilter.sendKeys(sEmail);
@@ -197,8 +197,7 @@ public class Users extends GenericSkins {
 					 // take list of rows from grid
 					 List<WebElement> eRows = driver.findElements(
 							 By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
-					 System.out
-					 .println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
+					 System.out.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
 					 int iRow1 = 0;
 					 sActualResult = "Record not found";
 					 for (WebElement eRow : eRows) {
