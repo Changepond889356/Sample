@@ -4,7 +4,7 @@
 		<LocalBrowserName>Chrome</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
 		<RunReference>Run07Jan2021</RunReference>
-		<RunReferenceFlag>Yes</RunReferenceFlag>
+		<RunReferenceFlag>NA</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
 		<ReportsDBJDBCDriver>NA</ReportsDBJDBCDriver>
