@@ -48,14 +48,13 @@ public class Chat_With_Carrier_TC001 extends SetUp {
 
 				if (bResult == true) {				
 					//Send Image 
-					bResult = Chat.ChatValidation(sTestCaseID,sName, 2);  // Code Modified Row Num - 4
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 4);  
 					if(bResult) {
-						bResult = Chat.ChatValidation(sTestCaseID,sName, 8); //Added Extra Line
 						bResult = TestActions.LogOut();
 					}
 				}
 			}
-			/*
+			
 			bResult = TestActions.Login(sUserName, sPassword);
 			if (bResult == true) {	
 				//Verify Image
@@ -82,7 +81,7 @@ public class Chat_With_Carrier_TC001 extends SetUp {
 						bResult = TestActions.LogOut();
 					}
 				}
-			}*/
+			}
 			sActualResult = "Chat Validated successfully";
 			
 		} catch (Exception error) {

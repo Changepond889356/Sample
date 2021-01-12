@@ -47,15 +47,14 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 
 				if (bResult == true) {				
 					//Send Image 
-					bResult = Chat.ChatValidation(sTestCaseID,sName, 10); // Code Modified Row Num - 12
+					bResult = Chat.ChatValidation(sTestCaseID,sName, 12); 
 					if(bResult) {
-						bResult = Chat.ChatValidation(sTestCaseID,sName, 16); //Added Extra Line
 						bResult = TestActions.LogOut();
 					}
 				}
 			}
 			
-			/*bResult = TestActions.Login(sUserName, sPassword);
+			bResult = TestActions.Login(sUserName, sPassword);
 			if (bResult == true) {	
 				//Verify Image
 				bResult = Chat.ChatValidation(sTestCaseID,sName, 13); 
@@ -81,7 +80,7 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 						bResult = TestActions.LogOut();
 					}
 				}
-			}*/
+			}
 			sActualResult = "Chat Validated successfully";
 			
 		} catch (Exception error) {
