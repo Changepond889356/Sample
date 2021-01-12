@@ -46,7 +46,7 @@ public class Group_Chat_TC004 extends SetUp {
 				bResult = Chat.ChatValidation(sTestCaseID,sName, 27); 
 
 				if (bResult == true) {				
-					//Send Image 
+					//Send Image  
 					bResult = Chat.ChatValidation(sTestCaseID,sName, 28); 
 					if(bResult) {
 						bResult = TestActions.LogOut();

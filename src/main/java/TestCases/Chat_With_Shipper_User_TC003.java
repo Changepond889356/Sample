@@ -70,7 +70,7 @@ public class Chat_With_Shipper_User_TC003 extends SetUp {
 			
 			bResult = TestActions.Login(sTestCaseID);
 			if (bResult == true) {	
-				//Verify Document
+				//Verify Document 
 				bResult = Chat.ChatValidation(sTestCaseID,sName, 23); 
 
 				if (bResult == true) {

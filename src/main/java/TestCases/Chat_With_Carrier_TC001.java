@@ -57,7 +57,7 @@ public class Chat_With_Carrier_TC001 extends SetUp {
 			
 			bResult = TestActions.Login(sUserName, sPassword);
 			if (bResult == true) {	
-				//Verify Image
+				//Verify Image 
 				bResult = Chat.ChatValidation(sTestCaseID,sName, 5); 
 								
 				if (bResult == true) {				

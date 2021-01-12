@@ -60,7 +60,7 @@ public class Chat_With_Shipper_Admin_TC002 extends SetUp {
 				bResult = Chat.ChatValidation(sTestCaseID,sName, 13); 
 								
 				if (bResult == true) {				
-					//Send Document
+					//Send Document 
 					bResult = Chat.ChatValidation(sTestCaseID,sName, 14); 
 					if(bResult) {
 						bResult = TestActions.LogOut();
