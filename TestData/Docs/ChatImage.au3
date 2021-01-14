@@ -1,5 +1,5 @@
 Sleep(3000)
-Send("D:\Roger\Develoment\Source\Scripts\TestData\Docs\img1.jpg")
+ControlFocus("Open","","Edit1")
+ControlSetText("Open","","Edit1","D:\Roger\Develoment\Source\Scripts\TestData\Docs\img1.jpg")
 Sleep(3000)
-ControlClick("","","Button1")
-Sleep(3000)
+ControlClick("Open","","Button1")

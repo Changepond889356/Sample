@@ -1,5 +1,5 @@
 Sleep(3000)
-Send("D:\Roger\Develoment\Source\Scripts\TestData\Docs\ImportSheetGlobal.xlsx")
+ControlFocus("Open","","Edit1")
+ControlSetText("Open","","Edit1","D:\Roger\Develoment\Source\Scripts\TestData\Docs\ImportSheetGlobal.xlsx")
 Sleep(3000)
-ControlClick("","","Button1")
-Sleep(3000)
+ControlClick("Open","","Button1")
