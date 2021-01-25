@@ -471,6 +471,7 @@ public class Loads extends GenericSkins {
 						// Click on Loads menu
 						LoadsPage.eMenuLoads().click();
 						System.out.println("Clicked on menu loads");
+						Thread.sleep(5000);
 						// Click on All tab
 						LoadsPage.eAllTab().click();
 						System.out.println("Clicked on all loads");
