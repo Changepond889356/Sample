@@ -398,11 +398,22 @@ public static WebElement Submit() {
 				"(.//div[@class='react-datepicker-wrapper'])[1]/div[1]/div/div/input")).click();
 		Thread.sleep(500);
 		List<WebElement> daylist = driver.findElements(By.xpath("//div[@class='react-datepicker__month']//div//div"));
-		for(WebElement day: daylist) {
-			if(day.getText().equalsIgnoreCase(sDay)) {
-				day.click();
-				Thread.sleep(1000);
-				break;
+		
+		if(Integer.parseInt(sDay) < 25) {
+			for(WebElement day: daylist) {
+				if(day.getText().equalsIgnoreCase(sDay)) {
+					day.click();
+					Thread.sleep(500);
+					break;
+				}
+			}
+		} else {
+			
+			for(int i =29; i< daylist.size();i++) {
+				if(daylist.get(i).getText().equalsIgnoreCase(sDay)) {
+					daylist.get(i).click();
+					break;
+				}
 			}
 		}
 	}
@@ -413,7 +424,7 @@ public static WebElement Submit() {
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
-		Thread.sleep(4000);
+		Thread.sleep(2000);
 		return element;
 	}
 	public static WebElement eOriginRef() throws InterruptedException {
@@ -422,7 +433,7 @@ public static WebElement Submit() {
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
-		Thread.sleep(4000);
+		Thread.sleep(2000);
 		return element;
 	}
 	public static WebElement eTransID() throws InterruptedException {
@@ -431,7 +442,7 @@ public static WebElement Submit() {
 		} catch(Exception ele) {
 			sActualResult=ele.getMessage();
 		}
-		Thread.sleep(4000);
+		Thread.sleep(2000);
 		return element;
 	}
 	public static WebElement eAmount() {

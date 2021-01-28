@@ -20,13 +20,13 @@ import Utils.GenericSkins;
 import Utils.TestDataImport;
 
 public class ShipperContact  extends GenericSkins {
-	
+
 	public static void SelectShipperContactMenu() throws InterruptedException {
-		
+
 		GenericSkins.WaitForElementTobeClickable(By.xpath("*//span[contains(text(),'Shipper Contacts')]"));
 		ShipperContactPage.ShipperContactMenu().click();
 		GenericSkins.WaitForElementTobeClickable(By.xpath("*//span[contains(text(),'Add a Contact')]"));
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 	}
 
 	public static boolean AddShipperContact(String sActTestCaseID) throws Exception {
@@ -72,7 +72,7 @@ public class ShipperContact  extends GenericSkins {
 						action.sendKeys(Keys.ENTER).build().perform();
 						Thread.sleep(1000);		
 					}catch(Exception e) {
-						
+
 					}
 					ShipperContactPage.eAddBtn().click();
 					Thread.sleep(3000);		
@@ -88,14 +88,14 @@ public class ShipperContact  extends GenericSkins {
 				break;
 			}
 		}
-		
+
 		return bResult;
 	}
 
 	public static boolean customizeGrid(String sActualTestCaseID) throws Exception {
 		boolean bResult = false;
 
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		String sFileName = "ShipperContact.xlsx";
 		String sSheetName = "CustomizeGrid";
 		// Copy Loads.xlsx file from test data folder to current log folder
@@ -131,7 +131,7 @@ public class ShipperContact  extends GenericSkins {
 						}
 						Actions action = new Actions(driver);
 						action.sendKeys(Keys.ARROW_DOWN).build().perform();
-						Thread.sleep(100);
+						//Thread.sleep(100);
 					}
 					System.out.println("Unchecked Done");
 					// CLick on columns button from right pane
@@ -143,7 +143,7 @@ public class ShipperContact  extends GenericSkins {
 					Thread.sleep(5000);
 					// click on columnspane
 					LoadsPage.eColumnPane().click();
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					eColumns = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
 
@@ -163,7 +163,7 @@ public class ShipperContact  extends GenericSkins {
 									}
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-									Thread.sleep(100);
+									//Thread.sleep(100);
 									break;
 								}
 							}
@@ -171,7 +171,7 @@ public class ShipperContact  extends GenericSkins {
 						System.out.println("Check Done");
 						// click on columnspane
 						LoadsPage.eColumnPane().click();
-						Thread.sleep(4000);
+						Thread.sleep(1000);
 						List<WebElement> eHeaders = driver
 								.findElements(By.xpath(".//span[@class='ag-header-cell-text']"));
 						for (int i = 0; i < sData.length; i++) {
@@ -190,7 +190,7 @@ public class ShipperContact  extends GenericSkins {
 							sActualResult = "Webtable not customized successfully";
 							bResult = false;
 						}
-						driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+						driver.manage().timeouts().implicitlyWait(05, TimeUnit.SECONDS);
 						break;
 					}
 				}
@@ -232,18 +232,18 @@ public class ShipperContact  extends GenericSkins {
 			String sOperation = TestDataImport.GetCellData(sSheetName, 6, iRow);
 			String sStatus = TestDataImport.GetCellData(sSheetName, 5, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
-			
+
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && (iUserNum == iRow)) {
 				try {
 					String sActualName = "NA";
 					String sACtualEmail = "NA";
 					String sActualStatus = "NA";
-					
+
 					try {
 						// click on clear filter
 						driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 						driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 					}
 
 					catch (Exception er) {
@@ -252,22 +252,19 @@ public class ShipperContact  extends GenericSkins {
 					// click on load icon
 					driver.findElement(By
 							.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]/*[name()='svg']"))
-							.click();
-					
+					.click();
+
 					// filter by Name
 					WebElement eNameFilter = driver
 							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[1]"));
 
 					eNameFilter.clear();
-					Thread.sleep(1000);
+					//Thread.sleep(1000);
 					eNameFilter.sendKeys(sName);
 					Thread.sleep(3000);
 
-					System.out.println("loading...");
-					Thread.sleep(3000);
-
 					WebElement usergrid = driver.findElement(By.xpath(".//div[@role='grid']"));
-					
+
 					List<WebElement> eRows = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
 					System.out.println("Number of rows:" + eRows.size());
@@ -308,58 +305,58 @@ public class ShipperContact  extends GenericSkins {
 								break;
 							}
 						}
-							System.out.println("sActualName:" + sActualName + " Name:" + sName);
-							System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
-							System.out.println("sActualStatus:" + sActualStatus + " status:" + sStatus);							
+						System.out.println("sActualName:" + sActualName + " Name:" + sName);
+						System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
+						System.out.println("sActualStatus:" + sActualStatus + " status:" + sStatus);							
 
-							if (sActualName.trim().equalsIgnoreCase(sName.trim())
-									&& sActualStatus.trim().equalsIgnoreCase(sStatus.trim())) {
-								
-								System.out.println("Record found");
-								List<WebElement> nRecords= driver.findElements(By.xpath("//div[@col-id='name']"));
-								Actions ac = new Actions(driver);
-								
-								switch (sOperation.toUpperCase()) {
-								case "ACTIVE":
-									bResult = true;
+						if (sActualName.trim().equalsIgnoreCase(sName.trim())
+								&& sActualStatus.trim().equalsIgnoreCase(sStatus.trim())) {
+
+							System.out.println("Record found");
+							List<WebElement> nRecords= driver.findElements(By.xpath("//div[@col-id='name']"));
+							Actions ac = new Actions(driver);
+
+							switch (sOperation.toUpperCase()) {
+							case "ACTIVE":
+								bResult = true;
+								sActualResult = "Shipper Contact in Active State";
+								break;
+							case "INACTIVE":	
+								driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
+								Thread.sleep(1000);
+								driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']")).click();
+								Thread.sleep(2000);
+								if(driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).getText().equalsIgnoreCase("ACTIVE")) {
+									bResult = false;
 									sActualResult = "Shipper Contact in Active State";
 									break;
-								case "INACTIVE":	
-									driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).click();
-									Thread.sleep(1000);
-									driver.findElement(By.xpath("//div[@class='ag-virtual-list-viewport']//div[text()='Inactive']")).click();
-									Thread.sleep(2000);
-									if(driver.findElement(By.xpath("(//div[@col-id='inactive'])["+nRecords.size()+"]")).getText().equalsIgnoreCase("ACTIVE")) {
-										bResult = false;
-										sActualResult = "Shipper Contact in Active State";
-										break;
-									} else {
-										bResult = true;
-										sActualResult = "Shipper Contact in InActive State";
-									}
-									break;
-								case "VERIFY":
-									bResult = false;
-									if(driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]")).getText().equalsIgnoreCase(sEmail)) {
-										bResult = true;
-										sActualResult = "Shipper Contact Edited Successfully";
-									}
-									break;
-								case "EDIT":
-									bResult = false;
-									System.out.println("Total Records : "+nRecords.size());
-									driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]")).click();
-									Thread.sleep(1000);
-									driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]//input")).clear();
-									driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]//input")).sendKeys(sEmail);
-									//driver.findElement(By.xpath("//div[@class='ag-virtual-list-container']//span[text()='"+sCompany+"']")).click();
-									Thread.sleep(1000);
-									sActualResult = "Shipper Contact Edited Successfully";
-									
-									break;
+								} else {
+									bResult = true;
+									sActualResult = "Shipper Contact in InActive State";
 								}
-								
-							}						
+								break;
+							case "VERIFY":
+								bResult = false;
+								if(driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]")).getText().equalsIgnoreCase(sEmail)) {
+									bResult = true;
+									sActualResult = "Shipper Contact Edited Successfully";
+								}
+								break;
+							case "EDIT":
+								bResult = false;
+								System.out.println("Total Records : "+nRecords.size());
+								driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]")).click();
+								Thread.sleep(1000);
+								driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]//input")).clear();
+								driver.findElement(By.xpath("(//div[@col-id='email'])["+nRecords.size()+"]//input")).sendKeys(sEmail);
+								//driver.findElement(By.xpath("//div[@class='ag-virtual-list-container']//span[text()='"+sCompany+"']")).click();
+								Thread.sleep(1000);
+								sActualResult = "Shipper Contact Edited Successfully";
+
+								break;
+							}
+
+						}						
 					}
 
 				} catch (Exception error) {

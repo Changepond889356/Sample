@@ -56,7 +56,7 @@ public class Loads_TC003 extends SetUp {
 						Loads.SelectFirstRecord();
 						/* Delete Duplicate Record */
 						LoadsPage.eDelete().click();
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 						Loads.SelectRecord();
 						
 						/* Generate invoice for non-Scoular load */
@@ -72,7 +72,7 @@ public class Loads_TC003 extends SetUp {
 							Thread.sleep(1000);
 							LoadsPage.SubmitLoad().click();
 							
-							Thread.sleep(10000);
+							Thread.sleep(8000);
 							//bResult = Loads.LoadsWebTable(5, sActTestCaseID);
 							
 						}
@@ -86,7 +86,7 @@ public class Loads_TC003 extends SetUp {
 						if(bResult) {
 							bResult = TestActions.Login(sUserName, sPassword);
 							LoadsPage.SubmittedView().click();
-							Thread.sleep(5000); 
+							Thread.sleep(3000); 
 							bResult = Loads.customizeAGgrid(sActTestCaseID,4);
 							Loads.VerifyStatus("Submitted");
 							Loads.SelectRecord();
@@ -106,7 +106,7 @@ public class Loads_TC003 extends SetUp {
 							Loads.SelectRecord();
 							LoadsPage.eEdit().click();
 							Loads.PaidInvoice();
-							Thread.sleep(5000);
+							Thread.sleep(3000);
 							LoadsPage.PaidView().click();
 							Thread.sleep(3000);
 							bResult = Loads.customizeAGgrid(sActTestCaseID,4);

@@ -35,7 +35,7 @@ public class Loads extends GenericSkins {
 
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
-
+		
 		TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
@@ -84,22 +84,17 @@ public class Loads extends GenericSkins {
 
 					}
 
-					Thread.sleep(2000);
-					//LoadsPage.eAddNewLoadDate().sendKeys(sLoadDate);
+					Thread.sleep(1000);
 					LoadsPage.LoadDatePicker(sDay);
-					ac = new Actions(driver);
-					ac.sendKeys(Keys.ENTER).build().perform();
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					System.out.println("Set Load Date");
 					try {
 						if (!(sSHipper.trim().equalsIgnoreCase("NA"))) {
 							System.out.println("Insideshipper");
 							LoadsPage.eShipper().sendKeys(sSHipper);
-							Thread.sleep(3000);
-							// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
-							// Thread.sleep(500);
+							Thread.sleep(1000);
 							ac.sendKeys(Keys.ENTER).build().perform();
-							Thread.sleep(2000);
+							Thread.sleep(1000);
 							System.out.println("Set shipper");
 
 						}
@@ -112,11 +107,9 @@ public class Loads extends GenericSkins {
 							LoadsPage.eShipperContact().sendKeys(sSHipperContact);
 							//Thread.sleep(3000);
 							System.out.println("contact Enter");
-							// ac.sendKeys(Keys.ARROW_DOWN).build().perform();
-							// Thread.sleep(500);
 							ac.sendKeys(Keys.ENTER).build().perform();
 							System.out.println(" Enter pressed");
-							Thread.sleep(2000);
+							Thread.sleep(1000);
 
 						}
 					} catch(Exception e) {
@@ -127,7 +120,7 @@ public class Loads extends GenericSkins {
 						LoadsPage.eCommodity().sendKeys(sCommodity);
 						ac = new Actions(driver);
 						ac.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 
 					}
 					if (!(sRate.trim().equalsIgnoreCase("NA"))) {
@@ -153,7 +146,7 @@ public class Loads extends GenericSkins {
 						LoadsPage.eRateUOM().sendKeys(sRateUOM);
 						ac = new Actions(driver);
 						ac.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 
 					}
 
@@ -186,7 +179,7 @@ public class Loads extends GenericSkins {
 
 	// MEthod to edit a load
 	public static boolean editLoad(String sActualTestCaseID) throws Exception {
-		Thread.sleep(5000);
+		Thread.sleep(1000);
 		boolean bResult = false;
 		String sFileName = "Loads.xlsx";
 		String sSheetName = "Edit Load";
@@ -213,11 +206,11 @@ public class Loads extends GenericSkins {
 					case "SHIPPER CONTACT":
 						LoadsPage.eShipperContact().sendKeys(sValue);
 						Actions action = new Actions(driver);
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						action.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						LoadsPage.eSave().click();
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
@@ -225,11 +218,11 @@ public class Loads extends GenericSkins {
 						System.out.println("sendkeys in Driver");
 						LoadsPage.eDriver().sendKeys(sValue);
 						Actions action1 = new Actions(driver);
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						action1.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						LoadsPage.eSave().click();
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
@@ -237,9 +230,9 @@ public class Loads extends GenericSkins {
 						System.out.println("Send Keys in Origin Weight");
 						LoadsPage.eNetOriginWt().sendKeys(sValue);
 						Actions action11 = new Actions(driver);
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						action11.sendKeys(Keys.TAB).build().perform();
-						Thread.sleep(2000);						
+						Thread.sleep(1000);						
 						bResult = true;
 						break;
 
@@ -247,9 +240,9 @@ public class Loads extends GenericSkins {
 						System.out.println("Send Keys in Destination Weight");
 						LoadsPage.eNetDestWr().sendKeys(sValue);
 						Actions action111 = new Actions(driver);
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						action111.sendKeys(Keys.TAB).build().perform();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						bResult = true;
 						break;
 						
@@ -290,18 +283,17 @@ public class Loads extends GenericSkins {
 						String sDay = currentDate[1];
 						LoadsPage.LoadDatePicker(sDay);
 						LoadsPage.eSave().click();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
 						bResult = true;
 						break;
 						
 					case "COMMODITY":
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						if(!sValue.equalsIgnoreCase("NA")) {
-							//bResult = false;
 							System.out.println("Commodity " + sValue);
 							GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='commodity_uuid']//input"));
-							Thread.sleep(5000);
+							Thread.sleep(2000);
 							LoadsPage.eCommodity().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
@@ -313,15 +305,12 @@ public class Loads extends GenericSkins {
 						break;
 						
 					case "ORIGIN":
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							driver.findElement(By.xpath("//*[@id=\"origin_uuid\"]")).clear();
 							String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 							sValue = sValue+"_" + datetime;
-							//System.out.println("sOrigin "+ sValue);
-							//TestDataImport.SetExcelFile(sTestDataPath, sFileName);
-							//TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sValue, 6, sTestCaseID);
 							LoadsPage.eOrigin().sendKeys(sValue);
 							ac = new Actions(driver);
 							ac.sendKeys(Keys.ENTER).build().perform();
@@ -330,12 +319,11 @@ public class Loads extends GenericSkins {
 						LoadsPage.eSave().click();
 						Thread.sleep(2000);
 						GenericSkins.WaitForElementVisibility(By.xpath(".//span[contains(text(),'Edit')]"));
-						//bResult = Loads.LoadsWebTableForDispatch(19, sTestCaseID);
 						bResult = true;
 						break;
 						
 					case "DESTINATION":
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							driver.findElement(By.xpath("//*[@id='destination_uuid']")).clear();
@@ -350,7 +338,7 @@ public class Loads extends GenericSkins {
 						break;
 						 
 					case "RATE":
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							System.out.println("Rate " + sValue);
 							driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input")).clear();
@@ -366,7 +354,7 @@ public class Loads extends GenericSkins {
 						break;
 					
 					case "SHIPPERCONTACT":
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							LoadsPage.eShipperContact().sendKeys(sValue);
@@ -380,7 +368,7 @@ public class Loads extends GenericSkins {
 						break;
 						
 					case "UOM":
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						if(!sValue.equalsIgnoreCase("NA")) {
 							bResult = false;
 							LoadsPage.eRateUOM().sendKeys(sValue);
@@ -409,13 +397,12 @@ public class Loads extends GenericSkins {
 
 				
 					if (bResult == true) {
-						//LoadsPage.eSave().click();
 						try {
 							driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 							driver.findElement(By.xpath("//span[text()='Yes']")).click();
-							Thread.sleep(3000);
+							Thread.sleep(2000);
 							LoadsPage.eSave().click();
-							Thread.sleep(5000);
+							Thread.sleep(2000);
 
 						} catch (Exception er) {
 							//System.out.println(er);
@@ -427,7 +414,7 @@ public class Loads extends GenericSkins {
 				} catch (Exception error) {
 					bResult = false;
 					sActualResult = error.getMessage();
-					// throw error;
+					
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
@@ -448,7 +435,6 @@ public class Loads extends GenericSkins {
 		boolean bSelected = false;
 		String sFileName = "Loads.xlsx";
 		String sSheetName = "CustomizeGrid";
-		//aHeaderNumbers = null;
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -471,18 +457,17 @@ public class Loads extends GenericSkins {
 						// Click on Loads menu
 						LoadsPage.eMenuLoads().click();
 						System.out.println("Clicked on menu loads");
-						Thread.sleep(5000);
+						Thread.sleep(2000);
 						// Click on All tab
 						LoadsPage.eAllTab().click();
 						System.out.println("Clicked on all loads");
 						Thread.sleep(5000);
 						// CLick on columns button from right pane
 						LoadsPage.eColumnPane().click();
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						sActualResult = "Columns not found";
 						List<WebElement> eColumns = driver.findElements(
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
-						// System.out.println("Number of columns:" + eColumns.size());
 						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 						// uncheck all checkboxes
 						
@@ -493,17 +478,13 @@ public class Loads extends GenericSkins {
 									.findElement(By.tagName("div"));
 							try {
 								WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
-								// System.out.println("svg displayed:" + eCheckboxSelectedsvg.isDisplayed());
 								bSelected = eCheckboxSelectedsvg.isDisplayed();
 							} catch (Exception child_error) {
 								bSelected = false;
 							}
-							// System.out.println("checkbox selected1:" + bSelected);
 							if (bSelected == true) {
 								eCheckBox.click();
-								// System.out.println("checkbox unchecked");
-								Thread.sleep(100);
-
+								
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
@@ -514,19 +495,17 @@ public class Loads extends GenericSkins {
 						//
 						// CLick on columns button from right pane
 						LoadsPage.eColumnPane().click();
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						Actions action = new Actions(driver);
 						action.sendKeys(Keys.F5).build().perform();
 						driver.navigate().refresh();
 						Thread.sleep(5000);
 						// click on columnspane
 						LoadsPage.eColumnPane().click();
-						// driver.findElement(By.xpath(""))
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						eColumns = driver.findElements(
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
-						// System.out.println("Number of columns:" + eColumns.size());
-
+						
 						switch (sOperation.toUpperCase()) {
 						case "ALL":
 							for (WebElement eColumn : eColumns) {
@@ -539,10 +518,8 @@ public class Loads extends GenericSkins {
 								} catch (Exception child_error) {
 									bSelected = false;
 								}
-								// System.out.println("checkbox selected2:" + bSelected);
 								if (bSelected == false) {
 									eCheckBox.click();
-									// System.out.println("checkbox checked");
 									Thread.sleep(100);
 
 								}
@@ -560,7 +537,6 @@ public class Loads extends GenericSkins {
 							for (int i = 0; i < sData.length; i++) {
 								for (WebElement eColumn : eColumns) {
 									String sName = eColumn.findElement(By.tagName("span")).getText();
-									// System.out.println("sName:" + sName);
 									if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
 										WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
 												.findElement(By.tagName("div"));
@@ -570,17 +546,15 @@ public class Loads extends GenericSkins {
 										} catch (Exception child_error) {
 											bSelected = false;
 										}
-										// System.out.println("checkbox selected2:" + bSelected);
 										if (bSelected == false) {
 											eCheckBox.click();
 											iSelectedCnt++;
-											// System.out.println("checkbox checked");
-
+											
 										}
 										break;
 
 									}
-									Thread.sleep(100);
+									//Thread.sleep(50);
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
 									//Thread.sleep(100);
@@ -588,18 +562,16 @@ public class Loads extends GenericSkins {
 							}
 							// click on columnspane
 							LoadsPage.eColumnPane().click();
-							Thread.sleep(4000);
+							Thread.sleep(500);
 							List<WebElement> eHeaders = driver
 									.findElements(By.xpath(".//span[@class='ag-header-cell-text']"));
-							// System.out.println("Number of cols displayed:" + eHeaders.size());
 							for (int i = 0; i < sData.length; i++) {
 								int iHeadercnt = 0;
 								for (WebElement eHeader : eHeaders) {
 
 									iHeadercnt++;
 									if (eHeader.getText().trim().equalsIgnoreCase(sData[i].trim())) {
-										// System.out.println("Header value:" + eHeader.getText());
-										// System.out.println("Header Number:" + iHeadercnt);
+										
 										aHeaderNumbers.add(iHeadercnt);
 									}
 
@@ -621,7 +593,7 @@ public class Loads extends GenericSkins {
 					}
 
 				} catch (Exception error) {
-					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 					bResult = false;
 					sActualResult = error.getMessage();
 
@@ -633,9 +605,6 @@ public class Loads extends GenericSkins {
 
 				break;
 			}
-
-			// System.out.println("class name:"+this.getClass().getName());
-			// sTestCaseID = "TestCases."+sTestCaseID;
 
 		}
 
@@ -676,13 +645,7 @@ public class Loads extends GenericSkins {
 			String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
 			String sCommodity = TestDataImport.GetCellData(sSheetName, 10, iRow);
 			String sReadytoSubmit = TestDataImport.GetCellData(sSheetName, 11, iRow);
-			// String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
-
-			/*
-			 * String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
-			 * sOrigin = sOrigin+"_" + datetime;
-			 */
-			//sOrigin = sGenericOrigin;
+			
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
 			sTestStepData = sLoadDate + ";" + sSHipper + ";" + sSHipperContact + ";" + sCarrier + ";" + sStatus + ";"
 					+ sOrigin + ";" ;//+ sDestination + ";" + sRate + ";" + sRateUOM + ";" + sCommodity + ";";
@@ -706,9 +669,7 @@ public class Loads extends GenericSkins {
 					sTestStepData = sTestStepData.replace("Current Date", t1.format(dateandtime));
 
 					String sData[] = sTestStepData.split(";");
-					// List<WebElement> eCheckBoxes =
-					// driver.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
-					// *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					
 					sActualResult = "Record not found";
 					Thread.sleep(5000);
 					List<WebElement> eCheckBoxes = driver
@@ -738,13 +699,11 @@ public class Loads extends GenericSkins {
 						}
 					}
 
-					Thread.sleep(5000); // *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					Thread.sleep(5000); 
 					eCheckBoxes = driver
 							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
 					List<WebElement> eRows = driver.findElements(
 							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
-					// System.out.println("Number of rows:" + eRows.size());
-					// System.out.println("Number of eCheckBoxes:" + eCheckBoxes.size());
 					int iRow1 = 0;
 					for (WebElement eRow : eRows) {
 						iRow1++;
@@ -752,16 +711,7 @@ public class Loads extends GenericSkins {
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div[" + iRow1
 										+ "]/div"));
 						System.out.println("Number of cols in AG grid:" + eCols.size());
-						/*
-						 * for(int i=0;i<aHeaderNames.size();i++) { WebElement eColTemp = null; String
-						 * sHeaderName=aHeaderNames.get(i); switch(sHeaderName.toUpperCase()) { case
-						 * "LOAD DATE": for(WebElement eCol : eCols) {
-						 * if(eCol.getAttribute("col-id").trim().equalsIgnoreCase("load_date")) {
-						 * eColTemp = eCol; break; } }
-						 *
-						 * } }
-						 */
-
+					
 						for (WebElement eCol : eCols) {
 							String sValue = eCol.getText();
 							try {
@@ -796,13 +746,9 @@ public class Loads extends GenericSkins {
 						for (int i = 0; i < sData.length; i++) {
 
 							for (int j = 0; j < aActualRecordCell.size(); j++) {
-								// System.out.println("sData[i]:" + sData[i] + "aActualRecordCell[j]:" +
-								// aActualRecordCell.get(j));
-								// System.out.println();
-
+								
 								if (aActualRecordCell.get(j).trim().equalsIgnoreCase(sData[i].trim())) {
 									aMatchedIndex.add(j);
-									// System.out.println("Matched");
 									iDisplayedcnt++;
 									break;
 								}
@@ -814,7 +760,6 @@ public class Loads extends GenericSkins {
 						}
 
 						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
-						//if (iDisplayedcnt == sData.length) {
 							int iCheckBoxcnt = 0;
 							for (WebElement eCheckBox : eCheckBoxes) {
 								iCheckBoxcnt++;
@@ -839,12 +784,9 @@ public class Loads extends GenericSkins {
 
 							sActualResult = "Webtable validated successfully";
 							break;
-						/*} else {
-							sActualResult = "Record not found";
-						}*/
-
+					
 					}
-					// List<>
+					
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
 					error.printStackTrace();
@@ -868,8 +810,6 @@ public class Loads extends GenericSkins {
 		boolean bResult = false;
 		try {
 			Thread.sleep(2000);
-			// WebElement eDocumentsrow =
-			// driver.findElement(By.xpath("(.//div[@role='row'])[10]"));
 			List<WebElement> eDocs = driver.findElements(By.xpath(".//*[@class='css-1vcualq ex37wus3']"));
 			String sExpectedResult = "Uploaded Document";
 			System.out.println("Number of docs:" + eDocs.size());
@@ -917,66 +857,23 @@ public class Loads extends GenericSkins {
 			Thread.sleep(2000);
 			
 			Runtime.getRuntime().exec(sTestDataPath + "Docs//" + sFileName + ".exe");
-			// System.out.println("sTestStepData:"+sTestStepData);
 			sActualResult = "Handled windows";
 
 		} catch (Exception Error_Message) {
 			sActualResult = Error_Message.getMessage();
 
 		}
-
-		// ResultComparision();
 	}
 
-/*	public static boolean LoadsNewRecord() throws Exception {
-		// TODO Auto-generated method stub
-		boolean bResult = false;
 
-		try {
-			
-			try {
-				Thread.sleep(5000);
-				System.out.println("Inside Try 1");
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-				driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
-				Thread.sleep(7000);
-			} catch (Exception error_message) {
-				System.out.println(error_message);
-			} 
-			System.out.println("Inside Try 2");
-			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-			DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-			LocalDateTime t1 = LocalDateTime.now();
-
-			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//input")).clear();
-			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//input")).sendKeys(t1.format(dateandtime));
-			Thread.sleep(5000);
-			driver.findElement(By.xpath("(//div[@class='ag-react-container']//input)[10]")).clear();
-			driver.findElement(By.xpath("(//div[@class='ag-react-container']//input)[10]")).sendKeys("Johnny");
-			driver.findElement(By.xpath("(//div[@class='ag-body-viewport ag-layout-normal ag-row-no-animation']//div[@col-id='first_column']/div/span)[1]")).click();
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//span[@data-cy='open-bulk-edit']//button")).click();
-			Thread.sleep(5000);
-			driver.findElement(By.xpath("//div[@class='css-zaam0c']/div[3]")).click();
-		}catch (Exception error_message) {
-			System.out.println(error_message);
-		}
-
-		bResult = true;
-
-		sActualResult = "Webtable validated successfully";
-
-		return bResult;
-	}
-	*/
 	public static boolean uploadOriginTicket(String sDocType) {
 		boolean bResult = false;
 		try {
-			Thread.sleep(2000);
+			//Thread.sleep(1000);
 
 			driver.findElement(By.xpath("(//div[@class='images']//img)[1]")).click();
 			WindowsHandle(sDocType);
-			Thread.sleep(15000);
+			Thread.sleep(10000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("a"))));
 			bResult = true;
@@ -994,11 +891,11 @@ public class Loads extends GenericSkins {
 		// TODO Auto-generated method stub
 		boolean bResult = false;
 		try {
-			Thread.sleep(2000);
+			//Thread.sleep(1000);
 
 			driver.findElement(By.xpath("(//div[@class='images']//img)[3]")).click();
 			WindowsHandle(sDocType);
-			Thread.sleep(15000);
+			Thread.sleep(10000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
 			wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.tagName("a"))));
 			bResult = true;
@@ -1015,8 +912,7 @@ public class Loads extends GenericSkins {
 		// TODO Auto-generated method stub
 		try
 		{
-			// TODO Auto-generated method stub
-			Thread.sleep(5000);
+			Thread.sleep(1000);
 			invoiceNumber = driver.findElement(By.xpath("//input[@id='invoice-number']")).getAttribute("value");
 			
 		}
@@ -1037,16 +933,15 @@ public class Loads extends GenericSkins {
 		// TODO Auto-generated method stub
 		LoadsPage.status().sendKeys("paid");
 		Actions action1 = new Actions(driver);
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		action1.sendKeys(Keys.ENTER).build().perform();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		LoadsPage.eSave().click();
 		Thread.sleep(2000);
 	}
 	public static void VerifyStatus(String eStatus) throws InterruptedException {
 		// TODO Auto-generated method stub
-		//invoiceNumber = "4EDYG5QQ";
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		try {
 			driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
 			catch(Exception error) {
@@ -1055,16 +950,14 @@ public class Loads extends GenericSkins {
 		driver.findElement(By.xpath("((//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input)[2]")).clear();
 		driver.findElement(By.xpath("((//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]/div//input)[2]")).sendKeys(invoiceNumber);
 		System.out.println("Invoice Number Entered");
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		Actions action1 = new Actions(driver);
 		action1.sendKeys(Keys.ENTER).build().perform();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		
 		String aStatus = driver.findElement(By.xpath("//div[@class='ag-center-cols-container']//div[@col-id='status']/div")).getText();
 		System.out.println("Status : " + aStatus);
 		AssertJUnit.assertEquals(eStatus, aStatus);
-		//(//div[@class='ag-header-container']//div[@class='ag-header-row'])[2]
-		//div[@col-id='first_column']/div/span/span[2]
 		
 	}
 	
@@ -1090,20 +983,13 @@ public class Loads extends GenericSkins {
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && rCount == iRow) {
 				try {
 					if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && rCount == iRow) {
-						// Click on Loads menu
-						//LoadsPage.eMenuLoads().click();
-						//System.out.println("Clicked on menu loads");
-						// Click on All tab
-						//LoadsPage.SubmittedView().click();
-						//System.out.println("Clicked on all loads");
-						Thread.sleep(5000);
+						Thread.sleep(2000);
 						// CLick on columns button from right pane
 						LoadsPage.eColumnPane().click();
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						sActualResult = "Columns not found";
 						List<WebElement> eColumns = driver.findElements(
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
-						// System.out.println("Number of columns:" + eColumns.size());
 						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 						// uncheck all checkboxes
 
@@ -1114,21 +1000,17 @@ public class Loads extends GenericSkins {
 									.findElement(By.tagName("div"));
 							try {
 								WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
-								// System.out.println("svg displayed:" + eCheckboxSelectedsvg.isDisplayed());
 								bSelected = eCheckboxSelectedsvg.isDisplayed();
 							} catch (Exception child_error) {
 								bSelected = false;
 							}
-							// System.out.println("checkbox selected1:" + bSelected);
 							if (bSelected == true) {
 								eCheckBox.click();
-								// System.out.println("checkbox unchecked");
-								Thread.sleep(100);
-
+								
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
-							Thread.sleep(100);
+							//Thread.sleep(50);
 
 						}
 
@@ -1142,12 +1024,10 @@ public class Loads extends GenericSkins {
 						Thread.sleep(5000);
 						// click on columnspane
 						LoadsPage.eColumnPane().click();
-						// driver.findElement(By.xpath(""))
 						Thread.sleep(2000);
 						eColumns = driver.findElements(
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
-						// System.out.println("Number of columns:" + eColumns.size());
-
+						
 						switch (sOperation.toUpperCase()) {
 						case "ALL":
 							for (WebElement eColumn : eColumns) {
@@ -1160,10 +1040,8 @@ public class Loads extends GenericSkins {
 								} catch (Exception child_error) {
 									bSelected = false;
 								}
-								// System.out.println("checkbox selected2:" + bSelected);
 								if (bSelected == false) {
 									eCheckBox.click();
-									// System.out.println("checkbox checked");
 									Thread.sleep(100);
 
 								}
@@ -1181,7 +1059,6 @@ public class Loads extends GenericSkins {
 							for (int i = 0; i < sData.length; i++) {
 								for (WebElement eColumn : eColumns) {
 									String sName = eColumn.findElement(By.tagName("span")).getText();
-									// System.out.println("sName:" + sName);
 									if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
 										WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
 												.findElement(By.tagName("div"));
@@ -1191,17 +1068,15 @@ public class Loads extends GenericSkins {
 										} catch (Exception child_error) {
 											bSelected = false;
 										}
-										// System.out.println("checkbox selected2:" + bSelected);
 										if (bSelected == false) {
 											eCheckBox.click();
 											iSelectedCnt++;
-											// System.out.println("checkbox checked");
-
+										
 										}
 										break;
 
 									}
-									Thread.sleep(100);
+									Thread.sleep(50);
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
 									//Thread.sleep(100);
@@ -1209,18 +1084,15 @@ public class Loads extends GenericSkins {
 							}
 							// click on columnspane
 							LoadsPage.eColumnPane().click();
-							Thread.sleep(4000);
+							Thread.sleep(2000);
 							List<WebElement> eHeaders = driver
 									.findElements(By.xpath(".//span[@class='ag-header-cell-text']"));
-							// System.out.println("Number of cols displayed:" + eHeaders.size());
 							for (int i = 0; i < sData.length; i++) {
 								int iHeadercnt = 0;
 								for (WebElement eHeader : eHeaders) {
 
 									iHeadercnt++;
 									if (eHeader.getText().trim().equalsIgnoreCase(sData[i].trim())) {
-										// System.out.println("Header value:" + eHeader.getText());
-										// System.out.println("Header Number:" + iHeadercnt);
 										aHeaderNumbers.add(iHeadercnt);
 									}
 
@@ -1233,7 +1105,7 @@ public class Loads extends GenericSkins {
 								sActualResult = "Webtable not customized successfully";
 								bResult = false;
 							}
-							driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+							driver.manage().timeouts().implicitlyWait(05, TimeUnit.SECONDS);
 
 							break;
 
@@ -1254,9 +1126,6 @@ public class Loads extends GenericSkins {
 
 			}
 
-			// System.out.println("class name:"+this.getClass().getName());
-			// sTestCaseID = "TestCases."+sTestCaseID;
-
 		}
 
 		return bResult;
@@ -1264,7 +1133,7 @@ public class Loads extends GenericSkins {
 
 	public static void SelectRecord() throws InterruptedException {
 		// TODO Auto-generated method stub
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		try {
 			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span)[1]")).click();
 			Thread.sleep(1000);
@@ -1274,11 +1143,11 @@ public class Loads extends GenericSkins {
 		
 		if(driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).isSelected()) {
 			System.out.println("Record already is selected");
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		} else {
 			driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).click();
 			System.out.println("Record is selected");
-			Thread.sleep(2000);
+			Thread.sleep(500);
 		}
 	}
 
@@ -1301,19 +1170,19 @@ public class Loads extends GenericSkins {
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
 
 			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID) && iOperation.equalsIgnoreCase(sOperation)) {
-				Thread.sleep(2000);
+				//Thread.sleep(1000);
 				driver.findElement(By.xpath("//input[@id='Copies']")).clear();
 				driver.findElement(By.xpath("//input[@id='Copies']")).sendKeys(sCopy);
-				Thread.sleep(1000);
+				//Thread.sleep(1000);
 				LoadsPage.SubmitDuplicateCopy().click();
-				Thread.sleep(4000);
+				Thread.sleep(2000);
 
 				switch(sOperation) {
 					
 					case "Open":
 						System.out.println("Open");
 						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();
-						Thread.sleep(4000);
+						Thread.sleep(2000);
 						List<WebElement> duplicateCount = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
 						if(duplicateCount.size() == (Integer.parseInt(sCopy) +1)) {
 							sActualResult = "Record Dulicated Successfully";
@@ -1326,13 +1195,13 @@ public class Loads extends GenericSkins {
 						System.out.println("Submitted");
 						Thread.sleep(2000);
 						driver.findElement(By.xpath(".//p[./text()='All']")).click();
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						try {
 							driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
 							catch(Exception error) {
 								System.out.println(error);
 							}
-						Thread.sleep(4000);
+						Thread.sleep(2000);
 						List<WebElement> duplicateCount2 = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
 						if(duplicateCount2.size() >= Integer.parseInt(sCopy)) {
 							sActualResult = "Record Dulicated Successfully";
@@ -1344,14 +1213,14 @@ public class Loads extends GenericSkins {
 					case "Paid":
 						System.out.println("Paid");
 						driver.findElement(By.xpath(".//p[./text()='All']")).click();
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						
 						try {
 						driver.findElement(By.xpath("//div[@class='react-datepicker-wrapper']//img")).click();}
 						catch(Exception error) {
 							System.out.println(error);
 						}
-						Thread.sleep(4000);
+						Thread.sleep(2000);
 						List<WebElement> duplicateCount3 = driver.findElements(By.xpath("//div[@col-id='first_column']/div/span/span[2]"));
 						if(duplicateCount3.size() >= Integer.parseInt(sCopy)) {
 							sActualResult = "Record Dulicated Successfully";
@@ -1371,13 +1240,13 @@ public class Loads extends GenericSkins {
 
 	public static void SelectFirstRecord() throws InterruptedException {
 		// TODO Auto-generated method stub
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		if(driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).isSelected()) {
 			System.out.println("Record already is selected");
 		} else {
 			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).click();
 			System.out.println("Record is selected");
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 		}
 	}
 	public static void ApprovedInvoice() throws InterruptedException {
@@ -1435,15 +1304,15 @@ public class Loads extends GenericSkins {
 					;
 
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(1000);
 						driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 						driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
-						Thread.sleep(5000);
+						Thread.sleep(500);
 					} catch (Exception error_message) {
 
 					}
 
-					driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+					driver.manage().timeouts().implicitlyWait(05, TimeUnit.SECONDS);
 					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 					LocalDateTime t1 = LocalDateTime.now();
 					sTestStepData = sTestStepData.replace("Current Date", t1.format(dateandtime));
@@ -1465,7 +1334,7 @@ public class Loads extends GenericSkins {
 							if (iHeaderFilterCnt == iFilterNum) {
 								if (!(sData[i].equalsIgnoreCase("NA"))) {
 									eHeaderFilter.findElement(By.tagName("input")).clear();
-									Thread.sleep(500);
+									//Thread.sleep(100);
 									eHeaderFilter.findElement(By.tagName("input")).sendKeys(sData[i]);
 									Actions acton = new Actions(driver);
 									acton.sendKeys(Keys.ENTER).build().perform();
@@ -1475,7 +1344,7 @@ public class Loads extends GenericSkins {
 							}
 						}
 					}
-					Thread.sleep(5000); // *[@id="myGrid"]/div/div/div[2]/div[1]/div[3]/div[1]/div
+					Thread.sleep(1000); 
 					eCheckBoxes = driver
 							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
 					List<WebElement> eRows = driver.findElements(
@@ -1501,7 +1370,7 @@ public class Loads extends GenericSkins {
 									sValue = "GREEN";
 									Actions action = new Actions(driver);
 									action.moveToElement(eCol).build().perform();
-									Thread.sleep(3000);
+									Thread.sleep(500);
 								} else {
 									sValue = "NA";
 								}
@@ -1537,15 +1406,14 @@ public class Loads extends GenericSkins {
 							aActualRecordCell.remove(i);
 						}
 						System.out.println("iDisplayedcnt:" + iDisplayedcnt);
-						//if (iDisplayedcnt == sData.length) {
 							int iCheckBoxcnt = 0;
 							for (WebElement eCheckBox : eCheckBoxes) {
 								iCheckBoxcnt++;
 								if (iRow1 == iCheckBoxcnt) {
 									eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-									Thread.sleep(1000);
+									Thread.sleep(200);
 									eCheckBox.findElement(By.cssSelector(".ag-cell-value")).click();
-									Thread.sleep(1000);
+									Thread.sleep(200);
 									try {
 										driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 										LoadsPage.eEdit().isDisplayed();
@@ -1599,9 +1467,9 @@ public class Loads extends GenericSkins {
 
 			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID)) {
 				
-				Thread.sleep(1000);
+				//Thread.sleep(1000);
 				driver.findElement(By.xpath(".//span[./text()='View PDF']")).click();
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 
 				//Download PDF
 				if(sObject.equalsIgnoreCase("DOWNLOAD")) {
@@ -1625,10 +1493,8 @@ public class Loads extends GenericSkins {
 						if(!driver.findElement(By.xpath("//input[@value='email']")).isSelected()) {
 							driver.findElement(By.xpath("//input[@value='email']")).click();
 						} 
-						//driver.findElement(By.xpath("//input[@id='email']")).clear();
-						//driver.findElement(By.xpath("//input[@id='email']")).sendKeys(sValue);
 						driver.findElement(By.xpath("//button/span[contains(text(),'Generate')]")).click();
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 						sActualResult = "Email sent Successfully";
 						bResult = true;
 					} catch(Exception e) {
@@ -1660,9 +1526,9 @@ public class Loads extends GenericSkins {
 
 			if(sActTestCaseID.equalsIgnoreCase(sTestCaseID)) {
 				
-				Thread.sleep(1000);
+				//Thread.sleep(1000);
 				driver.findElement(By.xpath(".//span[./text()='Export Selected Data']")).click();
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 
 				//Download PDF
 				if(sObject.equalsIgnoreCase("DOWNLOAD")) {
@@ -1677,11 +1543,9 @@ public class Loads extends GenericSkins {
 							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 							ac.sendKeys(Keys.ENTER).build().perform();
 						}
-						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
-						//driver.findElement(By.xpath("//span[contains(text(),'.xlsx')]")).click();
-						Thread.sleep(3000);
+						Thread.sleep(500);
 						driver.findElement(By.xpath(".//span[./text()='Export Loads']")).click();
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 						sActualResult = "Download Successfully";
 						bResult = true;
 					} catch(Exception e) {
@@ -1703,12 +1567,9 @@ public class Loads extends GenericSkins {
 							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 							ac.sendKeys(Keys.ENTER).build().perform();
 						}
-						//driver.findElement(By.xpath("//input[@id='email']")).clear();
-						//driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
-						//driver.findElement(By.xpath("//span[contains(text(),'.csv')]")).click();
-						Thread.sleep(3000);
+						Thread.sleep(500);
 						driver.findElement(By.xpath(".//span[./text()='Export Loads']")).click();
-						Thread.sleep(5000);
+						Thread.sleep(3000);
 						sActualResult = "Email sent Successfully";
 						bResult = true;
 					} catch(Exception e) {
@@ -1818,7 +1679,6 @@ public class Loads extends GenericSkins {
 					}
 
 					Thread.sleep(2000);
-					//LoadsPage.eAddNewLoadDate().sendKeys(sLoadDate);
 					LoadsPage.LoadDatePicker(sDay);
 					ac = new Actions(driver);
 					ac.sendKeys(Keys.ENTER).build().perform();
@@ -1919,5 +1779,4 @@ public class Loads extends GenericSkins {
 		return bResult;
 	}
 
-	
 }

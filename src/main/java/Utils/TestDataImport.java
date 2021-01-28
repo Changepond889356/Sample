@@ -263,7 +263,6 @@ public class TestDataImport
  			if(nRow.getCell(0).getStringCellValue().equalsIgnoreCase(sTestCaseID)) {
  				nCell = nRow.createCell(colNum);
  				nCell.setCellValue(swriteData);
- 				System.out.println("Write Done " +nTestDataPath+nFileName);
  			}
  		}
  		FileOutputStream nfileOut = new FileOutputStream(new File(nTestDataPath+nFileName));   

@@ -58,7 +58,6 @@ public class TestActions extends GenericSkins {
 				options.setExperimentalOption("prefs", chromePrefs);
 				options.addArguments("--test-type");
 				options.addArguments("--disable-extensions"); // to disable browser extension pop up
-
 				DesiredCapabilities caps = DesiredCapabilities.chrome();
 				caps.setCapability(ChromeOptions.CAPABILITY, chromeOptionsMap);
 				caps.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
@@ -208,12 +207,12 @@ public class TestActions extends GenericSkins {
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
 				try {
 					LoginPage.eUserName().sendKeys(sUserName);
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					LoginPage.sSubmit().click();
 					LoginPage.ePassword().sendKeys(sPassword);
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 					LoginPage.eLoginButton().click();
-					Thread.sleep(10000);
+					Thread.sleep(5000);
 					Actions action = new Actions(driver);
 					action.sendKeys(Keys.F5).build().perform();
 					WebDriverWait wait = new WebDriverWait(driver, 30);
