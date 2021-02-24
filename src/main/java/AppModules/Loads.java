@@ -1729,13 +1729,18 @@ public class Loads extends GenericSkins {
 					if (!(sOrigin.trim().equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sOrigin = sOrigin+"_" + datetime;
-						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
+						TestDataImport.writeExcel(sTestDataPath,"FieldMapping.xlsx", "FieldMapping", sOrigin, 8, sTestCaseID);
 						//TestDataImport.writeExcel(sTestResultsPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 						LoadsPage.eOrigin().sendKeys(sOrigin);
 					}
 
 					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
+						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
+						sDestination = sDestination+"_" + datetime;
+						TestDataImport.writeExcel(sTestDataPath,"FieldMapping.xlsx", "FieldMapping", sDestination, 9, sTestCaseID);
+						
 						LoadsPage.eDestination().sendKeys(sDestination);
+						driver.findElement(By.xpath("//*[@id='origin_weight']")).click();
 					}
 
 					if (!(sRateUOM.trim().equalsIgnoreCase("NA"))) {
