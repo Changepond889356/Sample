@@ -138,8 +138,12 @@ public class Loads extends GenericSkins {
 					}
 
 					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
+						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
+						sDestination = sDestination+"_" + datetime;
+						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sDestination, 7, sTestCaseID);
+						TestDataImport.writeExcel(sTestResultsPath,"Loads.xlsx", "View Load", sDestination, 7, sTestCaseID);						
 						LoadsPage.eDestination().sendKeys(sDestination);
-
+						driver.findElement(By.xpath("//*[@id='origin_weight']")).click();
 					}
 
 					if (!(sRateUOM.trim().equalsIgnoreCase("NA"))) {
@@ -466,11 +470,15 @@ public class Loads extends GenericSkins {
 						LoadsPage.eColumnPane().click();
 						Thread.sleep(500);
 						sActualResult = "Columns not found";
+						
+						List<WebElement> gridCol = driver.findElements(By.xpath("(//div[@class='ag-header-container']/div)[1]/div"));
+						
 						List<WebElement> eColumns = driver.findElements(
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
 						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 						// uncheck all checkboxes
 						
+						int tempcnt =0;
 						for (WebElement eColumn : eColumns) {
 
 							String sName = eColumn.findElement(By.tagName("span")).getText();
@@ -484,7 +492,10 @@ public class Loads extends GenericSkins {
 							}
 							if (bSelected == true) {
 								eCheckBox.click();
-								
+								tempcnt++;
+							}
+							if(tempcnt >=gridCol.size()) {
+								break;
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
