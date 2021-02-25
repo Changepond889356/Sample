@@ -481,10 +481,24 @@ public class Carrier extends GenericSkins {
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 
 				CarrierPage.AcceptBtn().click();
-				Thread.sleep(3000);
+				Thread.sleep(5000);
+				
 				try {
+					CarrierPage.AcceptBtn().click();
 					TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
 					driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
+					System.out.println("Request Accepted ");
+				}catch(Exception e) {
+					System.out.println("Failed to Accepted ");
+				}
+				
+				
+				try {
+					
+					TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
+					driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
+					Thread.sleep(2000);
+					CarrierPage.AcceptBtn().click();
 					System.out.println("Request Accepted ");
 				}catch(Exception e) {
 					System.out.println("Failed to Accepted ");

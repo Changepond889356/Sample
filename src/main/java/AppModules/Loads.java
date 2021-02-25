@@ -461,7 +461,7 @@ public class Loads extends GenericSkins {
 						// Click on Loads menu
 						LoadsPage.eMenuLoads().click();
 						System.out.println("Clicked on menu loads");
-						Thread.sleep(2000);
+						Thread.sleep(5000);
 						// Click on All tab
 						LoadsPage.eAllTab().click();
 						System.out.println("Clicked on all loads");
@@ -1547,9 +1547,10 @@ public class Loads extends GenericSkins {
 						if(!driver.findElement(By.xpath("//input[@value='download']")).isSelected()) {
 							driver.findElement(By.xpath("//input[@value='download']")).click();	
 						} 
-						String formatText = driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div/div")).getText();
+						String formatText = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).getText();
+						System.out.println("Text " + formatText);
 						if(!formatText.equalsIgnoreCase(sValue)) {
-							driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
+							driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).click();
 							Actions ac = new Actions(driver);
 							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 							ac.sendKeys(Keys.ENTER).build().perform();

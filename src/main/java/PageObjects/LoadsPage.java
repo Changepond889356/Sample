@@ -409,7 +409,7 @@ public static WebElement Submit() {
 			}
 		} else {
 			
-			for(int i =29; i< daylist.size();i++) {
+			for(int i =25; i< daylist.size();i++) {
 				if(daylist.get(i).getText().equalsIgnoreCase(sDay)) {
 					daylist.get(i).click();
 					break;
