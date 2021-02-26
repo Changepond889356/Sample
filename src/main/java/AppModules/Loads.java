@@ -1003,7 +1003,8 @@ public class Loads extends GenericSkins {
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
 						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 						// uncheck all checkboxes
-
+						List<WebElement> gridCol = driver.findElements(By.xpath("(//div[@class='ag-header-container']/div)[1]/div"));
+						int tempcnt =0;
 						for (WebElement eColumn : eColumns) {
 
 							String sName = eColumn.findElement(By.tagName("span")).getText();
@@ -1017,7 +1018,10 @@ public class Loads extends GenericSkins {
 							}
 							if (bSelected == true) {
 								eCheckBox.click();
-								
+								tempcnt++;
+							}
+							if(tempcnt >=gridCol.size()) {
+								break;
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
@@ -1053,7 +1057,7 @@ public class Loads extends GenericSkins {
 								}
 								if (bSelected == false) {
 									eCheckBox.click();
-									Thread.sleep(100);
+									Thread.sleep(50);
 
 								}
 								Actions action2 = new Actions(driver);
@@ -1154,11 +1158,11 @@ public class Loads extends GenericSkins {
 		
 		if(driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).isSelected()) {
 			System.out.println("Record already is selected");
-			Thread.sleep(500);
+			Thread.sleep(1500);
 		} else {
 			driver.findElement(By.xpath("//div[@col-id='first_column']/div/span/span[2]")).click();
 			System.out.println("Record is selected");
-			Thread.sleep(500);
+			Thread.sleep(1500);
 		}
 	}
 
@@ -1223,6 +1227,7 @@ public class Loads extends GenericSkins {
 						
 					case "Paid":
 						System.out.println("Paid");
+						Thread.sleep(2000);
 						driver.findElement(By.xpath(".//p[./text()='All']")).click();
 						Thread.sleep(2000);
 						
@@ -1572,9 +1577,9 @@ public class Loads extends GenericSkins {
 						if(!driver.findElement(By.xpath("//input[@value='email']")).isSelected()) {
 							driver.findElement(By.xpath("//input[@value='email']")).click();
 						} 
-						String formatText = driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div/div")).getText();
+						String formatText = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).getText();
 						if(!formatText.equalsIgnoreCase(sValue)) {
-							driver.findElement(By.xpath("//div[@id='export-as']/div/div/div/div")).click();
+							driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).click();
 							Actions ac = new Actions(driver);
 							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 							ac.sendKeys(Keys.ENTER).build().perform();
