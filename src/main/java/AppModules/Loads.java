@@ -882,7 +882,7 @@ public class Loads extends GenericSkins {
 		try {
 			//Thread.sleep(1000);
 
-			driver.findElement(By.xpath("(//div[@class='images']//img)[1]")).click();
+			driver.findElement(By.xpath("(//div[@class='images'])[1]")).click();
 			WindowsHandle(sDocType);
 			Thread.sleep(10000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -904,7 +904,7 @@ public class Loads extends GenericSkins {
 		try {
 			//Thread.sleep(1000);
 
-			driver.findElement(By.xpath("(//div[@class='images']//img)[3]")).click();
+			driver.findElement(By.xpath("(//div[@class='images'])[2]")).click();
 			WindowsHandle(sDocType);
 			Thread.sleep(10000);
 			WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -1552,10 +1552,10 @@ public class Loads extends GenericSkins {
 						if(!driver.findElement(By.xpath("//input[@value='download']")).isSelected()) {
 							driver.findElement(By.xpath("//input[@value='download']")).click();	
 						} 
-						String formatText = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).getText();
+						String formatText = driver.findElement(By.xpath("//div[@class='MuiInputBase-input MuiOutlinedInput-input']/div/div")).getText();
 						System.out.println("Text " + formatText);
 						if(!formatText.equalsIgnoreCase(sValue)) {
-							driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).click();
+							driver.findElement(By.xpath("//div[@class='MuiInputBase-input MuiOutlinedInput-input']/div/div")).click();
 							Actions ac = new Actions(driver);
 							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 							ac.sendKeys(Keys.ENTER).build().perform();
@@ -1577,9 +1577,9 @@ public class Loads extends GenericSkins {
 						if(!driver.findElement(By.xpath("//input[@value='email']")).isSelected()) {
 							driver.findElement(By.xpath("//input[@value='email']")).click();
 						} 
-						String formatText = driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).getText();
+						String formatText = driver.findElement(By.xpath("//div[@class='MuiInputBase-input MuiOutlinedInput-input']/div/div")).getText();
 						if(!formatText.equalsIgnoreCase(sValue)) {
-							driver.findElement(By.xpath("/html/body/div[3]/div[3]/div/div/div[2]/div[2]/div/div/div/div/div")).click();
+							driver.findElement(By.xpath("//div[@class='MuiInputBase-input MuiOutlinedInput-input']/div/div")).click();
 							Actions ac = new Actions(driver);
 							ac.sendKeys(Keys.ARROW_DOWN).build().perform();
 							ac.sendKeys(Keys.ENTER).build().perform();
