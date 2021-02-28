@@ -513,6 +513,14 @@ public class Carrier extends GenericSkins {
 
 		driver.findElement(By.xpath("//div[@id='root']//img")).click();
 		Thread.sleep(3000);
+		
+		try {
+			driver.findElement(By.xpath("//button//span[contains(text(),'Accept')]")).click();
+			Thread.sleep(2000);
+		}catch(Exception e) {
+			
+		}
+		
 		return bResult;
 	}
 

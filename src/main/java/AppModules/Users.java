@@ -165,30 +165,48 @@ public class Users extends GenericSkins {
 					// click on load icon
 					driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]"))
 					.click();
+					
+					List<WebElement> listh1 = driver.findElements(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[1]/div"));
+					int tempvar =0;
+					for(int i =0; i<listh1.size();i++) {
+						tempvar = i + 1;
+						if(listh1.get(i).getAttribute("col-id").equals("email")) {
+							System.out.println("Col Name - " +listh1.get(i).getAttribute("col-id") + " " + sEmail);
+							
+							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).clear();
+							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(sEmail);
+							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(Keys.ENTER);
+							Thread.sleep(3000);
+							System.out.println("Data Enter");
+						}
+						
+						if(listh1.get(i).getAttribute("col-id").equals("name")) {
+							System.out.println("Col Name - " +listh1.get(i).getAttribute("col-id") + " " + sName);
+							
+							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).clear();
+							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(sName);
+							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(Keys.ENTER);
+							Thread.sleep(3000);
+							System.out.println("Data Enter");
+						}
+						
+					}
 					// filter by Name
-					WebElement eNameFilter = driver
+					/*WebElement eNameFilter = driver
 							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[1]"));
 
 					eNameFilter.clear();
 					Thread.sleep(1000);
 					eNameFilter.sendKeys(sName);
 					Thread.sleep(3000);
-					/*
-					 * driver.findElement(By.xpath(
-					 * "//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"
-					 * )) .clear();
-					 * //*[@id="myGrid"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[2]/div[1
-					 * ]/div/div/input driver.findElement(By.xpath(
-					 * "//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"
-					 * )) .sendKeys(sName);
-					 */
+					
 					WebElement eEmailFilter = driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
 					 eEmailFilter.clear();
 					 Thread.sleep(1000);
 					 eEmailFilter.sendKeys(sEmail);
 					 eEmailFilter.sendKeys(Keys.ENTER);
 					 System.out.println("loading...");
-					 Thread.sleep(3000);
+					 Thread.sleep(3000);  */
 
 					 WebElement usergrid = driver.findElement(By.xpath(".//div[@role='grid']"));
 					 // take list of checkboxes from grid
@@ -497,12 +515,12 @@ public class Users extends GenericSkins {
 							if (bSelected == true) {
 								eCheckBox.click();
 								// System.out.println("checkbox unchecked");
-								Thread.sleep(100);
+								Thread.sleep(50);
 
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
-							Thread.sleep(100);
+							//Thread.sleep(100);
 
 						}
 
