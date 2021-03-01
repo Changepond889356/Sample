@@ -259,7 +259,7 @@ public class ShipperContact  extends GenericSkins {
 							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[1]"));
 
 					eNameFilter.clear();
-					//Thread.sleep(1000);
+					Thread.sleep(1000);
 					eNameFilter.sendKeys(sName);
 					Thread.sleep(3000);
 

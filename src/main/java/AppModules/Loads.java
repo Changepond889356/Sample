@@ -1678,7 +1678,7 @@ public class Loads extends GenericSkins {
 				System.out.println("inside if");
 				try {
 
-					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/d/yyyy");
 					LocalDateTime t1 = LocalDateTime.now();
 					sLoadDate = sLoadDate.replace("Current Date", t1.format(dateandtime));
 					String[] currentDate = t1.format(dateandtime).split("/");
@@ -1735,7 +1735,7 @@ public class Loads extends GenericSkins {
 					if (!(sOrigin.trim().equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sOrigin = sOrigin+"_" + datetime;
-						TestDataImport.writeExcel(sTestDataPath,"FieldMapping.xlsx", "FieldMapping", sOrigin, 8, sTestCaseID);
+						TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 						//TestDataImport.writeExcel(sTestResultsPath,"Loads.xlsx", "View Load", sOrigin, 6, sTestCaseID);
 						LoadsPage.eOrigin().sendKeys(sOrigin);
 					}
@@ -1743,7 +1743,7 @@ public class Loads extends GenericSkins {
 					if (!(sDestination.trim().equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sDestination = sDestination+"_" + datetime;
-						TestDataImport.writeExcel(sTestDataPath,"FieldMapping.xlsx", "FieldMapping", sDestination, 9, sTestCaseID);
+						//TestDataImport.writeExcel(sTestDataPath,"Loads.xlsx", "View Load", sDestination, 9, sTestCaseID);
 						
 						LoadsPage.eDestination().sendKeys(sDestination);
 						driver.findElement(By.xpath("//*[@id='origin_weight']")).click();
