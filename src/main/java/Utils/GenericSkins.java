@@ -259,6 +259,7 @@ public class GenericSkins {
 	protected static String  fromEmailID = "NA";
 	protected static String  emailUsername = "NA";
 	protected static String  emailPassword = "NA";
+	protected static String sGenericDealName;
 	
 	protected static WebDriverWait wait;
 
@@ -324,7 +325,7 @@ public class GenericSkins {
 		sTestDataPath = sProjectPath + "TestData//"; //Source//Scripts//TestData//
 		// sPathOR = sProjectPath + "Wizard//ObjectRepository//";
 		sSystemIndependencyConfig = sProjectPath + "Config//SystemIndependencyConfig.xml"; //Source//Scripts//Config//SystemIndependencyConfig.xml
-		sBrowsserDriverPath = "BrowserDrivers//";
+		sBrowsserDriverPath = sProjectPath+"BrowserDrivers//";
 		sPathReportsSource = sProjectPath + "Reports//";
 
 		sDriverFile = "Driver.xlsx";
