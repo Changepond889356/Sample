@@ -216,6 +216,17 @@ public class DealsPage extends GenericSkins {
 		}
 		return element;
 	}
+	public static WebElement eDealsWithDrawTab() {
+		try {
+			element = driver.findElement(By.xpath("//*[@id=\"view-toggle\"]/button[4]/span[1]"));
+			// element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+			element = null;
+			
+		}
+		return element;
+	}
 
 
 	public static WebElement eSave() {
@@ -237,6 +248,27 @@ public class DealsPage extends GenericSkins {
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
 			element = null;
+			element = null;
+		}
+		return element;
+	}
+	
+	public static WebElement eCopies() {
+		try {
+			element = driver.findElement(By.xpath("//*[@id=\"copies\"]"));
+			// element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+			element = null;
+		}
+		return element;
+	}
+	public static WebElement eCopiesSubmit() {
+		try {
+			element = driver.findElement(By.xpath(".//*[text()='Submit']"));
+			// element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
 			element = null;
 		}
 		return element;

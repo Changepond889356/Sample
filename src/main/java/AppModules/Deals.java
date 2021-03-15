@@ -24,26 +24,6 @@ import PageObjects.*;
 
 public class Deals extends GenericSkins {
 
-	// method to get invoice number
-	public static void GetInvoiceNumber() throws Exception {
-		// String invoiceNumber="NA";
-		try {
-			// TODO Auto-generated method stub
-			Thread.sleep(5000);
-			invoiceNumber = driver.findElement(By.xpath("//input[@id='invoice-number']")).getAttribute("value");
-
-		} catch (Exception e) {
-			invoiceNumber = "NA";
-		}
-		sInvoiceNumber = invoiceNumber;
-
-		if (sInvoiceNumber.equalsIgnoreCase("") || sInvoiceNumber.equals(null)) {
-			sInvoiceNumber = "NA";
-			invoiceNumber = "NA";
-		}
-		System.out.println("Invoice Number " + sInvoiceNumber);
-	}
-
 	// MEthod to add a new user
 	public static boolean addNewDeal(String sActualTestCaseID) throws Exception {
 
@@ -239,6 +219,8 @@ public class Deals extends GenericSkins {
 		String sFileName = "Deals.xlsx";
 		String sSheetName = "Deal Widget";
 		WebElement eShare = null;
+		WebElement eDuplicate = null;
+		WebElement eWithDraw = null;
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -254,7 +236,14 @@ public class Deals extends GenericSkins {
 			if (sDealName.trim().equalsIgnoreCase("AutoDeal")) {
 				sDealName = sGenericDealName;
 
+			} else if (sDealName.trim().equalsIgnoreCase("AutoDeal(1)")) {
+				sDealName = sGenericDealName + " (1)";
+
+			} else if (sDealName.trim().equalsIgnoreCase("AutoDeal(2)")) {
+				sDealName = sGenericDealName + " (2)";
+
 			}
+
 			String sTab = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 3, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 4, iRow);
@@ -262,57 +251,81 @@ public class Deals extends GenericSkins {
 				try {
 					DealsPage.eMenuDeals().click();
 					Thread.sleep(2000);
-					switch(sTab.toUpperCase().trim())
-					{
+					switch (sTab.toUpperCase().trim()) {
 					case "DRAFT":
 						DealsPage.eDealsDraft().click();
 						break;
 					case "OPPORTUNITY":
 						DealsPage.eDealsOpportunity().click();
 						break;
+					case "WITHDRAW":
+						DealsPage.eDealsWithDrawTab().click();
+						break;
 					}
-					
+
 					Thread.sleep(3000);
 					List<WebElement> eDeals = driver
 							.findElements(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[3]/div/div"));
 					System.out.println("No. of deals :" + eDeals.size());
 					sActualResult = "No deal found";
 					for (WebElement eDeal : eDeals) {
-						String sActualDealName = eDeal.findElement(By.tagName("span")).getAttribute("title");
-						List<WebElement>eSpans =  eDeal.findElements(By.tagName("span"));
-						System.out.println("NO of spans:"+eSpans.size());
-						for(WebElement eSpan: eSpans)
-						{
-							sActualDealName = eSpan.getAttribute("title");
-							System.out.println("Deal title:" + sActualDealName);
-							if(!(sActualDealName.equals(null))&&!(sActualDealName.equals("")))
-							{
+						String sActualDealName = "";
+						if (sTab.equalsIgnoreCase("Draft")) {
+							sActualDealName = eDeal.findElement(By.tagName("span")).getAttribute("title");
+						} else if (sTab.equalsIgnoreCase("Opportunity")) {
+							List<WebElement> eSpans = eDeal.findElements(By.tagName("span"));
+							System.out.println("NO of spans:" + eSpans.size());
+							for (WebElement eSpan : eSpans) {
 								sActualDealName = eSpan.getAttribute("title");
-								break;
+								System.out.println("Deal title:" + sActualDealName);
+								if (!(sActualDealName.equals(null)) && !(sActualDealName.equals(""))) {
+									sActualDealName = eSpan.getAttribute("title");
+									break;
+								}
+
 							}
-							
+						} else if (sTab.equalsIgnoreCase("WithDraw")) {
+							List<WebElement> eTitles = driver.findElements(By.xpath(".//div[@class=' css-1art6ly']"));
+							System.out.println("NO of spans:" + eTitles.size());
+							for (WebElement eSpan : eTitles) {
+								sActualDealName = eSpan.getAttribute("title");
+								System.out.println("Deal title:" + sActualDealName);
+								if ((sActualDealName.equals(sDealName))) {
+									//sActualDealName = eSpan.getAttribute("title");
+									break;
+								}
+
+							}
+
+							System.out.println("with draw DealName:" + sDealName);
 						}
+
 						System.out.println("DealName:" + sDealName);
 						System.out.println("actual DealName:" + sActualDealName);
 						System.out.println("sOperation:" + sOperation);
 						if (sActualDealName.trim().equalsIgnoreCase(sDealName.trim())) {
 							// bResult=true;
-							//click on ...
-							switch(sTab.toUpperCase().trim())
-							{
+							// click on ...
+							switch (sTab.toUpperCase().trim()) {
 							case "DRAFT":
-								eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']")).click();
+								eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"))
+										.click();
 								break;
 							case "OPPORTUNITY":
-								eDeal.findElement(By.xpath(".//div[@class='css-ofjib6 e2zx7mg0']/*[name()='svg']")).click();
+								eDeal.findElement(By.xpath(".//div[@class='css-ofjib6 e2zx7mg0']/*[name()='svg']"))
+										.click();
+								break;
+							case "WITHDRAW":
+								eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"))
+										.click();
 								break;
 							}
-							
+
 							System.out.println("clicked on dots");
 
 							Thread.sleep(4000);
-							List<WebElement> eOperationsList = driver
-									.findElements(By.xpath(".//ul[@class='MuiList-root MuiMenu-list MuiList-padding']/div"));
+							List<WebElement> eOperationsList = driver.findElements(
+									By.xpath(".//ul[@class='MuiList-root MuiMenu-list MuiList-padding']/div"));
 							System.out.println("operation list size:" + eOperationsList.size());
 							for (WebElement eOperation : eOperationsList) {
 								String sOperName = eOperation.getText();
@@ -320,23 +333,40 @@ public class Deals extends GenericSkins {
 								switch (sOperName.trim().toUpperCase()) {
 								case "SHARE":
 									eShare = eOperation;
-									//bResult=true;
+									// bResult=true;
 									break;
-								
+								case "DUPLICATE":
+									eDuplicate = eOperation;
+									// bResult=true;
+									break;
+								case "WITHDRAW":
+									eWithDraw = eOperation;
+									// bResult=true;
+									break;
+
 								}
 							}
-							
 
 							switch (sOperation.trim().toUpperCase()) {
 							case "SHARE":
 								eShare.click();
 								bResult = true;
 								break;
-							case "VIEW":
-								bResult=true;
-								//eShare = eOperation;
+							case "DUPLICATE":
+								eDuplicate.click();
+								bResult = true;
 								break;
-							
+
+							case "WITHDRAW":
+								eWithDraw.click();
+								bResult = true;
+								break;
+
+							case "VIEW":
+								bResult = true;
+								// eShare = eOperation;
+								break;
+
 							}
 							// bResult = true;
 
@@ -346,16 +376,15 @@ public class Deals extends GenericSkins {
 							bResult = false;
 
 						}
-						
 
 					}
 				} catch (Exception error) {
 					bResult = false;
 					sActualResult = error.getMessage();
-					throw error;
+					//throw error;
 				}
 				Thread.sleep(2000);
-				System.out.println("Deal widget bResult:"+bResult);
+				System.out.println("Deal widget bResult:" + bResult);
 				if (bResult == true) {
 					sActualResult = "Widget handled successfully";
 				}
@@ -363,15 +392,62 @@ public class Deals extends GenericSkins {
 				TestDataImport.setCellData(sSheetName, iRow, 5, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 6, sTestStepStatus, "NA");
-
+				Thread.sleep(3000);
 				System.out.println(sActualResult);
-				break;
+
 				// return bResult;
 
 			}
 
 		}
-		System.out.println("Deals||Deals Widget:"+bResult);
+		System.out.println("Deals||Deals Widget:" + bResult);
+		return bResult;
+	}
+
+	// MEthod to Set duplicate
+	public static boolean setDuplicate(String sActualTestCaseID) throws Exception {
+		Thread.sleep(5000);
+		boolean bResult = false;
+		String sFileName = "Deals.xlsx";
+		String sSheetName = "Duplicate";
+		WebElement eShare = null;
+		WebElement eDuplicate = null;
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("Number of rows:" + iRowCnt);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sNoOfCopies = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
+				try {
+					DealsPage.eCopies().sendKeys(sNoOfCopies);
+					Thread.sleep(2000);
+					DealsPage.eCopiesSubmit().click();
+					Thread.sleep(5000);
+
+					bResult = true;
+					sActualResult = "Copies created successfully";
+				} catch (Exception error) {
+					sActualResult = error.getMessage();
+					bResult = false;
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 2, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 3, sTestStepStatus, "NA");
+				break;
+			}
+
+		}
+		Thread.sleep(5000);
+		System.out.println("Deals||set duplicate:" + bResult);
 		return bResult;
 	}
 }
