@@ -3,24 +3,15 @@
 <suite name="Failed suite [Suite]">
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="TestCases.User_TC002">
+      <class name="TestCases.ShareDeal_TC001">
         <methods>
-          <include name="main"/>
           <include name="beforeMethod"/>
           <include name="afterMethod"/>
+          <include name="main"/>
           <include name="ReportSetup"/>
           <include name="CloseReport"/>
         </methods>
-      </class> <!-- TestCases.User_TC002 -->
-      <class name="TestCases.User_TC001">
-        <methods>
-          <include name="beforeMethod"/>
-          <include name="main"/>
-          <include name="afterMethod"/>
-          <include name="ReportSetup"/>
-          <include name="CloseReport"/>
-        </methods>
-      </class> <!-- TestCases.User_TC001 -->
+      </class> <!-- TestCases.ShareDeal_TC001 -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
