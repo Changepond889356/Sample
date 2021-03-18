@@ -116,16 +116,17 @@ public class DealsPage extends GenericSkins {
 		return element;
 	}
 
-	public static WebElement eCommodity() {
+	public static WebElement eCommodity() throws Exception {
 		try {
-			element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
+			element = driver.findElement(By.xpath("//*[@id=\"commodity_uuid\"]/div/div/div/*[name()='svg']"));
 			element.click();
+			System.out.println("clicked on commodities");
 			Thread.sleep(1000);
-			element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
+			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
 			element = null;
-			element = null;
+			//throw ele;
 		}
 		return element;
 	}

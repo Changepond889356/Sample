@@ -47,30 +47,57 @@ public class Share extends GenericSkins {
 			String sContactName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			System.out.println("share deal:"+sTestCaseID);
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
 				try {
+					System.out.println("share deal operation:"+sOperation);
 					switch (sOperation.toUpperCase().trim()) {
 					case "ONE":
-						SharePage.eSearch().sendKeys(sContactName);
-						Thread.sleep(2000);
-						Actions ac = new Actions(driver);
-						ac.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(500);
-						ac.sendKeys(Keys.BACK_SPACE).build().perform();
-						// SharePage.eSearch().sendKeys(Keys.ENTER);
-						Thread.sleep(2000);
-						SharePage.eContact().click();
+						if (!(sContactName.equalsIgnoreCase("NA"))) {
+							SharePage.eSearch().sendKeys(sContactName);
+							Thread.sleep(2000);
+							Actions ac = new Actions(driver);
+							ac.sendKeys(Keys.ENTER).build().perform();
+							Thread.sleep(500);
+							ac.sendKeys(Keys.BACK_SPACE).build().perform();
+							// SharePage.eSearch().sendKeys(Keys.ENTER);
+							Thread.sleep(2000);
+							SharePage.eContact().click();
+
+						}
+
 						bResult = true;
 						Thread.sleep(2000);
 						break;
 					case "ALL":
-						driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div/label/span")).click();
+						driver.findElement(By.xpath(
+								"//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div/label/span"))
+								.click();
 						Thread.sleep(2000);
-						bResult=true;
+						bResult = true;
 						break;
-						
+					case "RESHARE":
+						System.out.println("Reshare");
+						// driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div/label/span")).click();
+						Thread.sleep(2000);
+						List<WebElement> eContacts = driver.findElements(By.xpath(".//li[@class='css-3ddcky']"));
+						for (WebElement ele : eContacts) {
+							String sContactNameActual = ele.findElement(By.tagName("p")).getText();
+							System.out.println("contact name:" + sContactNameActual);
+							if (sContactNameActual.trim().equalsIgnoreCase(sContactName.trim())) {
+								bResult = true;
+								break;
+							}
+						}
+						Thread.sleep(2000);
+						// bResult=true;
+						break;
+
 					}
 					SharePage.eShare().click();
+					if (sOperation.trim().equalsIgnoreCase("RESHARE")) {
+						driver.findElement(By.xpath(".//*[text()='Reshare']")).click();
+					}
 					Thread.sleep(5000);
 					if (bResult == true) {
 						sActualResult = "Deal shared successfully";
@@ -80,7 +107,8 @@ public class Share extends GenericSkins {
 				} catch (Exception error) {
 
 					sActualResult = error.getMessage();
-					//throw error;
+					bResult = false;
+					// throw error;
 					// throw error;
 
 				}
@@ -91,8 +119,7 @@ public class Share extends GenericSkins {
 				break;
 
 			}
-			
-		
+
 		}
 		System.out.println("share deal:" + sActualResult);
 		return bResult;
