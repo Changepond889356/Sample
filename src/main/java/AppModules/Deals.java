@@ -261,7 +261,8 @@ public class Deals extends GenericSkins {
 
 					}
 					System.out.println("Deal name:" + sDealName);
-					DealsPage.eDealName().clear();
+					//DealsPage.eDealName().clear();
+					DealsPage.eDealName().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 					Thread.sleep(2000);
 					DealsPage.eDealName().sendKeys(sDealName);
 					// set commodity
@@ -299,7 +300,8 @@ public class Deals extends GenericSkins {
 					Thread.sleep(2000);
 					// set rate
 					System.out.println("sRate:" + sRate);
-					DealsPage.eRate().clear();
+					//DealsPage.eRate().clear();
+					DealsPage.eRate().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 					Thread.sleep(1000);
 					DealsPage.eRate().sendKeys(sRate);
 					// set UOM
@@ -323,7 +325,8 @@ public class Deals extends GenericSkins {
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(1000);
 					// set load
-					DealsPage.eNoOfLoads().clear();
+					//DealsPage.eNoOfLoads().clear();
+					DealsPage.eNoOfLoads().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 					Thread.sleep(1000);
 					DealsPage.eNoOfLoads().sendKeys(sNoOfLoads);
 					// set origin
