@@ -228,6 +228,35 @@ public class DealsPage extends GenericSkins {
 		}
 		return element;
 	}
+	public static WebElement eDealChatPlusIcon() throws Exception {
+		try {
+			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]/div[1]/img"));
+			element.click();
+			System.out.println("clicked on commodities");
+			Thread.sleep(1000);
+			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+			element = null;
+			//throw ele;
+		}
+		return element;
+	}
+	public static WebElement eDealsCounter() throws Exception {
+		try {
+			element = driver.findElement(By.xpath(".//span{text()='Counter'}"));
+			element.click();
+			System.out.println("clicked on commodities");
+			Thread.sleep(1000);
+			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+			element = null;
+			//throw ele;
+		}
+		return element;
+	}
+
 
 
 	public static WebElement eSave() {

@@ -39,7 +39,7 @@ public class Share extends GenericSkins {
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		// System.out.println("Number of rows:"+iRowCnt);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
