@@ -467,14 +467,16 @@ public class Deals extends GenericSkins {
 					Thread.sleep(1000);
 
 					Actions ac = new Actions(driver);
-					ac.sendKeys(Keys.BACK_SPACE).click();
+					ac.sendKeys(Keys.BACK_SPACE).build().perform();
+					Thread.sleep(1000);
 					ac.sendKeys(sEquipmet).build().perform();
+					//CounterPage.eEquipmetType().sendKeys(sEquipmet);
 					Thread.sleep(2000);
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(1000);
 
 					CounterPage.eDealCommodity().click();
-					;
+					
 					Thread.sleep(2000);
 
 					// ac.sendKeys(Keys.CONTROL+"a").build().perform();
@@ -489,7 +491,8 @@ public class Deals extends GenericSkins {
 
 					// set rate
 					System.out.println("sRate:" + sRate);
-					CounterPage.eRate().clear();
+					//CounterPage.eRate().clear();
+					CounterPage.eRate().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 					Thread.sleep(1000);
 					CounterPage.eRate().sendKeys(sRate);
 					// set UOM
@@ -504,7 +507,8 @@ public class Deals extends GenericSkins {
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(2000);
 					// set load
-					CounterPage.eNoOfLoads().clear();
+					//CounterPage.eNoOfLoads().clear();
+					CounterPage.eNoOfLoads().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 					Thread.sleep(1000);
 					DealsPage.eNoOfLoads().sendKeys(sNoOfLoads);
 					// set origin
@@ -668,7 +672,8 @@ public class Deals extends GenericSkins {
 						System.out.println("sActDestination:"+sActDestination);
 						System.out.println("sActLoads:"+sActLoads);
 						System.out.println("sActCommodity:"+sActCommodity);
-						System.out.println("sExpRatePerUOM:"+sExpRatePerUOM);
+						System.out.println("sActRatePerUOM:"+sExpRatePerUOM);
+						System.out.println("sExpRatePerUOM:"+sActRatePerUOM);
 						if(sActFromDate.trim().equalsIgnoreCase(sFromDate)
 								&& sActCommodity.trim().equalsIgnoreCase(sCommodity)
 								&& sActToDate.trim().equalsIgnoreCase(sToDate)
