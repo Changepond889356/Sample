@@ -3,6 +3,8 @@ package AppModules;
 import Utils.GenericSkins;
 import Utils.TestDataImport;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -731,6 +733,7 @@ public class Deals extends GenericSkins {
 		WebElement eEdit = null;
 		WebElement eDiscard = null;
 		WebElement eTitle = null;
+		WebElement eDots = null;
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -770,6 +773,9 @@ public class Deals extends GenericSkins {
 						break;
 					case "WITHDRAW":
 						DealsPage.eDealsWithDrawTab().click();
+						break;
+					case "BOOKED":
+						DealsPage.eDealsBooked().click();
 						break;
 					}
 
@@ -811,6 +817,20 @@ public class Deals extends GenericSkins {
 							}
 
 							System.out.println("with draw DealName:" + sDealName);
+						} else if (sTab.equalsIgnoreCase("Booked")) {
+							List<WebElement> eTitles = driver.findElements(By.xpath(".//div[@class=' css-1art6ly']"));
+							System.out.println("NO of spans:" + eTitles.size());
+							for (WebElement eSpan : eTitles) {
+								sActualDealName = eSpan.getAttribute("title");
+								System.out.println("Deal title:" + sActualDealName);
+								if ((sActualDealName.equals(sDealName))) {
+									eTitle = eSpan;
+									// sActualDealName = eSpan.getAttribute("title");
+									break;
+								}
+
+							}
+
 						}
 
 						System.out.println("DealName:" + sDealName);
@@ -819,21 +839,29 @@ public class Deals extends GenericSkins {
 						if (sActualDealName.trim().equalsIgnoreCase(sDealName.trim())) {
 							// bResult=true;
 							// click on ...
-							if (!(sOperation.equalsIgnoreCase("SELECT"))) {
+							if (!(sOperation.equalsIgnoreCase("SELECT")) && !(sOperation.equalsIgnoreCase("VIEW"))) {
 								switch (sTab.toUpperCase().trim()) {
 								case "DRAFT":
-									eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"))
-									.click();
+									eDots = eDeal.findElement(
+											By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"));
 									break;
 								case "OPPORTUNITY":
-									eDeal.findElement(By.xpath(".//div[@class='css-ofjib6 e2zx7mg0']/*[name()='svg']"))
-									.click();
+									eDots = eDeal.findElement(
+											By.xpath(".//div[@class='css-ofjib6 e2zx7mg0']/*[name()='svg']"));
 									break;
 								case "WITHDRAW":
-									eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"))
-									.click();
+									// Thread.sleep(2000);
+									eDots = eDeal.findElement(
+											By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"));
+									System.out.println("clicked on dots");
+									break;
+								case "BOOKED":
+									eDots = eDeal.findElement(
+											By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"));
 									break;
 								}
+
+								eDots.click();
 								System.out.println("clicked on dots");
 
 							}
@@ -1107,4 +1135,414 @@ public class Deals extends GenericSkins {
 		System.out.println("Deals||set duplicate:" + bResult);
 		return bResult;
 	}
+	
+	// MEthod to counter deal
+		public static boolean AcceptDeal(String sActualTestCaseID) throws Exception {
+
+			boolean bResult = false;
+			String sFileName = "Deals.xlsx";
+			String sSheetName = "Counter Deal";
+			sTestStepID = "Accept deal";
+
+			// Copy Loads.xlsx file from test data folder to current log folder
+			Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			int iRowCnt = 0;
+			iRowCnt = TestDataImport.GetRowCount(sSheetName);
+			// System.out.println("Number of rows:"+iRowCnt);
+			for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+				String sDealName = TestDataImport.GetCellData(sSheetName, 1, iRow);
+				String sCommodity = TestDataImport.GetCellData(sSheetName, 2, iRow);
+				String sFromDate = TestDataImport.GetCellData(sSheetName, 3, iRow);
+				String sToDate = TestDataImport.GetCellData(sSheetName, 4, iRow);
+				String sRate = TestDataImport.GetCellData(sSheetName, 5, iRow);
+				String sUOM = TestDataImport.GetCellData(sSheetName, 6, iRow);
+
+				String sEquipmet = TestDataImport.GetCellData(sSheetName, 7, iRow);
+
+				String sNoOfLoads = TestDataImport.GetCellData(sSheetName, 8, iRow);
+				String sOrigin = TestDataImport.GetCellData(sSheetName, 9, iRow);
+				String sDestination = TestDataImport.GetCellData(sSheetName, 10, iRow);
+				sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
+				String sExpConverCount = TestDataImport.GetCellData(sSheetName, 11, iRow);
+				String sExpRatePerUOM = TestDataImport.GetCellData(sSheetName, 12, iRow);
+				System.out.println("Add Deal:" + "sTestCaseID:" + sTestCaseID + "sActualTestCaseID:" + sActualTestCaseID);
+				if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID.trim())) {
+					System.out.println("inside if");
+					try {
+
+						DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+						LocalDateTime t1 = LocalDateTime.now();
+						String sCurrentDateTime = t1.format(dateandtime);
+						/*
+						 * // set deal Name if (sDealName.trim().equalsIgnoreCase("AutoDeal")) {
+						 * sDealName = sDealName + sCurrentDateTime.replace("/", ""); sDealName =
+						 * sDealName.replace(":", ""); sDealName = sDealName.replace(" ", "");
+						 * sGenericDealName = sDealName;
+						 * 
+						 * } System.out.println("Deal name:" + sDealName);
+						 * DealsPage.eDealName().clear(); Thread.sleep(2000);
+						 * DealsPage.eDealName().sendKeys(sDealName);
+						 */ // set commodity
+						// DealsPage.eCommodity().clear();
+						Thread.sleep(2000);
+						List<WebElement> eConversationlist = driver
+								.findElements(By.xpath(".//div[@class='left-conversation']"));
+						System.out.println("eConversationlist" + eConversationlist.size());
+						System.out.println("sExpConverCount" + sExpConverCount);
+						if (eConversationlist.size() == Integer.parseInt(sExpConverCount)) {
+							int iCOnvCount = 0;
+							String sActFromDate = "NA";
+							String sActToDate = "NA";
+							String sActEquipment = "NA";
+							String sActOrigin = "NA";
+							String sActDestination = "NA";
+							String sActLoads = "NA";
+							String sActCommodity = "NA";
+							String sActRatePerUOM = "NA";
+
+							for (WebElement eConv : eConversationlist) {
+								iCOnvCount++;
+								if (iCOnvCount == Integer.parseInt(sExpConverCount)) {
+									System.out.println("searchig board items");
+									List<WebElement> eboarditems = eConv.findElements(By.className("bot-card-item"));
+									System.out.println("eboarditems size: " + eboarditems.size());
+									int iBoard = 0;
+									for (WebElement eBoard : eboarditems) {
+										iBoard++;
+										switch (iBoard) {
+										case 1:
+											List<WebElement> eP = eBoard.findElements(By.tagName("p"));
+											int iP = 0;
+											for (WebElement eleP : eP) {
+												iP++;
+
+												switch (iP) {
+												case 1:
+													List<WebElement> eS = eleP.findElements(By.tagName("span"));
+													int iS = 0;
+													for (WebElement eleS : eS) {
+														iS++;
+														switch (iS) {
+														case 1:
+															sActFromDate = eleS.getText();
+															break;
+														case 3:
+															sActToDate = eleS.getText();
+															break;
+
+														}
+													}
+													break;
+												case 2:
+													sActEquipment = eleP.getText();
+
+													break;
+												}
+											}
+
+											break;
+										case 2:
+											sActOrigin = eBoard.getAttribute("title");
+											List<WebElement> tagP = eBoard.findElements(By.tagName("p"));
+											int cntP = 0;
+											for (WebElement tag : tagP) {
+												cntP++;
+												switch (cntP) {
+												case 2:
+													sActLoads = tag.getText();
+													break;
+												}
+											}
+											break;
+										case 3:
+											sActDestination = eBoard.getAttribute("title");
+											break;
+										case 4:
+											eP = eBoard.findElements(By.tagName("p"));
+											iP = 0;
+											for (WebElement eleP : eP) {
+												iP++;
+
+												switch (iP) {
+												case 1:
+													sActCommodity = eleP.getText();
+													break;
+												case 2:
+													sActRatePerUOM = eleP.getText();
+
+													break;
+												}
+											}
+
+											break;
+										}
+									}
+								}
+
+							}
+							sFromDate = TestDataImport.GetCellData(sSheetName, 3, iRow);
+							sToDate = TestDataImport.GetCellData(sSheetName, 4, iRow);
+							dateandtime = DateTimeFormatter.ofPattern("MM/dd");
+							t1 = LocalDateTime.now();
+							sCurrentDateTime = t1.format(dateandtime);
+
+							sFromDate = sFromDate.replace("Current Date", sCurrentDateTime);
+							sToDate = sToDate.replace("Current Date", sCurrentDateTime);
+							System.out.println("sFromDate:" + sFromDate);
+							System.out.println("sToDate:" + sToDate);
+							System.out.println("sCommodity:" + sCommodity);
+							System.out.println("sEquipmet:" + sEquipmet);
+							System.out.println("sOrigin:" + sOrigin);
+							System.out.println("sDestination:" + sDestination);
+							System.out.println("sNoOfLoads:" + sNoOfLoads);
+							System.out.println("sExpRatePerUOM:" + sExpRatePerUOM);
+
+							System.out.println("sActFromDate:" + sActFromDate);
+							System.out.println("sActztoDate:" + sActToDate);
+							System.out.println("sActCommodity:" + sActCommodity);
+							System.out.println("sActEquipment:" + sActEquipment);
+							System.out.println("sActOrigin:" + sActOrigin);
+							System.out.println("sActDestination:" + sActDestination);
+							System.out.println("sActLoads:" + sActLoads);
+							System.out.println("sActRatePerUOM:" + sActRatePerUOM);
+
+							if (sActFromDate.trim().equalsIgnoreCase(sFromDate.trim())
+									&& sActCommodity.trim().equalsIgnoreCase(sCommodity.trim())
+									&& sActToDate.trim().equalsIgnoreCase(sToDate.trim())
+									&& sActEquipment.trim().equalsIgnoreCase(sEquipmet.trim())
+									&& sActOrigin.trim().equalsIgnoreCase(sOrigin.trim())
+									&& sActDestination.trim().equalsIgnoreCase(sDestination.trim())
+									&& sActLoads.trim().equalsIgnoreCase(sNoOfLoads.trim())
+									&& sActRatePerUOM.trim().equalsIgnoreCase(sExpRatePerUOM.trim())) {
+								CounterPage.eDealChatPlusIcon().click();
+								CounterPage.eDealsAccept().click();
+								Thread.sleep(1000);
+								CounterPage.eBtnAccept().click();
+								Thread.sleep(5000);
+								WebDriverWait wait = new WebDriverWait(driver, 5);
+								wait.until(ExpectedConditions
+										.visibilityOfElementLocated(By.xpath(".//div[@class='accept-message']")));
+								bResult = true;
+								sActualResult = "Accepted deal successfully";
+								break;
+							} else {
+								bResult = false;
+								sActualResult = "Accepted details not correct";
+							}
+
+						} else {
+							bResult = false;
+							sActualResult = "unable to accept deal";
+						}
+
+					} catch (Exception error) {
+
+						sActualResult = error.getMessage();
+						throw error;
+						// throw error;
+
+					}
+					ResultComparision();
+					TestDataImport.setCellData(sSheetName, iRow, 14, sActualResult, "NA");
+					TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+					TestDataImport.setCellData(sSheetName, iRow, 15, sTestStepStatus, "NA");
+					break;
+				} else {
+					sActualResult = "Testcase not found";
+				}
+
+			}
+			System.out.println("accept deal:" + sActualResult);
+			return bResult;
+		}
+		
+		// date filter
+		// MEthod to counter deal
+		public static boolean datefilter(String sOperation, String sFromDate, String sTodate) throws Exception {
+			boolean bResult = false;
+			try {
+				switch (sOperation.toUpperCase()) {
+				case "FILTER":
+					DealsPage.ebtnDate().click();
+					Thread.sleep(1000);
+					//set from date
+					System.out.println("set from date");
+					DealsPage.eFilterFromDate().click();
+					Thread.sleep(1000);
+					calendarselect(sFromDate);
+					Thread.sleep(10000);
+					//set to date
+					System.out.println("set to date");
+					DealsPage.eFilterToDate().click();
+					Thread.sleep(1000);
+					calendarselect(sTodate);
+					//action.sendKeys(sTodate).build().perform();
+					Thread.sleep(1000);
+					DealsPage.ebtnDone().click();
+					bResult = true;
+					break;
+				case "RESET":
+					DealsPage.ebtnDate().click();
+					Thread.sleep(1000);
+					DealsPage.ebtnReset().click();
+					bResult = true;
+				}
+			} catch (Exception error) {
+				bResult = false;
+				sActualResult = error.getMessage();
+			}
+			return bResult;
+		}
+
+		//method to handle  calendar
+		public static void calendarselect(String sTestStepData) throws Exception {
+			try {
+				// if Test data is Current date then assign test data with system current date
+				if (sTestStepData.equalsIgnoreCase("CurrentDate")) {
+					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					Calendar cal = Calendar.getInstance();
+					sTestStepData = dateFormat.format(cal.getTime()).toString();
+				}
+
+				if (!(sTestStepData.equalsIgnoreCase("NA"))) {
+					String dateTime = sTestStepData;
+					Thread.sleep(2000);
+					// split the date into array
+					String dd_mm_yyyy[] = dateTime.split("/");
+					String sExpectedMOnth = "NA";
+					// set month name
+
+					GregorianCalendar cal = new GregorianCalendar();
+					int Current_Year = cal.get(Calendar.YEAR);
+					System.out.println("Current Year:" + Current_Year);
+					// diffrence between current year and test data year
+					//int year_diff = Integer.parseInt(dd_mm_yyyy[2]) - Current_Year;
+					//System.out.println("Year Diff:" + year_diff);
+					Thread.sleep(2000);
+					// LIst of date pickers in current page
+					List<WebElement> DatePickers = driver.findElements(By.cssSelector(".react-datepicker"));
+
+					// Iterating through each date picker
+					for (WebElement DatePicker : DatePickers) {
+						boolean bDatePicker = DatePicker.isDisplayed();
+
+						// check if date picker displayed
+						if (bDatePicker == true) {
+							// set year
+							String sActualMonthYear = DatePicker
+									.findElement(By.cssSelector(".react-datepicker__current-month")).getText();
+							System.out.println("before while:"+sActualMonthYear);
+							System.out.println(Integer.parseInt(sActualMonthYear.split(" ")[1]));
+							System.out.println(Integer.parseInt(dd_mm_yyyy[2]));
+							while (!(Integer.parseInt(sActualMonthYear.split(" ")[1]) == Integer.parseInt(dd_mm_yyyy[2]))) {
+								sActualMonthYear = DatePicker
+										.findElement(By.cssSelector(".react-datepicker__current-month")).getText();
+								
+								System.out.println("month year displayed:" + sActualMonthYear);
+
+								if (Integer.parseInt(sActualMonthYear.split(" ")[1]) > Integer.parseInt(dd_mm_yyyy[2])) {
+									driver.findElement(By.xpath(".//button[text()='Previous Month']")).click();
+								} else if (Integer.parseInt(sActualMonthYear.split(" ")[1]) < Integer
+										.parseInt(dd_mm_yyyy[2])) {
+									driver.findElement(By.xpath(".//button[text()='Next Month']")).click();
+								}
+								sActualMonthYear = DatePicker
+										.findElement(By.cssSelector(".react-datepicker__current-month")).getText();
+							}
+							System.out.println("fetching month year");
+							sActualMonthYear = DatePicker.findElement(By.cssSelector(".react-datepicker__current-month"))
+									.getText();
+							System.out.println(sActualMonthYear);
+							int iActualMonth=0;
+							switch(sActualMonthYear.split(" ")[0].toUpperCase())
+							{
+							case "JANUARY":
+								iActualMonth=1;
+								break;
+							
+							case "FEBRUARY":
+								iActualMonth=2;
+								break;
+							case "MARCH":
+								iActualMonth=3;
+								break;
+							case "APRIL":
+								iActualMonth=4;
+								break;
+							case "MAY":
+								iActualMonth=5;
+								break;
+							case "JUNE":
+								iActualMonth=6;
+								break;
+							case "JULY":
+								iActualMonth=7;
+								break;
+							case "AUGUST":
+								iActualMonth=8;
+								break;
+							case "SEPTEMBER":
+								iActualMonth=9;
+								break;
+							case "OCTOBER":
+								iActualMonth=10;
+								break;
+							case "NOVEMBER":
+								iActualMonth=11;
+								break;
+							case "DECEMBER":
+								iActualMonth=12;
+								break;
+							}
+							System.out.println(iActualMonth+":"+dd_mm_yyyy[1]);
+							if (iActualMonth>Integer.parseInt(dd_mm_yyyy[1])) {
+								while (!(iActualMonth==Integer.parseInt(dd_mm_yyyy[1]))) {
+									driver.findElement(By.xpath(".//button[text()='Previous Month']")).click();
+									Thread.sleep(1000);
+									iActualMonth--;
+									}
+
+							} else if (iActualMonth<Integer.parseInt(dd_mm_yyyy[1])) {
+								while (!(iActualMonth==Integer.parseInt(dd_mm_yyyy[1]))) {
+									driver.findElement(By.xpath(".//button[text()='Next Month']")).click();
+									Thread.sleep(1000);
+									iActualMonth++;
+								}
+
+							}
+
+							sActualMonthYear = driver.findElement(By.cssSelector(".react-datepicker__current-month"))
+									.getText();
+							System.out.println("month year displayed:" + sActualMonthYear);
+							List<WebElement> eWeeks = DatePicker.findElements(By.cssSelector(".react-datepicker__week"));
+							for (WebElement eWeek : eWeeks) {
+								List<WebElement> eDays = eWeek.findElements(By.tagName("div"));
+								for (WebElement eDay : eDays) {
+									String sClass = eDay.getAttribute("class");
+									System.out.println(sClass);
+									System.out.println(eDay.getText());
+									if (!(sClass.contains("outside-month"))) {
+										if (Integer.parseInt(eDay.getText())==Integer.parseInt(dd_mm_yyyy[0])) {
+											eDay.click();
+											Thread.sleep(2000);
+											break;
+										}
+									}
+								}
+							}
+
+						}
+					}
+				}
+			} catch (Exception error) {
+				System.out.println("error:"+error.getMessage());
+				//throw error;
+			}
+		}
+
 }

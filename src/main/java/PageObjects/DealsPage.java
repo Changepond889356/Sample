@@ -403,4 +403,56 @@ public class DealsPage extends GenericSkins {
 		}
 		return element;
 	}
+	//date button
+		public static WebElement ebtnDate() {
+			try {                                      
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[2]/button"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement ebtnDone() {
+			try {
+				element = driver.findElement(By.xpath(".//span[text()='Done']"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement ebtnReset() {
+			try {
+				element = driver.findElement(By.xpath(".//span[text()='Reset']"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eFilterFromDate() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[2]/div/ul/div[1]/div[1]/div[1]/div/div/div/input"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eFilterToDate() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[2]/div/ul/div[1]/div[2]/div[1]/div/div/div/input"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eDealsBooked() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"view-toggle\"]/button[3]/span[1]"));
+				// element = driver.findElement(By.xpath("//*[@id=\"react-select-2-input\"]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+				element = null;
+				
+			}
+			return element;
+		}
 }

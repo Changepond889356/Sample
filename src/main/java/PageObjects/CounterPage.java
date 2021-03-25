@@ -33,10 +33,34 @@ public class CounterPage extends GenericSkins{
 		}
 		return element;
 	}
+	public static WebElement eDealsAccept() throws Exception {
+		try {
+			element = driver.findElement(By.xpath(".//ul[@class='MuiList-root MuiMenu-list MuiList-padding']/div[3]/span"));
+			
+			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+			element = null;
+			//throw ele;
+		}
+		return element;
+	}
 	
 	public static WebElement eBtnCounter() throws Exception {
 		try {
 			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div/div[3]/div/div[2]/form/div/div/div[2]/div/div/button"));
+			//Thread.sleep(1000);
+			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+			element = null;
+			//throw ele;
+		}
+		return element;
+	}
+	public static WebElement eBtnAccept() throws Exception {
+		try {
+			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div/div[3]/div/div[2]/form/div/div/div[2]/div/div/button/span[1]"));
 			//Thread.sleep(1000);
 			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
 		} catch (Exception ele) {

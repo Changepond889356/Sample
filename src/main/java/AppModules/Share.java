@@ -39,7 +39,7 @@ public class Share extends GenericSkins {
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		// System.out.println("Number of rows:"+iRowCnt);
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
@@ -61,19 +61,19 @@ public class Share extends GenericSkins {
 							Thread.sleep(500);
 							ac.sendKeys(Keys.BACK_SPACE).build().perform();
 							// SharePage.eSearch().sendKeys(Keys.ENTER);
-							Thread.sleep(2000);
+							Thread.sleep(500);
 							SharePage.eContact().click();
 
 						}
 
 						bResult = true;
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						break;
 					case "ALL":
 						driver.findElement(By.xpath(
 								"//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div/label/span"))
 								.click();
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						bResult = true;
 						break;
 					case "RESHARE":
@@ -89,7 +89,7 @@ public class Share extends GenericSkins {
 								break;
 							}
 						}
-						Thread.sleep(2000);
+						Thread.sleep(500);
 						// bResult=true;
 						break;
 
@@ -98,7 +98,7 @@ public class Share extends GenericSkins {
 					if (sOperation.trim().equalsIgnoreCase("RESHARE")) {
 						driver.findElement(By.xpath(".//*[text()='Reshare']")).click();
 					}
-					Thread.sleep(5000);
+					Thread.sleep(2000);
 					if (bResult == true) {
 						sActualResult = "Deal shared successfully";
 					} else {
