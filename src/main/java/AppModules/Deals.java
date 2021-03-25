@@ -357,14 +357,14 @@ public class Deals extends GenericSkins {
 					 * ac.sendKeys(Keys.ENTER).build().perform(); Thread.sleep(1000);
 					 * 
 					 */ DealsPage.eNext().click();
-					Thread.sleep(2000);
-					System.out.println("clicked on Next button");
-					DealsPage.eMenuDeals().click();
-					Thread.sleep(2000);
-					DealsPage.eDealsDraft().click();
-					Thread.sleep(3000);
-					bResult = true;
-					sActualResult = "Edited deal successfully";
+					 Thread.sleep(2000);
+					 System.out.println("clicked on Next button");
+					 DealsPage.eMenuDeals().click();
+					 Thread.sleep(2000);
+					 DealsPage.eDealsDraft().click();
+					 Thread.sleep(3000);
+					 bResult = true;
+					 sActualResult = "Edited deal successfully";
 				} catch (Exception error) {
 
 					sActualResult = error.getMessage();
@@ -476,7 +476,7 @@ public class Deals extends GenericSkins {
 					Thread.sleep(1000);
 
 					CounterPage.eDealCommodity().click();
-					
+
 					Thread.sleep(2000);
 
 					// ac.sendKeys(Keys.CONTROL+"a").build().perform();
@@ -555,7 +555,7 @@ public class Deals extends GenericSkins {
 						String sActLoads="NA";
 						String sActCommodity="NA";
 						String sActRatePerUOM = "NA";
-						
+
 						for (WebElement eConv : eConversationlist) {
 							iCOnvCount++;
 							if (iCOnvCount == Integer.parseInt(sExpConverCount)) {
@@ -575,7 +575,7 @@ public class Deals extends GenericSkins {
 										for(WebElement eleP : eP)
 										{
 											iP++;
-											
+
 											switch(iP)
 											{
 											case 1:
@@ -591,33 +591,33 @@ public class Deals extends GenericSkins {
 													break;
 													case 3:sActToDate=eleS.getText();
 													break;
-														
+
 													}
 												}
 												break;
 											case 2:
 												sActEquipment=eleP.getText();
-												
+
 												break;
 											}
 										}
-										
+
 										break;
 									case 2:
 										sActOrigin=eBoard.getAttribute("title");
 										List<WebElement> tagP = eBoard
 												.findElements(By.tagName("p"));
-												int cntP=0;
-												for(WebElement tag : tagP)
-												{
-													cntP++;
-													switch(cntP)
-													{
-													case 2: 
-														sActLoads  = tag.getText();
-														break;
-													}
-												}
+										int cntP=0;
+										for(WebElement tag : tagP)
+										{
+											cntP++;
+											switch(cntP)
+											{
+											case 2: 
+												sActLoads  = tag.getText();
+												break;
+											}
+										}
 										break;
 									case 3:
 										sActDestination=eBoard.getAttribute("title");
@@ -628,7 +628,7 @@ public class Deals extends GenericSkins {
 										for(WebElement eleP : eP)
 										{
 											iP++;
-											
+
 											switch(iP)
 											{
 											case 1:
@@ -636,12 +636,12 @@ public class Deals extends GenericSkins {
 												break;
 											case 2:
 												sActRatePerUOM=eleP.getText();
-												
+
 												break;
 											}
 										}
-										
-										
+
+
 										break;
 									}
 								}
@@ -652,19 +652,19 @@ public class Deals extends GenericSkins {
 						sToDate = TestDataImport.GetCellData(sSheetName, 4, iRow);
 						dateandtime = DateTimeFormatter.ofPattern("MM/dd");
 						t1 = LocalDateTime.now();
-			            sCurrentDateTime = t1.format(dateandtime);
-			            
-			            sFromDate=sFromDate.replace("Current Date", sCurrentDateTime);
-			            sToDate=sToDate.replace("Current Date", sCurrentDateTime);
-			            System.out.println("sFromDate:"+sFromDate);
-			            System.out.println("sToDate:"+sToDate);
-			            System.out.println("sCommodity:"+sCommodity);
-			            System.out.println("sEquipmet:"+sEquipmet);
-			            System.out.println("sOrigin:"+sOrigin);
-			            System.out.println("sDestination:"+sDestination);
-			            System.out.println("sNoOfLoads:"+sNoOfLoads);
-			            System.out.println("sFromDate:"+sFromDate);
-			            
+						sCurrentDateTime = t1.format(dateandtime);
+
+						sFromDate=sFromDate.replace("Current Date", sCurrentDateTime);
+						sToDate=sToDate.replace("Current Date", sCurrentDateTime);
+						System.out.println("sFromDate:"+sFromDate);
+						System.out.println("sToDate:"+sToDate);
+						System.out.println("sCommodity:"+sCommodity);
+						System.out.println("sEquipmet:"+sEquipmet);
+						System.out.println("sOrigin:"+sOrigin);
+						System.out.println("sDestination:"+sDestination);
+						System.out.println("sNoOfLoads:"+sNoOfLoads);
+						System.out.println("sFromDate:"+sFromDate);
+
 						System.out.println("sActFromDate:"+sActFromDate);
 						System.out.println("sActztoDate:"+sActToDate);
 						System.out.println("sActEquipment:"+sActEquipment);
@@ -692,7 +692,7 @@ public class Deals extends GenericSkins {
 							bResult = false;
 							sActualResult = "Countered details not correct";
 						}
-						
+
 					} else {
 						bResult = false;
 						sActualResult = "unable to Counter deal";
@@ -823,15 +823,15 @@ public class Deals extends GenericSkins {
 								switch (sTab.toUpperCase().trim()) {
 								case "DRAFT":
 									eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"))
-											.click();
+									.click();
 									break;
 								case "OPPORTUNITY":
 									eDeal.findElement(By.xpath(".//div[@class='css-ofjib6 e2zx7mg0']/*[name()='svg']"))
-											.click();
+									.click();
 									break;
 								case "WITHDRAW":
 									eDeal.findElement(By.xpath(".//div[@class='css-cy1kem e2zx7mg0']/*[name()='svg']"))
-											.click();
+									.click();
 									break;
 								}
 								System.out.println("clicked on dots");
@@ -979,6 +979,126 @@ public class Deals extends GenericSkins {
 				TestDataImport.setCellData(sSheetName, iRow, 2, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 				TestDataImport.setCellData(sSheetName, iRow, 3, sTestStepStatus, "NA");
+				break;
+			}
+
+		}
+		Thread.sleep(5000);
+		System.out.println("Deals||set duplicate:" + bResult);
+		return bResult;
+	}
+
+	public static boolean ChatDeal(String sActualTestCaseID, int tcRowNum) throws Exception {
+		Thread.sleep(1000);
+		boolean bResult = false;
+		String sFileName = "Chat.xlsx";
+		String sSheetName = "Deal_Chat Details";
+		// Copy Loads.xlsx file from test data folder to current log folder
+		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
+
+		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+		int iRowCnt = 0,flag =0;
+		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("Number of rows:" + iRowCnt);
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
+
+			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
+			String sDealName = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String inpMsg = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			String sOperation = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 4, iRow);
+			if (sDealName.trim().equalsIgnoreCase("AutoDeal")) {
+				sDealName = sGenericDealName;
+			}
+			if(sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID) && iRow == tcRowNum) {
+				try {
+					
+					DealsPage.eMenuDeals().click();
+					Thread.sleep(3000);
+					
+					DealsPage.eDealsOpportunity().click();
+					Thread.sleep(5000);
+					List<WebElement> eDeals = driver
+							.findElements(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[3]/div/div"));
+					
+					switch(sOperation) {
+					case "SEND": 
+
+						sActualResult = "No deal found";
+						for (WebElement eDeal : eDeals) {
+							String sActualDealName = "";
+
+							List<WebElement> eSpans = eDeal.findElements(By.tagName("span"));
+							for (WebElement eSpan : eSpans) {
+								sActualDealName = eSpan.getAttribute("title");
+								System.out.println("Deal title:" + sActualDealName);
+								if (sActualDealName.trim().equalsIgnoreCase(sDealName.trim())) {
+
+									eSpan.click();
+									Thread.sleep(5000);
+
+									DealsPage.eChatTextField().sendKeys(inpMsg);
+									Thread.sleep(1000);
+									DealsPage.eChatMsgSendButton().click();
+									Thread.sleep(1000);
+									GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='counter-message']"));
+									flag =1;
+									break;
+								}
+							}
+							if(flag == 1) {
+								bResult = true;
+								sActualResult = "Message send successfully";
+								break;
+							}
+						}	
+						break;
+
+					case "VERIFY":
+						for (WebElement eDeal : eDeals) {
+							String sActualDealName = "";
+
+							List<WebElement> eSpans = eDeal.findElements(By.tagName("span"));
+							for (WebElement eSpan : eSpans) {
+								sActualDealName = eSpan.getAttribute("title");
+								System.out.println("Deal title:" + sActualDealName);
+								if (sActualDealName.trim().equalsIgnoreCase(sDealName.trim())) {
+									
+									/*if(eSpan.findElement(By.tagName("span")).isDisplayed()) {
+										System.out.println("Notification Received");
+									}*/
+									eSpan.click();
+									Thread.sleep(5000);
+									GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='counter-message']"));
+									List<WebElement> chatList = driver.findElements(By.xpath("//div[@class='counter-message']"));
+									String actualChatMsg = chatList.get(chatList.size() -1).getText().toString();
+									System.out.println("Actual Chat Msg " + actualChatMsg);
+									if(actualChatMsg.equals(inpMsg)) {
+										flag =1;
+									}	
+									sActualResult = "Message not verified";
+									break;
+								}
+							}
+							if(flag == 1) {
+								bResult = true;
+								sActualResult = "Message verified successfully";
+								break;
+							}
+						}	
+						
+						break;
+
+					}	
+				} catch (Exception error) {
+					sActualResult = error.getMessage();
+					bResult = false;
+				}
+				ResultComparision();
+				TestDataImport.setCellData(sSheetName, iRow, 5, sActualResult, "NA");
+				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
+				TestDataImport.setCellData(sSheetName, iRow, 6, sTestStepStatus, "NA");
 				break;
 			}
 

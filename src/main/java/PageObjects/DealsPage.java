@@ -386,5 +386,21 @@ public class DealsPage extends GenericSkins {
 		return element;
 	}
 
-
+	public static WebElement eChatTextField() {
+		try {
+			element = driver.findElement(By.xpath("//*[@id='sendbird-message-input']"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+		}
+		return element;
+	}
+	public static WebElement eChatMsgSendButton() {
+		try {
+			element = driver.findElement(By.xpath("//*[@id='root']/div/div[3]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]"));
+			element.click();
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+		}
+		return element;
+	}
 }
