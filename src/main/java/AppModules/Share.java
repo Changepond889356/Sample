@@ -72,7 +72,7 @@ public class Share extends GenericSkins {
 					case "ALL":
 						driver.findElement(By.xpath(
 								"//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div/label/span"))
-								.click();
+						.click();
 						Thread.sleep(500);
 						bResult = true;
 						break;
@@ -124,5 +124,4 @@ public class Share extends GenericSkins {
 		System.out.println("share deal:" + sActualResult);
 		return bResult;
 	}
-
 }

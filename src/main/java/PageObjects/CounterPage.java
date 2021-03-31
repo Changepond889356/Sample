@@ -15,7 +15,7 @@ public class CounterPage extends GenericSkins{
 			
 			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
 		} catch (Exception ele) {
-			sActualResult = ele.getMessage();
+			sActualResult = "Chat object not found";
 			element = null;
 			//throw ele;
 		}
@@ -187,6 +187,14 @@ public class CounterPage extends GenericSkins{
 		return element;
 	}
 
+	public static WebElement eBtnMute() {
+		try {
+			element = driver.findElement(By.xpath(".//span[text()='Mute']"));
+		} catch (Exception ele) {
+			sActualResult = ele.getMessage();
+		}
+		return element;
+	}
 
 
 

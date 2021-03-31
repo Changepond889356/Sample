@@ -455,4 +455,147 @@ public class DealsPage extends GenericSkins {
 			}
 			return element;
 		}
+		public static WebElement eToggleButton() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		
+		public static WebElement eChatConnectionShare() {
+			try {
+				element = driver.findElement(By.xpath("//button//span[contains(text(),'Share')]"));
+				element.click();
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		
+		public static WebElement eGetStartedButton() {
+			try {
+				element = driver.findElement(By.xpath("//div[@class='page']//button"));
+				element.click();
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		
+		public static WebElement eRadioBtnSendEmail() {
+			try {
+				element = driver.findElement(By.xpath(".//input[@value='email']"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eExportEmailAddress() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"email\"]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+
+		public static WebElement eCheckBoxDateRange() {
+			try {
+				element = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/span/div"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnExportDeal() {
+			try {
+				element = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div[4]/button[2]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnExport() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/button"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnExportAs() {
+			try {
+				element = driver.findElement(By.xpath("/html/body/div[5]/div[3]/div/div/div[2]/div[2]/div/div/div"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eRadioBtnDownload() {
+			try {
+				element = driver.findElement(By.xpath(".//input[@value='download']"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnLocation() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/button"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnOutbound() {
+			try {
+				element = driver.findElement(By.xpath(".//*[@class='css-10izwvm']/*[name()='svg']"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+
+		public static WebElement eFilterOrigin() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[1]/div[2]/div[1]/div/div[1]/div/div/div"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnReturn() {
+			try {
+				element = driver.findElement(By.xpath("(.//*[@class='css-10izwvm']/*[name()='svg'])[2]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eFilterDestination() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[1]/div[2]/div[2]/div/div[1]/div/div/div/div[1]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnRoundTrip() {
+			try {
+				element = driver.findElement(By.xpath("(.//*[@class='css-10izwvm']/*[name()='svg'])[3]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		public static WebElement eBtnLocReset() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[2]/div/button[1]/span[1]/span"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
 }
