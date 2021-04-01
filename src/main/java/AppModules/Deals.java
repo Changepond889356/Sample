@@ -2013,7 +2013,7 @@ public class Deals extends GenericSkins {
 						DealsPage.eRadioBtnSendEmail().click();
 						Thread.sleep(2000);
 						//DealsPage.eExportEmailAddress().clear();
-						DealsPage.eExportEmailAddress().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+						DealsPage.eExportEmailAddress().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE); 
 						DealsPage.eExportEmailAddress().sendKeys(sEmail);
 
 						DealsPage.eBtnExportDeal().click();
