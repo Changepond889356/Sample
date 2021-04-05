@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -48,6 +50,7 @@ public class TestActions extends GenericSkins {
 				HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 				chromePrefs.put("profile.default_content_settings.popups", 0);
 				chromePrefs.put("download.prompt_for_download", "true");
+				//chromePrefs.put("profile.default_content_setting_values.notifications", 2);
 				// chromePrefs.put("download.default_directory",
 				// "C://Users//mohammadfaheem.s//Downloads//");
 				chromePrefs.put("credentials_enable_service", false);
@@ -225,6 +228,8 @@ public class TestActions extends GenericSkins {
 						driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 					}
+					
+					
 					bResult = true;
 
 				} catch (Exception error) {
@@ -232,6 +237,9 @@ public class TestActions extends GenericSkins {
 					sActualResult = error.getMessage();
 
 				}
+				
+				Loads.HideGeoLocationPane();
+				
 				if (bResult == true) {
 					sActualResult = "Login successful";
 				} else {
@@ -500,7 +508,7 @@ public class TestActions extends GenericSkins {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions
 				.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
-		
+		Loads.HideGeoLocationPane();
 		return true;
 	}
 

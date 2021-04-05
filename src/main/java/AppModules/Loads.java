@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.groovy.json.internal.Exceptions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -442,6 +443,8 @@ public class Loads extends GenericSkins {
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
+		Loads.HideGeoLocationPane();
+		
 		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
@@ -978,7 +981,7 @@ public class Loads extends GenericSkins {
 		boolean bSelected = false;
 		String sFileName = "Loads.xlsx";
 		String sSheetName = "CustomizeGrid";
-
+		//Loads.HideGeoLocationPane();
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -1799,6 +1802,19 @@ public class Loads extends GenericSkins {
 		}
 		System.out.println("Add load:" + sActualResult);
 		return bResult;
+	}
+	
+	public static void HideGeoLocationPane() throws InterruptedException {
+		try {
+		WebElement ele = driver.findElement(By.xpath("//div[@class='page']/div/div"));
+		if(!ele.getCssValue("height").toString().equals("200px")) {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].setAttribute('style', 'flex: 0 0 auto; position: relative; outline: none; height: 200px; display: flex;')", ele);
+			Thread.sleep(2000);
+		}
+		} catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 
 }
