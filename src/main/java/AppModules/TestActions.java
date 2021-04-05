@@ -135,7 +135,7 @@ public class TestActions extends GenericSkins {
 			action.sendKeys(Keys.F5).build().perform();
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.visibilityOf(LoadsPage.eMenuLoads()));
-
+			Loads.HideGeoLocationPane();
 			bResult = true;
 			if (bResult == true) {
 				sActualResult = "Login successful";
@@ -389,6 +389,7 @@ public class TestActions extends GenericSkins {
 					sActualResult = error.getMessage();
 
 				}
+				
 				if (bResult == true) {
 					sActualResult = "Registered Successfully";
 				} else {
@@ -459,6 +460,8 @@ public class TestActions extends GenericSkins {
 					WebDriverWait wait = new WebDriverWait(driver, 30);
 					wait.until(ExpectedConditions
 							.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
+					
+					Loads.HideGeoLocationPane();
 					try {
 						driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 						driver.findElement(By.xpath(".//img[@class='css-1piz8fp']")).click();
