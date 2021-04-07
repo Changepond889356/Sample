@@ -76,12 +76,14 @@ public class Loads_TC004 extends SetUp {
 				bResult = TestActions.Login(sUserName, sPassword);
 				Thread.sleep(10000);
 				LoadsPage.SubmittedView().click();
+				Thread.sleep(5000);
 				bResult = Loads.customizeAGgrid(sActTestCaseID,6);
 				Loads.VerifyStatus("Submitted");
 				Loads.SelectRecord();
 				LoadsPage.eEdit().click();
 				Loads.ApprovedInvoice();
 				LoadsPage.ApprovedView().click();
+				Thread.sleep(5000);
 				bResult = Loads.customizeAGgrid(sActTestCaseID,6);
 				Loads.VerifyStatus("Approved");
 				bResult = TestActions.LogOut();

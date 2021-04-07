@@ -981,7 +981,7 @@ public class Loads extends GenericSkins {
 		boolean bSelected = false;
 		String sFileName = "Loads.xlsx";
 		String sSheetName = "CustomizeGrid";
-		//Loads.HideGeoLocationPane();
+		Loads.HideGeoLocationPane();
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 

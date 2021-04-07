@@ -79,6 +79,7 @@ public class Loads_TC003 extends SetUp {
 						
 						LoadsPage.SubmittedView().click();
 						Thread.sleep(5000); 
+						
 						bResult = Loads.customizeAGgrid(sActTestCaseID,4);
 						Loads.VerifyStatus("Submitted");
 						bResult = TestActions.LogOut();
@@ -87,6 +88,7 @@ public class Loads_TC003 extends SetUp {
 							bResult = TestActions.Login(sUserName, sPassword);
 							LoadsPage.SubmittedView().click();
 							Thread.sleep(3000); 
+							
 							bResult = Loads.customizeAGgrid(sActTestCaseID,4);
 							Loads.VerifyStatus("Submitted");
 							Loads.SelectRecord();
@@ -101,7 +103,8 @@ public class Loads_TC003 extends SetUp {
 							//LoadsPage.eDelete().click();
 							LoadsPage.SubmittedView().click();
 							Thread.sleep(3000); 
-
+							
+							Loads.HideGeoLocationPane();
 							/* Mark non-Scoular load as Paid */
 							Loads.SelectRecord();
 							LoadsPage.eEdit().click();
