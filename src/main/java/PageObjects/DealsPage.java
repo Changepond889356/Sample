@@ -23,7 +23,9 @@ public class DealsPage extends GenericSkins {
 
 	public static WebElement eAddDeal() {
 		try {
-			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/*[name()='svg']"));
+
+			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[1]/div[2]/div/*[name()='svg']"));
+		
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
 			element = null;
@@ -320,11 +322,12 @@ public class DealsPage extends GenericSkins {
 		try {
 			element = driver.findElement(By.xpath("//*[@id=\"origin\"]/div[1]"));
             element.click();
-            Thread.sleep(2000);
+            System.out.println("clicked on origin");
+            Thread.sleep(1000);
 			element = driver.findElement(By.xpath("//*[@id=\"react-select-3-input\"]"));
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
-			element = null;
+			//element = null;
 			element = null;
 		}
 		return element;
@@ -405,8 +408,9 @@ public class DealsPage extends GenericSkins {
 	}
 	//date button
 		public static WebElement ebtnDate() {
-			try {                                      
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[2]/button"));
+			try { 
+                
+element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[1]/div[2]/div/div/div[2]/span/span"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -422,6 +426,7 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement ebtnReset() {
 			try {
+				Thread.sleep(5000);
 				element = driver.findElement(By.xpath(".//span[text()='Reset']"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
@@ -430,7 +435,9 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eFilterFromDate() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[2]/div/ul/div[1]/div[1]/div[1]/div/div/div/input"));
+
+				element = driver.findElement(By.xpath("//*[@id=\"date-popover\"]/div[3]/div[1]/div[1]/div/div/div/input"));
+			
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -438,8 +445,8 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eFilterToDate() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[2]/div/ul/div[1]/div[2]/div[1]/div/div/div/input"));
-			} catch (Exception ele) {
+				element = driver.findElement(By.xpath("//*[@id=\"date-popover\"]/div[3]/div[1]/div[3]/div/div/div/input"));
+				} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
 			return element;
@@ -543,7 +550,8 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eBtnLocation() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/button"));
+
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[1]/div[2]/div/div/div[1]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -551,7 +559,8 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eBtnOutbound() {
 			try {
-				element = driver.findElement(By.xpath(".//*[@class='css-10izwvm']/*[name()='svg']"));
+				Thread.sleep(2000);
+				element = driver.findElement(By.xpath("(.//*[@class='css-7zw0v7']/*[name()='svg'])[1]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -560,7 +569,7 @@ public class DealsPage extends GenericSkins {
 
 		public static WebElement eFilterOrigin() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[1]/div[2]/div[1]/div/div[1]/div/div/div"));
+				element = driver.findElement(By.xpath("//*[@id=\"shared-type-popover\"]/div[3]/div/div[1]/div[2]/div[1]/div/div[1]/div/div/div/div[1]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -568,7 +577,8 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eBtnReturn() {
 			try {
-				element = driver.findElement(By.xpath("(.//*[@class='css-10izwvm']/*[name()='svg'])[2]"));
+				Thread.sleep(2000);
+				element = driver.findElement(By.xpath("(.//*[@class='css-7zw0v7']/*[name()='svg'])[2]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -576,7 +586,7 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eFilterDestination() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[1]/div[2]/div[2]/div/div[1]/div/div/div/div[1]"));
+				element = driver.findElement(By.xpath("//*[@id=\"shared-type-popover\"]/div[3]/div/div[1]/div[2]/div[2]/div/div[1]/div/div/div/div[1]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -584,7 +594,8 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eBtnRoundTrip() {
 			try {
-				element = driver.findElement(By.xpath("(.//*[@class='css-10izwvm']/*[name()='svg'])[3]"));
+				Thread.sleep(2000);
+				element = driver.findElement(By.xpath("(.//*[@class='css-7zw0v7']/*[name()='svg'])[3]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -592,10 +603,22 @@ public class DealsPage extends GenericSkins {
 		}
 		public static WebElement eBtnLocReset() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[2]/div/button[1]/span[1]/span"));
+				Thread.sleep(2000);
+				element = driver.findElement(By.xpath("//*[@id=\"shared-type-popover\"]/div[3]/div/div[2]/div/button[1]"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
 			return element;
 		}
+		public static WebElement eBtnDone() {
+			try {
+				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/div/div[1]/div[2]/div/ul/div[2]/div/button[2]"));
+			} catch (Exception ele) {
+				sActualResult = ele.getMessage();
+			}
+			return element;
+		}
+		
+		
+		
 }
