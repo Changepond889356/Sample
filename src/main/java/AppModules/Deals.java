@@ -710,8 +710,9 @@ public class Deals extends GenericSkins {
 
 				} catch (Exception error) {
 
-					sActualResult = error.getMessage();
-					throw error;
+					sActualResult = "unable to Counter deal";
+					bResult=false;
+					//throw error;
 					// throw error;
 
 				}
@@ -1074,7 +1075,7 @@ public class Deals extends GenericSkins {
 					DealsPage.eDealsOpportunity().click();
 					Thread.sleep(5000);
 					List<WebElement> eDeals = driver
-							.findElements(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[3]/div/div"));
+							.findElements(By.xpath("//*[@class='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3']"));
 
 					switch (sOperation) {
 					case "SEND":
@@ -1096,8 +1097,13 @@ public class Deals extends GenericSkins {
 									Thread.sleep(1000);
 									DealsPage.eChatMsgSendButton().click();
 									Thread.sleep(1000);
-									GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='counter-message']"));
-									flag = 1;
+									GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='css-1y5g727 els1lpz0']"));
+									WebElement eCountermessage = driver.findElement(By.xpath("//div[@class='css-1y5g727 els1lpz0']"));
+									if(eCountermessage.getText().trim().equalsIgnoreCase(inpMsg))
+									{
+										flag = 1;
+									}
+									
 									break;
 								}
 							}
@@ -1125,9 +1131,9 @@ public class Deals extends GenericSkins {
 									 */
 									eSpan.click();
 									Thread.sleep(5000);
-									GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='counter-message']"));
+									GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='css-11w9v90 els1lpz0']"));
 									List<WebElement> chatList = driver
-											.findElements(By.xpath("//div[@class='counter-message']"));
+											.findElements(By.xpath("//div[@class='css-11w9v90 els1lpz0']"));
 									String actualChatMsg = chatList.get(chatList.size() - 1).getText().toString();
 									System.out.println("Actual Chat Msg " + actualChatMsg);
 									if (actualChatMsg.equals(inpMsg)) {
@@ -1149,6 +1155,7 @@ public class Deals extends GenericSkins {
 					}
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
+					error.printStackTrace();
 					bResult = false;
 				}
 				ResultComparision();
@@ -1160,7 +1167,8 @@ public class Deals extends GenericSkins {
 
 		}
 		Thread.sleep(5000);
-		System.out.println("Deals||set duplicate:" + bResult);
+		System.out.println("Deals||set chat:" + bResult);
+		
 		return bResult;
 	}
 
@@ -1390,7 +1398,7 @@ public class Deals extends GenericSkins {
 				} catch (Exception error) {
 
 					sActualResult = error.getMessage();
-					throw error;
+					//throw error;
 					// throw error;
 
 				}
@@ -1762,7 +1770,7 @@ public class Deals extends GenericSkins {
 				} catch (Exception error) {
 
 					sActualResult = error.getMessage();
-					throw error;
+					//throw error;
 					// throw error;
 
 				}
@@ -1990,7 +1998,7 @@ public class Deals extends GenericSkins {
 					}
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
-					throw error;
+					//throw error;
 				}
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 5, sActualResult, "NA");

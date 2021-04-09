@@ -399,7 +399,7 @@ public class DealsPage extends GenericSkins {
 	}
 	public static WebElement eChatMsgSendButton() {
 		try {
-			element = driver.findElement(By.xpath("//*[@id='root']/div/div[3]/div[2]/div/div/div/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]"));
+			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]"));
 			element.click();
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
@@ -526,7 +526,7 @@ element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/d
 		}
 		public static WebElement eBtnExport() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/button"));
+				element = driver.findElement(By.xpath("//button[@class='MuiButtonBase-root MuiIconButton-root css-14zyz1b MuiIconButton-sizeSmall']"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}

@@ -48,9 +48,12 @@ public class DuplicateDeal_TC001 extends SetUp {
 									TestActions.LogOut();
 									TestActions.Login("DuplicateDeal_TC001(2)");
 									bResult = Deals.DealWidget("DuplicateDeal_TC001(3)");
-
-									TestActions.LogOut();
-									sActualResult = "Deal has been duplicated";
+									if(bResult==true)
+									{
+										sActualResult = "Deal has been duplicated";
+										
+									}
+									
 								}
 							}
 
