@@ -46,7 +46,7 @@ public class ReSend_Chat_to_ShipperAdmin_TC003 extends SetUp {
 				bResult = Chat.ChatValidation(sTestCaseID, sName, 60);
 
 				if (bResult == true) {
-					sActualResult = "Sent Chat successfully";
+					sActualResult = "ReSent Chat successfully";
 					TestActions.LogOut();
 				}
 			}
