@@ -55,6 +55,7 @@ public class Users extends GenericSkins {
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
 				try {
 
+					driver.navigate().refresh();
 					UserPage.eMenuUsers().click();
 					Thread.sleep(3000);
 					UserPage.ebtnAddUser().click();
@@ -90,11 +91,43 @@ public class Users extends GenericSkins {
 					}
 
 					UserPage.eInvite().click();
-					sActualResult = "User Invited successfully";
-					bResult = true;
+					Thread.sleep(2000);
+					List<WebElement>error_messages = driver.findElements(By.xpath(".//p[@class='MuiFormHelperText-root jss18 MuiFormHelperText-contained Mui-error jss19']"));
+					System.out.println("error messageS:"+error_messages.size());
+					if(error_messages.size()==0)
+					{
+						sActualResult = "User Invited successfully";
+						bResult=true;
+					}
+					else if(error_messages.size()==5)
+					{
+						
+						sActualResult = "Unable to send user invitation";
+						//bResult=false;
+					}
+					else
+					{
+						for(WebElement error_mess : error_messages)
+						{
+							sActualResult = error_mess.getText();
+							break;
+						}
+					}
+					System.out.println(sActualResult);
+					System.out.println(sExpectedResult);
+					if(sActualResult.trim().equalsIgnoreCase(sExpectedResult.trim()))
+					{
+						bResult=true;
+					}
+					else
+					{
+						bResult=false;
+					}
+					//bResult = true;
 
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
+					bResult=false;
 					// throw error;
 
 				}
@@ -137,7 +170,9 @@ public class Users extends GenericSkins {
 			String sShipper = TestDataImport.GetCellData(sSheetName, 7, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 8, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 9, iRow);
-
+			if (sCarrier.trim().equalsIgnoreCase("AutomationTest12")) {
+				sCarrier = sGenericCarrierName;
+			}
 			// System.out.println("class name:"+this.getClass().getName());
 			// sTestCaseID = "TestCases."+sTestCaseID;
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID) && (iUserNum == iRow)) {
@@ -164,282 +199,292 @@ public class Users extends GenericSkins {
 					}
 					// click on load icon
 					driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]"))
-					.click();
-					
-					List<WebElement> listh1 = driver.findElements(By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[1]/div"));
-					int tempvar =0;
-					for(int i =0; i<listh1.size();i++) {
+							.click();
+
+					List<WebElement> listh1 = driver.findElements(
+							By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[1]/div"));
+					int tempvar = 0;
+					for (int i = 0; i < listh1.size(); i++) {
 						tempvar = i + 1;
-						if(listh1.get(i).getAttribute("col-id").equals("email")) {
-							System.out.println("Col Name - " +listh1.get(i).getAttribute("col-id") + " " + sEmail);
-							
-							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).clear();
-							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(sEmail);
-							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(Keys.ENTER);
+						if (listh1.get(i).getAttribute("col-id").equals("email")) {
+							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sEmail);
+
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]")).clear();
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]"))
+									.sendKeys(sEmail);
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]"))
+									.sendKeys(Keys.ENTER);
 							Thread.sleep(3000);
 							System.out.println("Data Enter");
 						}
-						
-						if(listh1.get(i).getAttribute("col-id").equals("name")) {
-							System.out.println("Col Name - " +listh1.get(i).getAttribute("col-id") + " " + sName);
-							
-							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).clear();
-							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(sName);
-							driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)["+tempvar+"]")).sendKeys(Keys.ENTER);
+
+						if (listh1.get(i).getAttribute("col-id").equals("name")) {
+							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sName);
+
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]")).clear();
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]"))
+									.sendKeys(sName);
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]"))
+									.sendKeys(Keys.ENTER);
 							Thread.sleep(3000);
 							System.out.println("Data Enter");
 						}
-						
+
 					}
 					// filter by Name
-					/*WebElement eNameFilter = driver
-							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[1]"));
+					/*
+					 * WebElement eNameFilter = driver
+					 * .findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[1]"));
+					 * 
+					 * eNameFilter.clear(); Thread.sleep(1000); eNameFilter.sendKeys(sName);
+					 * Thread.sleep(3000);
+					 * 
+					 * WebElement eEmailFilter =
+					 * driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"
+					 * )); eEmailFilter.clear(); Thread.sleep(1000); eEmailFilter.sendKeys(sEmail);
+					 * eEmailFilter.sendKeys(Keys.ENTER); System.out.println("loading...");
+					 * Thread.sleep(3000);
+					 */
 
-					eNameFilter.clear();
-					Thread.sleep(1000);
-					eNameFilter.sendKeys(sName);
-					Thread.sleep(3000);
-					
-					WebElement eEmailFilter = driver.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
-					 eEmailFilter.clear();
-					 Thread.sleep(1000);
-					 eEmailFilter.sendKeys(sEmail);
-					 eEmailFilter.sendKeys(Keys.ENTER);
-					 System.out.println("loading...");
-					 Thread.sleep(3000);  */
+					WebElement usergrid = driver.findElement(By.xpath(".//div[@role='grid']"));
+					// take list of checkboxes from grid
+					List<WebElement> eCheckBoxes = driver
+							.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+					// take list of rows from grid
+					List<WebElement> eRows = driver.findElements(
+							By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
+					System.out
+							.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
+					int iRow1 = 0;
+					sActualResult = "Record not found";
+					for (WebElement eRow : eRows) {
+						iRow1++;
+						System.out.println("Row number:" + iRow1);
+						int icol = 0;
+						List<WebElement> ecols = eRow.findElements(By.tagName("div"));
+						System.out.println("Numnber of cols:" + ecols.size());
+						for (WebElement eCOl : ecols) {
+							String sColID = eCOl.getAttribute("col-id");
+							if (sColID == null) {
+								sColID = "NA";
+							}
+							System.out.println("sColID:" + sColID);
 
-					 WebElement usergrid = driver.findElement(By.xpath(".//div[@role='grid']"));
-					 // take list of checkboxes from grid
-					 List<WebElement> eCheckBoxes = driver
-							 .findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
-					 // take list of rows from grid
-					 List<WebElement> eRows = driver.findElements(
-							 By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[2]/div/div/div"));
-					 System.out.println("Number of rows:" + eRows.size() + " Numbner of checkboxes:" + eCheckBoxes.size());
-					 int iRow1 = 0;
-					 sActualResult = "Record not found";
-					 for (WebElement eRow : eRows) {
-						 iRow1++;
-						 System.out.println("Row number:" + iRow1);
-						 int icol = 0;
-						 List<WebElement> ecols = eRow.findElements(By.tagName("div"));
-						 System.out.println("Numnber of cols:" + ecols.size());
-						 for (WebElement eCOl : ecols) {
-							 String sColID = eCOl.getAttribute("col-id");
-							 if (sColID == null) {
-								 sColID = "NA";
-							 }
-							 System.out.println("sColID:" + sColID);
+							icol++;
+							switch (sColID.toLowerCase()) {
+							case "name":
+								sActualName = eCOl.getText();
+								if (sActualName.equalsIgnoreCase("") || sActualName.equalsIgnoreCase(null)) {
+									sActualName = "NA";
+								}
+								break;
+							case "email":
+								sACtualEmail = eCOl.getText();
+								if (sACtualEmail.equalsIgnoreCase("") || sACtualEmail.equalsIgnoreCase(null)) {
+									sACtualEmail = "NA";
+								}
+								break;
+							case "phone":
+								sActualPhone = eCOl.getText();
+								if (sActualPhone.equalsIgnoreCase("") || sActualPhone.equalsIgnoreCase(null)) {
+									sActualPhone = "NA";
+								}
+								break;
+							case "type":
+								sActualRole = eCOl.getText();
+								if (sActualRole.equalsIgnoreCase("") || sActualRole.equalsIgnoreCase(null)) {
+									sActualRole = "NA";
+								}
+								break;
+							case "carrier":
+								sActualCarrier = eCOl.getText();
+								if (sActualCarrier.equalsIgnoreCase("") || sActualCarrier.equalsIgnoreCase(null)) {
+									sActualCarrier = "NA";
+								}
+								break;
 
-							 icol++;
-							 switch (sColID.toLowerCase()) {
-							 case "name":
-								 sActualName = eCOl.getText();
-								 if (sActualName.equalsIgnoreCase("") || sActualName.equalsIgnoreCase(null)) {
-									 sActualName = "NA";
-								 }
-								 break;
-							 case "email":
-								 sACtualEmail = eCOl.getText();
-								 if (sACtualEmail.equalsIgnoreCase("") || sACtualEmail.equalsIgnoreCase(null)) {
-									 sACtualEmail = "NA";
-								 }
-								 break;
-							 case "phone":
-								 sActualPhone = eCOl.getText();
-								 if (sActualPhone.equalsIgnoreCase("") || sActualPhone.equalsIgnoreCase(null)) {
-									 sActualPhone = "NA";
-								 }
-								 break;
-							 case "type":
-								 sActualRole = eCOl.getText();
-								 if (sActualRole.equalsIgnoreCase("") || sActualRole.equalsIgnoreCase(null)) {
-									 sActualRole = "NA";
-								 }
-								 break;
-							 case "carrier":
-								 sActualCarrier = eCOl.getText();
-								 if (sActualCarrier.equalsIgnoreCase("") || sActualCarrier.equalsIgnoreCase(null)) {
-									 sActualCarrier = "NA";
-								 }
-								 break;
+							case "carrier_reference_number":
+								sActualRef = eCOl.getText();
+								if (sActualRef.equalsIgnoreCase("") || sActualRef.equalsIgnoreCase(null)) {
+									sActualRef = "NA";
+								}
+								break;
+							case "shipper":
+								sActualShipper = eCOl.getText();
+								if (sActualShipper.equalsIgnoreCase("") || sActualShipper.equalsIgnoreCase(null)) {
+									sActualShipper = "NA";
+								}
+								break;
+							}
+						}
+						System.out.println("sActualName:" + sActualName + " Name:" + sName);
+						System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
+						System.out.println("sActualPhone:" + sActualPhone + " Phone:" + sPhone);
+						System.out.println("sActualRole:" + sActualRole + " Role:" + sRole);
+						System.out.println("sActualCarrier:" + sActualCarrier + " Carrier:" + sCarrier);
+						System.out.println("sActualRef:" + sActualRef + " Ref:" + sRef);
+						System.out.println("sActualShipper:" + sActualShipper + " Shipper:" + sShipper);
 
-							 case "carrier_reference_number":
-								 sActualRef = eCOl.getText();
-								 if (sActualRef.equalsIgnoreCase("") || sActualRef.equalsIgnoreCase(null)) {
-									 sActualRef = "NA";
-								 }
-								 break;
-							 case "shipper":
-								 sActualShipper = eCOl.getText();
-								 if (sActualShipper.equalsIgnoreCase("") || sActualShipper.equalsIgnoreCase(null)) {
-									 sActualShipper = "NA";
-								 }
-								 break;
-							 }
-						 }
-							 System.out.println("sActualName:" + sActualName + " Name:" + sName);
-							 System.out.println("sACtualEmail:" + sACtualEmail + " Email:" + sEmail);
-							 System.out.println("sActualPhone:" + sActualPhone + " Phone:" + sPhone);
-							 System.out.println("sActualRole:" + sActualRole + " Role:" + sRole);
-							 System.out.println("sActualCarrier:" + sActualCarrier + " Carrier:" + sCarrier);
-							 System.out.println("sActualRef:" + sActualRef + " Ref:" + sRef);
-							 System.out.println("sActualShipper:" + sActualShipper + " Shipper:" + sShipper);
+						if (sActualName.trim().equalsIgnoreCase(sName.trim())
+								&& sACtualEmail.trim().equalsIgnoreCase(sEmail.trim())
+								&& sActualRole.trim().equalsIgnoreCase(sRole.trim())
+								&& sActualCarrier.trim().equalsIgnoreCase(sCarrier.trim())
+								&& sActualRef.trim().equalsIgnoreCase(sRef.trim())
+								&& sActualShipper.trim().equalsIgnoreCase(sShipper.trim())
+								&& sActualName.trim().equalsIgnoreCase(sName.trim())) {
+							System.out.println("Record found");
+							System.out.println("sOperation :" + sOperation);
+							switch (sOperation.toUpperCase()) {
+							case "VIEW NEW INVITE":
+								int iCHeckBox = 0;
+								System.out.println("Number of checkboxes:" + eCheckBoxes.size());
+								for (WebElement eCheckBox : eCheckBoxes) {
+									iCHeckBox++;
+									System.out.println(iCHeckBox);
+									System.out.println(iRow1);
+									if (iCHeckBox == iRow1) {
+										// eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										try {
+											eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
 
-							 if (sActualName.trim().equalsIgnoreCase(sName.trim())
-									 && sACtualEmail.trim().equalsIgnoreCase(sEmail.trim())
-									 && sActualRole.trim().equalsIgnoreCase(sRole.trim())
-									 && sActualCarrier.trim().equalsIgnoreCase(sCarrier.trim())
-									 && sActualRef.trim().equalsIgnoreCase(sRef.trim())
-									 && sActualShipper.trim().equalsIgnoreCase(sShipper.trim())
-									 && sActualName.trim().equalsIgnoreCase(sName.trim())) {
-								 System.out.println("Record found");
-								 System.out.println("sOperation :" + sOperation);
-								 switch (sOperation.toUpperCase()) {
-								 case "VIEW NEW INVITE":
-									 int iCHeckBox = 0;
-									 System.out.println("Number of checkboxes:" + eCheckBoxes.size());
-									 for (WebElement eCheckBox : eCheckBoxes) {
-										 iCHeckBox++;
-										 System.out.println(iCHeckBox);
-										 System.out.println(iRow1);
-										 if (iCHeckBox == iRow1) {
-											 // eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-											 try {
-												 eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										} catch (Exception error) {
+											System.out.println("check box exception");
+											driver.findElement(By.xpath(".//span[@class='ag-selection-checkbox']"))
+													.click();
+										}
 
-											 } catch (Exception error) {
-												 System.out.println("check box exception");
-												 driver.findElement(By.xpath(".//span[@class='ag-selection-checkbox']"))
-												 .click();
-											 }
+										Thread.sleep(2000);
+										// driver.findElement(By.xpath(".//span[text()='Delete']")).click();
+										WebDriverWait wait = new WebDriverWait(driver, 10);
+										wait.until(ExpectedConditions.visibilityOfElementLocated(
+												By.xpath(".//span[text()='Cancel Invite']")));
 
-											 Thread.sleep(2000);
-											 // driver.findElement(By.xpath(".//span[text()='Delete']")).click();
-											 WebDriverWait wait = new WebDriverWait(driver, 10);
-											 wait.until(ExpectedConditions.visibilityOfElementLocated(
-													 By.xpath(".//span[text()='Cancel Invite']")));
+										// Utils.EmailFunctions.getGmailData(sEmail, "");
+										// verify email link
 
-											 // Utils.EmailFunctions.getGmailData(sEmail, "");
-											 // verify email link
+										/*
+										 * Thread.sleep(20000); HashMap<String, String> hm =
+										 * EmailFunctions.getGmailData(sEmail,
+										 * "subject:You're Invited to the Roger App");
+										 *
+										 * System.out.println(hm.get("subject"));
+										 * System.out.println("================="); String TokenLink =hm.get("link");
+										 * System.out.println("Token Link:" + TokenLink); sAUTPath =TokenLink; //
+										 * TestActions.LaunchApplication();
+										 */
+										bResult = true;
+										System.out.println("bResult:" + bResult);
+										break;
+									}
+								}
+								break;
+							case "ACCEPT INVITE":
+								int iCHeckBox1 = 0;
+								System.out.println("Number of checkboxes:" + eCheckBoxes.size());
+								for (WebElement eCheckBox : eCheckBoxes) {
+									iCHeckBox1++;
+									System.out.println(iCHeckBox1);
+									System.out.println(iRow1);
+									if (iCHeckBox1 == iRow1) {
+										try {
+											eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
 
-											 /*
-											  * Thread.sleep(20000); HashMap<String, String> hm =
-											  * EmailFunctions.getGmailData(sEmail,
-											  * "subject:You're Invited to the Roger App");
-											  *
-											  * System.out.println(hm.get("subject"));
-											  * System.out.println("================="); String TokenLink
-											  * =hm.get("link"); System.out.println("Token Link:" + TokenLink); sAUTPath
-											  * =TokenLink; // TestActions.LaunchApplication();
-											  */
-											 bResult = true;
-											 System.out.println("bResult:" + bResult);
-											 break;
-										 }
-									 }
-									 break;
-								 case "ACCEPT INVITE":
-									 int iCHeckBox1 = 0;
-									 System.out.println("Number of checkboxes:" + eCheckBoxes.size());
-									 for (WebElement eCheckBox : eCheckBoxes) {
-										 iCHeckBox1++;
-										 System.out.println(iCHeckBox1);
-										 System.out.println(iRow1);
-										 if (iCHeckBox1 == iRow1) {
-											 try {
-												 eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										} catch (Exception error) {
+											System.out.println("check box exception");
+											driver.findElement(By.xpath(".//span[@class='ag-selection-checkbox']"))
+													.click();
+										}
+										Thread.sleep(2000);
+										// driver.findElement(By.xpath(".//span[text()='Delete']")).click();
+										WebDriverWait wait = new WebDriverWait(driver, 10);
+										wait.until(ExpectedConditions.visibilityOfElementLocated(
+												By.xpath(".//span[text()='Cancel Invite']")));
 
-											 } catch (Exception error) {
-												 System.out.println("check box exception");
-												 driver.findElement(By.xpath(".//span[@class='ag-selection-checkbox']"))
-												 .click();
-											 }
-											 Thread.sleep(2000);
-											 // driver.findElement(By.xpath(".//span[text()='Delete']")).click();
-											 WebDriverWait wait = new WebDriverWait(driver, 10);
-											 wait.until(ExpectedConditions.visibilityOfElementLocated(
-													 By.xpath(".//span[text()='Cancel Invite']")));
+										// Utils.EmailFunctions.getGmailData(sEmail, "");
+										// verify email link
 
-											 // Utils.EmailFunctions.getGmailData(sEmail, "");
-											 // verify email link
+										Thread.sleep(30000);
+										driver.close();
+										HashMap<String, String> hm = EmailFunctions.getGmailData(sEmail,
+												"subject:You're Invited to the Roger App");
 
-											 Thread.sleep(30000);
-											 driver.close();
-											 HashMap<String, String> hm = EmailFunctions.getGmailData(sEmail,
-													 "subject:You're Invited to the Roger App");
+										System.out.println(hm.get("subject"));
+										System.out.println("=================");
+										String TokenLink = hm.get("link");
+										System.out.println("Token Link:" + TokenLink);
+										sAUTPath = TokenLink;
+										// TestActions.LaunchApplication();
+										System.out.println("open link");
+										AppModules.TestActions.LaunchApplication();
+										bResult = true;
 
-											 System.out.println(hm.get("subject"));
-											 System.out.println("=================");
-											 String TokenLink = hm.get("link");
-											 System.out.println("Token Link:" + TokenLink);
-											 sAUTPath = TokenLink;
-											 // TestActions.LaunchApplication();
-											 System.out.println("open link");
-											 AppModules.TestActions.LaunchApplication();
-											 bResult = true;
+										break;
+									}
+								}
+								break;
 
-											 break;
-										 }
-									 }
-									 break;
+							case "CANCEL INVITE":
+								WebDriverWait wait = new WebDriverWait(driver, 10);
+								wait.until(ExpectedConditions
+										.visibilityOfElementLocated(By.xpath(".//span[text()='Cancel Invite']")));
+								driver.findElement(By.xpath(".//span[text()='Cancel Invite']")).click();
+								Thread.sleep(3000);
+								driver.findElement(By.xpath(".//span[text()='Continue']")).click();
+								bResult = true;
+								break;
+							case "RESEND INVITE":
+								WebDriverWait wait1 = new WebDriverWait(driver, 10);
+								wait1.until(ExpectedConditions
+										.visibilityOfElementLocated(By.xpath(".//span[text()='Resend Invite']")));
+								driver.findElement(By.xpath(".//span[text()='Resend Invite']")).click();
+								System.out.println("clicked on resend invite");
+								bResult = true;
+								break;
 
-								 case "CANCEL INVITE":
-									 WebDriverWait wait = new WebDriverWait(driver, 10);
-									 wait.until(ExpectedConditions
-											 .visibilityOfElementLocated(By.xpath(".//span[text()='Cancel Invite']")));
-									 driver.findElement(By.xpath(".//span[text()='Cancel Invite']")).click();
-									 Thread.sleep(3000);
-									 driver.findElement(By.xpath(".//span[text()='Continue']")).click();
-									 bResult = true;
-									 break;
-								 case "RESEND INVITE":
-									 WebDriverWait wait1 = new WebDriverWait(driver, 10);
-									 wait1.until(ExpectedConditions
-											 .visibilityOfElementLocated(By.xpath(".//span[text()='Resend Invite']")));
-									 driver.findElement(By.xpath(".//span[text()='Resend Invite']")).click();
-									 System.out.println("clicked on resend invite");
-									 bResult = true;
-									 break;
+							case "SELECT":
+								int iCHeckBox11 = 0;
+								System.out.println("Number of checkboxes:" + eCheckBoxes.size());
+								for (WebElement eCheckBox : eCheckBoxes) {
+									iCHeckBox11++;
+									System.out.println(iCHeckBox11);
+									System.out.println(iRow1);
+									if (iCHeckBox11 == iRow1) {
+										// eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										try {
+											eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
 
-								 case "SELECT":
-									 int iCHeckBox11 = 0;
-									 System.out.println("Number of checkboxes:" + eCheckBoxes.size());
-									 for (WebElement eCheckBox : eCheckBoxes) {
-										 iCHeckBox11++;
-										 System.out.println(iCHeckBox11);
-										 System.out.println(iRow1);
-										 if (iCHeckBox11 == iRow1) {
-											 //eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
-											 try {
-												 eCheckBox.findElement(By.cssSelector(".ag-selection-checkbox")).click();
+										} catch (Exception error) {
+											System.out.println("check box exception");
+											driver.findElement(By.xpath(".//span[@class='ag-selection-checkbox']"))
+													.click();
+										}
 
-											 } catch (Exception error) {
-												 System.out.println("check box exception");
-												 driver.findElement(By.xpath(".//span[@class='ag-selection-checkbox']"))
-												 .click();
-											 }
+										Thread.sleep(2000);
+										// driver.findElement(By.xpath(".//span[text()='Delete']")).click();
+										bResult = true;
+										break;
+									}
+								}
+								break;
+							}
+							break;
+						}
+						// }
+						if (bResult == true) {
+							sActualResult = "WebTable Validated successfully";
+							break;
+						} else {
+							sActualResult = "WebTable not Validated successfully";
+						}
+					}
 
-											 Thread.sleep(2000);
-											 // driver.findElement(By.xpath(".//span[text()='Delete']")).click();
-											 bResult = true;
-											 break;
-										 }
-									 }
-									 break;
-								 }
-								 break;
-							 }
-						 //}
-						 if (bResult == true) {
-							 sActualResult = "WebTable Validated successfully";
-							 break;
-						 } else {
-							 sActualResult = "WebTable not Validated successfully";
-						 }
-					 }
-
-					 // return bResult;
+					// return bResult;
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
 					// throw error;
@@ -520,7 +565,7 @@ public class Users extends GenericSkins {
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
-							//Thread.sleep(100);
+							// Thread.sleep(100);
 
 						}
 
@@ -590,7 +635,7 @@ public class Users extends GenericSkins {
 											// System.out.println("checkbox checked");
 
 										}
-										bResult=true;
+										bResult = true;
 										break;
 
 									}
@@ -608,13 +653,12 @@ public class Users extends GenericSkins {
 						UserPage.eColumnPane().click();
 						Thread.sleep(4000);
 						if (bResult == true) {
-							//bResult = true;
+							// bResult = true;
 							sActualResult = "Webtable customized successfully";
 						} else {
 							sActualResult = "Webtable not customized successfully";
 							bResult = false;
 						}
-
 
 					}
 					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

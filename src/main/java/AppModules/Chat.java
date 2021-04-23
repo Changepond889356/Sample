@@ -33,19 +33,21 @@ public class Chat extends GenericSkins {
 				sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
 
 				if (sTestCaseID.equalsIgnoreCase(sActTestCaseID) && i == iRow) {
-
-					switch(sOperation.toUpperCase()) {
+					System.out.println("operation:" + sOperation);
+					switch (sOperation.toUpperCase()) {
 
 					case "INVITE":
-						GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
+						GenericSkins.WaitForElementTobeClickable(
+								By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
 						ChatPage.chatButton().click();
 						Thread.sleep(1000);
-						GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@class='MuiButtonBase-root MuiIconButton-root']//img"));
+						GenericSkins.WaitForElementTobeClickable(
+								By.xpath("//button[@class='MuiButtonBase-root MuiIconButton-root']//img"));
 						ChatPage.addButton().click();
 						Thread.sleep(1000);
 
 						String[] inp = sInvitePersonName.split(";");
-						for(String inptxt:inp) {
+						for (String inptxt : inp) {
 							GenericSkins.WaitForElementTobeClickable(By.id("new-chat"));
 							driver.findElement(By.id("new-chat")).clear();
 							driver.findElement(By.id("new-chat")).sendKeys(inptxt);
@@ -57,9 +59,12 @@ public class Chat extends GenericSkins {
 						Thread.sleep(2000);
 
 						GenericSkins.WaitForElementTobeClickable(By.id("sendbird-message-input"));
-						String sname = driver.findElement(By.xpath("//div[@class='css-akje90 e1ngilwh0']//div[@class=' css-qqqwqg e1ngilwh0']")).getText();
+						String sname = driver
+								.findElement(By.xpath(
+										"//div[@class='css-akje90 e1ngilwh0']//div[@class=' css-qqqwqg e1ngilwh0']"))
+								.getText();
 						System.out.println(sname);
-						if(sInvitePersonName.contains(inp[0])) {
+						if (sInvitePersonName.contains(inp[0])) {
 							bResult = true;
 							sActualResult = "Chat Invited Successfully";
 						} else {
@@ -69,15 +74,17 @@ public class Chat extends GenericSkins {
 						break;
 
 					case "SEND_MESSAGE":
-						System.out.println("Original msg : "+sSendMsg);
+						System.out.println("Original msg : " + sSendMsg);
 						ChatPage.enterMessage().sendKeys(sSendMsg);
 						Thread.sleep(1000);
 						ChatPage.sendMessageButton().click();
 						Thread.sleep(5000);
-						GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
-						List<WebElement> totalMsg = driver.findElements(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
-						String iMsg = totalMsg.get(totalMsg.size()-1).getText();
-						System.out.println("Send msg : "+iMsg);
+						GenericSkins.WaitForElementVisibility(
+								By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
+						List<WebElement> totalMsg = driver.findElements(
+								By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
+						String iMsg = totalMsg.get(totalMsg.size() - 1).getText();
+						System.out.println("Send msg : " + iMsg);
 
 						sActualResult = "Message send Successfully";
 						bResult = true;
@@ -85,32 +92,37 @@ public class Chat extends GenericSkins {
 
 					case "VERIFY_MESSAGE":
 						bResult = false;
-						GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
+						GenericSkins.WaitForElementTobeClickable(
+								By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
 						ChatPage.chatButton().click();
 						Thread.sleep(1000);
 						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-147rhik e1ngilwh0'])[1]"));
-						List<WebElement> totalchat = driver.findElements(By.xpath("//div[@class='css-1hy9kfh e1ngilwh0']/div"));
+						List<WebElement> totalchat = driver
+								.findElements(By.xpath("//div[@class='css-1hy9kfh e1ngilwh0']/div"));
 						String[] inp3 = sInvitePersonName.split(";");
-						for(WebElement nChat: totalchat) {
-							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']")).getText();
-							if(senderName.contains(sName) || senderName.contains(inp3[0])) {
+						for (WebElement nChat : totalchat) {
+							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']"))
+									.getText();
+							
+							if (senderName.contains(sName) || senderName.contains(inp3[0])) {
 								nChat.click();
 								Thread.sleep(2000);
 
-								List<WebElement> msgList = driver.findElements(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
+								List<WebElement> msgList = driver.findElements(By.xpath(
+										"//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
 								try {
-									for(WebElement msg: msgList) {
+									for (WebElement msg : msgList) {
 
 										String aText = msg.findElement(By.className("css-13hp6jo")).getText();
-										aText=aText.replace("_", "");
-										System.out.println("Text inside Received Message : "+aText);
-										if(aText.contains(sSendMsg)) {
+										aText = aText.replace("_", "");
+										System.out.println("Text inside Received Message : " + aText);
+										if (aText.contains(sSendMsg)) {
 											sActualResult = "Message Verified Successfully";
 											bResult = true;
 											break;
 										}
 									}
-								} catch(Exception e) {
+								} catch (Exception e) {
 
 								}
 								sActualResult = "Message Verified Successfully";
@@ -118,103 +130,123 @@ public class Chat extends GenericSkins {
 								break;
 							} else {
 								sActualResult = "No Message from " + sName;
-							}						
-						}					
+							}
+						}
 						break;
 
 					case "SEND_IMAGE":
-						List<WebElement> iTotalMsg = driver.findElements(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));										
+						List<WebElement> iTotalMsg = driver.findElements(
+								By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
 						ChatPage.addAttachmentButton().click();
 						Thread.sleep(2000);
 						WindowsHandle(sImgAtt);
 						Thread.sleep(5000);
-						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
+						GenericSkins
+								.WaitForElementVisibility(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
 						Thread.sleep(5000);
 						ChatPage.sendMessageButton().click();
 						Thread.sleep(5000);
-						int iSum = iTotalMsg.size()+1;
-						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0'])["+iSum+"]"));
+						int iSum = iTotalMsg.size() + 1;
+						GenericSkins.WaitForElementVisibility(
+								By.xpath("(//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0'])["
+										+ iSum + "]"));
 						sActualResult = "Image send Successfully";
 						bResult = true;
 						break;
 
 					case "VERIFY_IMAGE":
 						bResult = false;
-						GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
+						GenericSkins.WaitForElementTobeClickable(
+								By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
 						ChatPage.chatButton().click();
 						Thread.sleep(1000);
 						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-147rhik e1ngilwh0'])[1]"));
 						String[] inp2 = sInvitePersonName.split(";");
-						List<WebElement> itotalchat = driver.findElements(By.xpath("//div[@class='css-1hy9kfh e1ngilwh0']/div"));
-						for(WebElement nChat: itotalchat) {
-							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']")).getText();
-							if(senderName.contains(inp2[0])) {
+						List<WebElement> itotalchat = driver
+								.findElements(By.xpath("//div[@class='css-1hy9kfh e1ngilwh0']/div"));
+						for (WebElement nChat : itotalchat) {
+							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']"))
+									.getText();
+							if (senderName.contains(inp2[0])||senderName.contains(sName)) {
 								nChat.click();
 								Thread.sleep(4000);
 
-								List<WebElement> msgList = driver.findElements(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));							
+								List<WebElement> msgList = driver.findElements(By.xpath(
+										"//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
 								try {
-									msgList.get(msgList.size()-1).findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']")).isDisplayed();
+									msgList.get(msgList.size() - 1)
+											.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']"))
+											.isDisplayed();
 									sActualResult = "Image Verified Successfully";
 									bResult = true;
-								} catch(Exception e) {
+								} catch (Exception e) {
 									sActualResult = "No Message from " + sInvitePersonName;
-								}													
+									e.printStackTrace();
+								}
 								break;
 							} else {
 								sActualResult = "No Message from " + sInvitePersonName;
-							}						
-						}		
+							}
+						}
 						break;
 
 					case "SEND_DOCUMENT":
-						List<WebElement> dTotalMsg = driver.findElements(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));										
+						List<WebElement> dTotalMsg = driver.findElements(
+								By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
 						ChatPage.addAttachmentButton().click();
 						Thread.sleep(2000);
 						WindowsHandle(sDocAtt);
 						Thread.sleep(5000);
-						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
+						GenericSkins
+								.WaitForElementVisibility(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
 						Thread.sleep(5000);
 						ChatPage.sendMessageButton().click();
 						Thread.sleep(5000);
-						int sSum = dTotalMsg.size()+1;
-						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0'])["+sSum+"]"));					
+						int sSum = dTotalMsg.size() + 1;
+						GenericSkins.WaitForElementVisibility(
+								By.xpath("(//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0'])["
+										+ sSum + "]"));
 						sActualResult = "Document send Successfully";
 						bResult = true;
 						break;
 
 					case "VERIFY_DOCUMENT":
 						bResult = false;
-						GenericSkins.WaitForElementTobeClickable(By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
+						GenericSkins.WaitForElementTobeClickable(
+								By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
 						ChatPage.chatButton().click();
 						Thread.sleep(1000);
 						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@class='css-147rhik e1ngilwh0'])[1]"));
-						List<WebElement> dtotalchat = driver.findElements(By.xpath("//div[@class='css-1hy9kfh e1ngilwh0']/div"));
+						List<WebElement> dtotalchat = driver
+								.findElements(By.xpath("//div[@class='css-1hy9kfh e1ngilwh0']/div"));
 						String[] inp4 = sInvitePersonName.split(";");
-						for(WebElement nChat: dtotalchat) {
-							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']")).getText();
-							if(senderName.contains(sName) ||senderName.contains(inp4[0])) {
+						for (WebElement nChat : dtotalchat) {
+							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']"))
+									.getText();
+							if (senderName.contains(sName) || senderName.contains(inp4[0])) {
 								nChat.click();
 								Thread.sleep(2000);
 
-								List<WebElement> msgList = driver.findElements(By.xpath("//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));							
+								List<WebElement> msgList = driver.findElements(By.xpath(
+										"//div[@class='css-1dljsdd e1ngilwh0']/div[@class='css-55a734 e1ngilwh0']"));
 								try {
-									msgList.get(msgList.size()-1).findElement(By.tagName("a")).isDisplayed();
+									msgList.get(msgList.size() - 1).findElement(By.tagName("a")).isDisplayed();
 									sActualResult = "Document Verified Successfully";
 									bResult = true;
-								} catch(Exception e) {
+								} catch (Exception e) {
 									sActualResult = "No Message from " + sName;
-								}													
+								}
 								break;
 							} else {
 								sActualResult = "No Message from " + sName;
-							}						
-						}		
+							}
+						}
 						break;
 
 					case "CLOSE":
 
-						driver.findElement(By.xpath("(//*[@class='css-1lbl1aj e1ngilwh0']/*[name()='svg'])[1]")).click();
+						driver.findElement(By.xpath("(//*[@class='css-1lbl1aj e1ngilwh0']/*[name()='svg'])[1]"))
+								.click();
 						Thread.sleep(1000);
 						ChatPage.leaveChatButton().click();
 						Thread.sleep(1000);
@@ -231,11 +263,11 @@ public class Chat extends GenericSkins {
 					ResultComparision();
 					TestDataImport.setCellData(sSheetName, iRow, 8, sActualResult, "NA");
 					TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
-					TestDataImport.setCellData(sSheetName, iRow, 9, sTestStepStatus, "NA");				
+					TestDataImport.setCellData(sSheetName, iRow, 9, sTestStepStatus, "NA");
 					break;
 				}
-			}	
-		} catch(Exception e) {
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return bResult;
