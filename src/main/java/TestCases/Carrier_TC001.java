@@ -35,7 +35,7 @@ public class Carrier_TC001 extends SetUp {
 			bResult = TestActions.Login(sUserName, sPassword);
 			
 			Carrier.SelectCarrierMenu();
-			bResult = Carrier.AddCarrier(sActTestCaseID);
+			bResult = Carrier.AddCarrier(sActTestCaseID, "Current Date");
 			bResult = TestActions.LogOut();
 			if (bResult == true) {
 				bResult = TestActions.Login_GlobalAdmin();
@@ -53,7 +53,7 @@ public class Carrier_TC001 extends SetUp {
 				if (bResult == true) {
 					bResult = TestActions.Login(sUserName, sPassword);
 					Carrier.SelectCarrierMenu();
-					bResult = Carrier.AddCarrier(sActTestCaseID);
+					bResult = Carrier.AddCarrier(sActTestCaseID, "NA");
 					bResult = TestActions.LogOut();
 				}
 				
@@ -74,7 +74,7 @@ public class Carrier_TC001 extends SetUp {
 					bResult = Carrier.CancelInvite(); 
 					bResult = TestActions.LogOut();
 				}
-				
+				System.out.println("bResult:"+bResult);
 				//Login as Carrier to verify the cancel request
 				if (bResult == true) {
 					bResult = TestActions.Login(sActTestCaseID);
@@ -87,7 +87,7 @@ public class Carrier_TC001 extends SetUp {
 				if (bResult == true) {
 					bResult = TestActions.Login(sUserName, sPassword);
 					Carrier.SelectCarrierMenu();
-					bResult = Carrier.AddCarrier(sActTestCaseID);
+					bResult = Carrier.AddCarrier(sActTestCaseID,"NA");
 					System.out.println("Request Resend Successfully");
 					bResult = TestActions.LogOut();
 				}
@@ -118,9 +118,11 @@ public class Carrier_TC001 extends SetUp {
 					//bResult = Carrier.CustomiseGrid(sActTestCaseID);
 					Carrier.DeleteCarrier();
 					System.out.println("Carrier Deleted Successfully");
-					bResult = TestActions.LogOut();
+					//bResult = TestActions.LogOut();
 				}
-				if(bResult) {
+				sGenericCarrierName = "NA";
+				System.out.println("bResult final:"+bResult);
+				if(bResult==true) {
 					sActualResult = "Carrier Validated Successfully";
 				}
 				
@@ -129,6 +131,7 @@ public class Carrier_TC001 extends SetUp {
 		} catch(Exception e) {
 			
 		}
+		
 		aHeaderNumbers = null;
 		aHeaderNames = null;
 		aHeaderNumbers = new ArrayList();

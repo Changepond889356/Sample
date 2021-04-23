@@ -260,7 +260,9 @@ public class GenericSkins {
 	protected static String  emailUsername = "NA";
 	protected static String  emailPassword = "NA";
 	protected static String sGenericDealName;
-	protected static String sGenericCarrierName;
+	public static String sGenericCarrierName;
+	public static String sGenericCarrierMC;
+	public static String sGenericCarrierDot;
 	
 	protected static WebDriverWait wait;
 

@@ -31,16 +31,22 @@ public class Carrier extends GenericSkins {
 		Thread.sleep(3000);
 	}
 
-	public static boolean AddCarrier(String sActTestCaseID) throws Exception {
+	public static boolean AddCarrier(String sActTestCaseID, String sCarrierNameFlag) throws Exception {
 		boolean bResult = false;
 		String sFileName = "Carrier.xlsx";
 		String sSheetName = "Carrier Details";
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
-		//String [] data = TestDataImport.readExcel(sTestDataPath,sFileName,sSheetName,1, sActTestCaseID);
+		// String [] data =
+		// TestDataImport.readExcel(sTestDataPath,sFileName,sSheetName,1,
+		// sActTestCaseID);
 		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+		LocalDateTime t1 = LocalDateTime.now();
+		String sCurrentDateTime = t1.format(dateandtime);
 
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
@@ -52,80 +58,97 @@ public class Carrier extends GenericSkins {
 			String sContactName = TestDataImport.GetCellData(sSheetName, 5, iRow);
 			String sEmailID = TestDataImport.GetCellData(sSheetName, 6, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
+			if (sCarrierNameFlag.trim().equalsIgnoreCase("Current date")) {
+				sCarrierName = sCarrierName + sCurrentDateTime.replace("/", "");
+				sCarrierName = sCarrierName.replace(":", "");
+				sCarrierName = sCarrierName.replace(" ", "");
+				sMC = sCurrentDateTime.replace("/", "");
+				
+				sMC = sMC.replace(":", "");
+				sMC = sMC.replace(" ", "");
+				sDot = sMC;
+				sGenericCarrierName = sCarrierName;
+				sGenericCarrierMC = sMC;
+				sGenericCarrierDot = sDot;
+			}
 
 			if (sTestCaseID.equalsIgnoreCase(sActTestCaseID)) {
 				try {
 					CarrierPage.addCarrierBtn().click();
 					Thread.sleep(1000);
-					CarrierPage.CarrierName().sendKeys(sCarrierName);
+					CarrierPage.CarrierName().sendKeys(sGenericCarrierName);
 					CarrierPage.SearchBtn().click();
 					Thread.sleep(1000);
-
+					System.out.println("sGenericCarrierName:" + sGenericCarrierName);
 					try {
-						GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Add New Carrier')]"));
+						GenericSkins.WaitForElementVisibility(
+								By.xpath("//button//span[contains(text(),'Add New Carrier')]"));
 						CarrierPage.AddNewCarrierBtn().click();
+						System.out.println("clicked on add new carrier");
 						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
 
-						List<WebElement> eCarrierInp = driver.findElements(By.xpath("//div[@id='add-screen']//form/div"));
-						for(WebElement inpCol: eCarrierInp) {
+						List<WebElement> eCarrierInp = driver
+								.findElements(By.xpath("//div[@id='add-screen']//form/div"));
+						for (WebElement inpCol : eCarrierInp) {
 							String colName = inpCol.getText();
-							if(colName.equalsIgnoreCase("MC #")) {
-								inpCol.findElement(By.tagName("input")).sendKeys(sMC);
+							if (colName.equalsIgnoreCase("MC #")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sGenericCarrierMC);
 							}
-							if(colName.equalsIgnoreCase("DOT #")) {
-								inpCol.findElement(By.tagName("input")).sendKeys(sDot);
+							if (colName.equalsIgnoreCase("DOT #")) {
+								inpCol.findElement(By.tagName("input")).sendKeys(sGenericCarrierDot);
 							}
-							if(colName.equalsIgnoreCase("Carrier Reference #")) {
+							if (colName.equalsIgnoreCase("Carrier Reference #")) {
 								inpCol.findElement(By.tagName("input")).sendKeys(sCarrierRef);
 							}
-							if(colName.equalsIgnoreCase("Contact Name")) {
+							if (colName.equalsIgnoreCase("Contact Name")) {
 								inpCol.findElement(By.tagName("input")).sendKeys(sContactName);
 							}
-							if(colName.equalsIgnoreCase("Contact Email")) {
+							if (colName.equalsIgnoreCase("Contact Email")) {
 								inpCol.findElement(By.tagName("input")).sendKeys(sEmailID);
 							}
 						}
 
-						WebElement m=driver.findElement(By.xpath("//div[@id='left-button-area']"));
+						WebElement m = driver.findElement(By.xpath("//div[@id='left-button-area']"));
 						js.executeScript("arguments[0].scrollIntoView(true);", m);
 						GenericSkins.WaitForElementTobeClickable(By.xpath(".//span[./text()='Submit Request']"));
 						CarrierPage.SubmitRequestBtn().click();
-					} catch(Exception e) {
+					} catch (Exception e) {
 						GenericSkins.WaitForElementVisibility(By.xpath("//div[@id='carrier-options-radio-group']"));
 						driver.findElement(By.xpath("//input[@name='Carrier Select']")).click();
 						Thread.sleep(1000);
 						CarrierPage.NextBtn().click();
 						GenericSkins.WaitForElementVisibility(By.xpath("(//div[@id='add-screen']//div//input)[1]"));
-						List<WebElement> eCarrierInp = driver.findElements(By.xpath("//div[@id='add-screen']//form/div"));
-						for(WebElement inpCol: eCarrierInp) {
+						List<WebElement> eCarrierInp = driver
+								.findElements(By.xpath("//div[@id='add-screen']//form/div"));
+						for (WebElement inpCol : eCarrierInp) {
 							String colName = inpCol.getText();
 
-							if(colName.equalsIgnoreCase("Carrier Reference #")) {
+							if (colName.equalsIgnoreCase("Carrier Reference #")) {
 								inpCol.findElement(By.tagName("input")).sendKeys(sCarrierRef);
 							}
-							if(colName.equalsIgnoreCase("Contact Name")) {
+							if (colName.equalsIgnoreCase("Contact Name")) {
 								inpCol.findElement(By.tagName("input")).sendKeys(sContactName);
 							}
-							if(colName.equalsIgnoreCase("Contact Email")) {
+							if (colName.equalsIgnoreCase("Contact Email")) {
 								inpCol.findElement(By.tagName("input")).sendKeys(sEmailID);
 							}
 						}
 						try {
-							if(!driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).isSelected()) {
+							if (!driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).isSelected()) {
 								driver.findElement(By.xpath("//div[@id='checkbox-section']//input")).click();
-								WebElement m=driver.findElement(By.xpath("//div[@id='left-button-area']"));
+								WebElement m = driver.findElement(By.xpath("//div[@id='left-button-area']"));
 								js.executeScript("arguments[0].scrollIntoView(true);", m);
-								GenericSkins.WaitForElementTobeClickable(By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
+								GenericSkins.WaitForElementTobeClickable(
+										By.xpath("//button//span[contains(text(),'Invite Carrier')]"));
 								CarrierPage.InviteRequestBtn().click();
 							}
-						} catch(Exception ex) {
-							WebElement m=driver.findElement(By.xpath("//div[@id='left-button-area']"));
+						} catch (Exception ex) {
+							WebElement m = driver.findElement(By.xpath("//div[@id='left-button-area']"));
 							js.executeScript("arguments[0].scrollIntoView(true);", m);
 							CarrierPage.InviteRequestBtn().click();
 						}
 
 					}
-
 
 					GenericSkins.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Finish')]"));
 					CarrierPage.FinishBtn().click();
@@ -133,8 +156,11 @@ public class Carrier extends GenericSkins {
 					System.out.println("Company Added Successfully");
 					sActualResult = "Company Added Successfully";
 					bResult = true;
-				} catch(Exception e) {
+				} catch (Exception e) {
 					System.out.println();
+					sActualResult = e.getMessage();
+					e.printStackTrace();
+					bResult = false;
 				}
 				break;
 			}
@@ -158,7 +184,7 @@ public class Carrier extends GenericSkins {
 		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
-		for (int iRow = 1; iRow <= iRowCnt; iRow ++) {
+		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			sTestStepData = TestDataImport.GetCellData(sSheetName, 1, iRow);
@@ -175,17 +201,19 @@ public class Carrier extends GenericSkins {
 					driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 					// uncheck all checkboxes
 
-					for (WebElement eColumn : eColumns) {						
+					for (WebElement eColumn : eColumns) {
 						try {
-							if(eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("svg")).isDisplayed()) {
-								eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("div")).click();
+							if (eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("svg"))
+									.isDisplayed()) {
+								eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("div"))
+										.click();
 							}
-						} catch(Exception e) {
+						} catch (Exception e) {
 
 						}
 						Actions action = new Actions(driver);
 						action.sendKeys(Keys.ARROW_DOWN).build().perform();
-						//Thread.sleep(100);
+						// Thread.sleep(100);
 					}
 					System.out.println("Unchecked Done");
 					// CLick on columns button from right pane
@@ -209,19 +237,21 @@ public class Carrier extends GenericSkins {
 						int iSelectedCnt = 0;
 						for (int i = 0; i < sData.length; i++) {
 							for (WebElement eColumn : eColumns) {
-								String sName = eColumn.findElement(By.tagName("span")).getText();								
-								if(sName.trim().equalsIgnoreCase(sData[i].trim())) {
+								String sName = eColumn.findElement(By.tagName("span")).getText();
+								if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
 									try {
-										if(eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("svg")).isDisplayed()) {
+										if (eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+												.findElement(By.tagName("svg")).isDisplayed()) {
 
 										}
 
-									} catch(Exception e) {
-										eColumn.findElement(By.cssSelector(".css-yvbm2a")).findElement(By.tagName("div")).click();
+									} catch (Exception e) {
+										eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+												.findElement(By.tagName("div")).click();
 									}
 									Actions action2 = new Actions(driver);
 									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-									//Thread.sleep(100);
+									// Thread.sleep(100);
 									break;
 								}
 							}
@@ -288,9 +318,10 @@ public class Carrier extends GenericSkins {
 			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sDot = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			String sMC = TestDataImport.GetCellData(sSheetName, 3, iRow);
-
+			sMC = sGenericCarrierMC;
+			sDot = sGenericCarrierDot;
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 7, iRow);
-			sTestStepData = sCarrierName + ";" + sDot + ";" + sMC + ";";  //";" + sSHipper +
+			sTestStepData = sGenericCarrierName + ";" + sDot + ";" + sMC + ";"; // ";" + sSHipper +
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 				try {
 					ArrayList<String> aActualRecordCell = new ArrayList();
@@ -305,7 +336,7 @@ public class Carrier extends GenericSkins {
 
 					}
 
-					driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);					
+					driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 					String sData[] = sTestStepData.split(";");
 
 					sActualResult = "Record not found";
@@ -317,15 +348,15 @@ public class Carrier extends GenericSkins {
 					for (int i = 0; i < sData.length; i++) {
 						if (!(sData[i].equalsIgnoreCase("NA"))) {
 							eHeaderFilters.get(i).findElement(By.tagName("input")).clear();
-							//Thread.sleep(500);
+							// Thread.sleep(500);
 							eHeaderFilters.get(i).findElement(By.tagName("input")).sendKeys(sData[i]);
 							Actions acton = new Actions(driver);
 							acton.sendKeys(Keys.ENTER).build().perform();
-							Thread.sleep(2000);									
+							Thread.sleep(2000);
 						}
 
 					}
-					bResult =true;
+					bResult = true;
 					sActualResult = "Webtable validated successfully";
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
@@ -342,7 +373,7 @@ public class Carrier extends GenericSkins {
 
 		}
 
-		System.out.println("Loads Webtble:"+bResult);
+		System.out.println("Loads Webtble:" + bResult);
 		return bResult;
 
 	}
@@ -353,11 +384,12 @@ public class Carrier extends GenericSkins {
 		driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Accept')]")).click();
 		Thread.sleep(5000);
 		try {
-			if(driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Accept')]")).isDisplayed()) {
+			if (driver.findElement(By.xpath("//div[@col-id='invite']//span[contains(text(),'Accept')]"))
+					.isDisplayed()) {
 				bResult = false;
 				sActualResult = "Failed to Accept the Invitation";
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println("Accepted ");
 		}
 		return bResult;
@@ -365,9 +397,12 @@ public class Carrier extends GenericSkins {
 
 	public static void OpenSettings() {
 		try {
-			driver.findElement(By.xpath("//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']")).click();   //.//span[@class='MuiButton-label']//div[@data-cy='nav-menu']//button
+			driver.findElement(
+					By.xpath("//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']"))
+					.click(); // .//span[@class='MuiButton-label']//div[@data-cy='nav-menu']//button
 			Thread.sleep(1000);
-			driver.findElement(By.xpath("//ul//div[contains(text(),'Settings')]")).click();  //.//li[text()='Log Out']//li[contains(text(),'Settings')]
+			driver.findElement(By.xpath("//ul//div[contains(text(),'Settings')]")).click(); // .//li[text()='Log
+																							// Out']//li[contains(text(),'Settings')]
 			Thread.sleep(5000);
 
 		} catch (Exception error) {
@@ -389,15 +424,15 @@ public class Carrier extends GenericSkins {
 
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
-			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);					
+			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 				List<WebElement> totalReq = driver.findElements(By.xpath("//div[@class='css-1eqry5g e1a5e5n20']"));
-				System.out.println("Total Record : "+totalReq.size());
-				for(WebElement rTotalRecord : totalReq){
+				System.out.println("Total Record : " + totalReq.size());
+				for (WebElement rTotalRecord : totalReq) {
 					String actReqText = rTotalRecord.getText();
-					System.out.println("Text: " +actReqText);
-					if(actReqText.equalsIgnoreCase(sCarrierName)) {
+					System.out.println("Text: " + actReqText);
+					if (actReqText.equalsIgnoreCase(sGenericCarrierName)) {
 						System.out.println("Request Received to Carrier Account");
 						bResult = true;
 						break;
@@ -406,7 +441,7 @@ public class Carrier extends GenericSkins {
 				break;
 			}
 		}
-		if(bResult) {
+		if (bResult) {
 			System.out.println("Request Not Received to Carrier Account");
 		}
 
@@ -440,14 +475,14 @@ public class Carrier extends GenericSkins {
 
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
-			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);					
+			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 				List<WebElement> totalReq = driver.findElements(By.xpath("//div[@class='css-1eqry5g e1a5e5n20']"));
 
-				for(WebElement rTotalRecord : totalReq){
+				for (WebElement rTotalRecord : totalReq) {
 					String actReqText = rTotalRecord.getText();
-					if(actReqText.equalsIgnoreCase(sCarrierName)) {
+					if (actReqText.equalsIgnoreCase(sGenericCarrierName)) {
 						System.out.println("Request not yet cancelled");
 						bResult = false;
 						break;
@@ -456,7 +491,7 @@ public class Carrier extends GenericSkins {
 				break;
 			}
 		}
-		if(bResult) {
+		if (bResult) {
 			System.out.println("Request cancelled Successfully");
 		}
 
@@ -477,50 +512,49 @@ public class Carrier extends GenericSkins {
 
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
-			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);					
+			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 
 				CarrierPage.AcceptBtn().click();
 				Thread.sleep(5000);
-				
+
 				try {
 					CarrierPage.AcceptBtn().click();
 					TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
 					driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
 					System.out.println("Request Accepted ");
-				}catch(Exception e) {
+				} catch (Exception e) {
 					System.out.println("Failed to Accepted ");
 				}
-				
-				
+
 				try {
-					
+
 					TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
 					driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
 					Thread.sleep(2000);
 					CarrierPage.AcceptBtn().click();
 					System.out.println("Request Accepted ");
-				}catch(Exception e) {
+				} catch (Exception e) {
 					System.out.println("Failed to Accepted ");
 				}
 				bResult = true;
 
 			}
 		}
-		if(bResult) {
+		if (bResult) {
 			System.out.println("Request Accept Successfully");
 		}
 
 		driver.findElement(By.xpath("//div[@id='root']//img")).click();
 		Thread.sleep(3000);
-		
+
 		try {
 			driver.findElement(By.xpath("//button//span[contains(text(),'Accept')]")).click();
 			Thread.sleep(2000);
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
-		
+
 		return bResult;
 	}
 
@@ -536,22 +570,23 @@ public class Carrier extends GenericSkins {
 
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
-			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);					
+			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
 				LoadsPage.eAddNewLoad().click();
 				Thread.sleep(2000);
-				LoadsPage.eListCarrier().sendKeys(sCarrierName);
+				LoadsPage.eListCarrier().sendKeys(sGenericCarrierName);
 				Actions ac = new Actions(driver);
 				ac.sendKeys(Keys.ENTER).build().perform();
 				Thread.sleep(2000);
-				String aCarrier = driver.findElement(By.xpath("//*[@id=\"carrier_uuid\"]/div/div/div/div/div[1]")).getText();
-				if(aCarrier.equalsIgnoreCase(sCarrierName)) {
+				String aCarrier = driver.findElement(By.xpath("//*[@id=\"carrier_uuid\"]/div/div/div/div/div[1]"))
+						.getText();
+				if (aCarrier.equalsIgnoreCase(sGenericCarrierName)) {
 					bResult = true;
 					System.out.println("Newly Added carrier Available for Load Generation");
 				}
 				break;
-			}			
+			}
 		}
 
 		return bResult;
@@ -591,15 +626,15 @@ public class Carrier extends GenericSkins {
 
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
-			String sCurrentPassword = TestDataImport.GetCellData(sSheetName, 1, iRow);	
-			String sNewPassword = TestDataImport.GetCellData(sSheetName, 2, iRow);	
-			String sConfirmPassword = TestDataImport.GetCellData(sSheetName, 3, iRow);	
-			String sOperation = TestDataImport.GetCellData(sSheetName, 4, iRow);	
-			sExpectedResult = TestDataImport.GetCellData(sSheetName, 5, iRow);			
+			String sCurrentPassword = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			String sNewPassword = TestDataImport.GetCellData(sSheetName, 2, iRow);
+			String sConfirmPassword = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			String sOperation = TestDataImport.GetCellData(sSheetName, 4, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 5, iRow);
 
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
-				int flag =0;
-				switch(sOperation.toUpperCase()) {
+				int flag = 0;
+				switch (sOperation.toUpperCase()) {
 
 				case "CHANGEPASSWORD":
 					CarrierPage.changePasswordBtn().click();
@@ -629,12 +664,12 @@ public class Carrier extends GenericSkins {
 
 				case "RELOGIN":
 					bResult = TestActions.Login(sUserName, sNewPassword);
-					if(bResult) {
+					if (bResult) {
 						sActualResult = "Password Change Successfully";
 					}
 					break;
 				}
-				if(flag == 1) {
+				if (flag == 1) {
 					driver.findElement(By.xpath("//div[@id='root']//img")).click();
 					Thread.sleep(3000);
 				}
