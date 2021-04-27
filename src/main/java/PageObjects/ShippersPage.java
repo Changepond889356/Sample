@@ -26,6 +26,15 @@ public class ShippersPage extends GenericSkins {
 		return element;
 	}
 
+	public static WebElement eCancel() {
+		try {
+			element = driver.findElement(By.xpath(".//span[text()='Cancel']"));
+		} catch (Exception ele) {
+
+		}
+		return element;
+	}
+
 	public static WebElement ebtnAddShipper() {
 		try {
 			element = driver.findElement(By.xpath(".//span[text()='Add a Shipper']"));

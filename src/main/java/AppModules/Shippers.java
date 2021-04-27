@@ -50,10 +50,13 @@ public class Shippers extends GenericSkins {
 			System.out.println("sEmail:" + sEmail);
 			// System.out.println("class name:"+this.getClass().getName());
 			// sTestCaseID = "TestCases."+sTestCaseID;
+			System.out.println(sTestCaseID);
+			System.out.println(sActualTestCaseID);
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
 				try {
 
 					ShippersPage.eMenuShippers().click();
+					driver.navigate().refresh();
 					Thread.sleep(3000);
 					ShippersPage.ebtnAddShipper().click();
 					if (!(sShipperName.equalsIgnoreCase("NA"))) {
@@ -73,9 +76,51 @@ public class Shippers extends GenericSkins {
 						ac.sendKeys(Keys.ENTER).build().perform();
 					}
 					// UserPage.eInvite().click();
-					ShippersPage.eAdd().click();
-					sActualResult = "Shipper added successfully";
-					bResult = true;
+					switch (sOperation.toUpperCase()) {
+					case "ADD":
+						ShippersPage.eAdd().click();
+						sActualResult = "Shipper added successfully";
+						break;
+					case "CANCEL":
+						ShippersPage.eCancel().click();
+						sActualResult = "Shipper cancelled successfully";
+						break;
+
+					}
+					Thread.sleep(2000);
+					List<WebElement>error_messages = driver.findElements(By.xpath(".//p[@class='MuiFormHelperText-root jss18 MuiFormHelperText-contained Mui-error jss19']"));
+					System.out.println("error messageS:"+error_messages.size());
+					if(error_messages.size()==0)
+					{
+						//sActualResult = "Shipper added successfully";
+						bResult=true;
+					}
+					else if(error_messages.size()==2)
+					{
+						
+						sActualResult = "Unable to add shipper";
+						//bResult=false;
+					}
+					else
+					{
+						for(WebElement error_mess : error_messages)
+						{
+							sActualResult = error_mess.getText();
+							break;
+						}
+					}
+					System.out.println(sActualResult);
+					System.out.println(sExpectedResult);
+					if(sActualResult.trim().equalsIgnoreCase(sExpectedResult.trim()))
+					{
+						bResult=true;
+					}
+					else
+					{
+						bResult=false;
+					}
+					// sActualResult = "Shipper added successfully";
+					//bResult = true;
 
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
@@ -99,7 +144,7 @@ public class Shippers extends GenericSkins {
 		boolean bResult = false;
 		String sFileName = "Shippers.xlsx";
 		String sSheetName = "ShippersGrid";
-		sTestStepID = "UserWebTable";
+		sTestStepID = "shipperSWebTable";
 		System.out.println("Search record in shipper webtable");
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
@@ -107,6 +152,7 @@ public class Shippers extends GenericSkins {
 		TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
+		System.out.println("user number:" + iUserNum);
 		System.out.println("Number of rows:" + iRowCnt);
 
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
@@ -127,7 +173,7 @@ public class Shippers extends GenericSkins {
 					String sACtualEmail = "NA";
 					String sActualStatus = "NA";
 					String sActualCarrier = "NA";
-					WebElement eStatusColumn=null;
+					WebElement eStatusColumn = null;
 					// click User Menu
 					ShippersPage.eMenuShippers().click();
 					Thread.sleep(3000);
@@ -145,6 +191,7 @@ public class Shippers extends GenericSkins {
 					driver.findElement(By
 							.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]/*[name()='svg']"))
 							.click();
+					Thread.sleep(5000);
 					// filter by Name
 					WebElement eNameFilter = driver
 							.findElement(By.xpath("(.//div[@role='columnheader']/div/div/input)[2]"));
@@ -152,6 +199,7 @@ public class Shippers extends GenericSkins {
 					eNameFilter.clear();
 					Thread.sleep(3000);
 					eNameFilter.sendKeys(sShipperName);
+
 					Thread.sleep(5000);
 					/*
 					 * driver.findElement(By.xpath(
@@ -208,7 +256,7 @@ public class Shippers extends GenericSkins {
 								}
 								break;
 							case "inactive":
-								eStatusColumn=eCOl;
+								eStatusColumn = eCOl;
 								sActualStatus = eCOl.getText();
 								if (sActualStatus.equalsIgnoreCase("") || sActualStatus.equalsIgnoreCase(null)) {
 									sActualStatus = "NA";
@@ -245,18 +293,21 @@ public class Shippers extends GenericSkins {
 								case "INACTIVE":
 									eStatusColumn.click();
 									Thread.sleep(2000);
-									driver.findElement(By.xpath(".//div[@ref='eList']/div/div/div/div[text()='Inactive']")).click();
+									driver.findElement(
+											By.xpath(".//div[@ref='eList']/div/div/div/div[text()='Inactive']"))
+											.click();
 									bResult = true;
 									break;
 								case "ACTIVE":
 									eStatusColumn.click();
 									Thread.sleep(2000);
-									driver.findElement(By.xpath(".//div[@ref='eList']/div/div/div/div[text()='Active']")).click();
+									driver.findElement(
+											By.xpath(".//div[@ref='eList']/div/div/div/div[text()='Active']")).click();
 									bResult = true;
 									break;
 								}
 								break;
-								
+
 							}
 						}
 						if (bResult == true) {
@@ -285,7 +336,14 @@ public class Shippers extends GenericSkins {
 
 			}
 		}
-		System.out.println("user webtable:" + bResult);
+		System.out.println(sActualResult);
+		System.out.println(sExpectedResult);
+		if (sActualResult.trim().equalsIgnoreCase(sExpectedResult.trim())) {
+			bResult = true;
+		} else {
+			bResult = false;
+		}
+		System.out.println("shipper webtable:" + bResult);
 		return bResult;
 
 	}
@@ -297,7 +355,7 @@ public class Shippers extends GenericSkins {
 		boolean bSelected = false;
 		String sFileName = "Shippers.xlsx";
 		String sSheetName = "CustomizeGrid";
-		sTestStepID = "customizeUsergrid";
+		sTestStepID = "customizeshippergrid";
 		System.out.println("Customize columns in shippers webtable");
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);

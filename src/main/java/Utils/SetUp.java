@@ -41,7 +41,7 @@ public class SetUp extends GenericSkins {
 	@BeforeMethod
 	public void beforeMethod(ITestResult result) throws Exception {
 		setReportName(result);
-		File file3 = new File(sTestDataPath+"\\Driver.xlsx");
+		File file3 = new File(sTestDataPath+"\\"+sDriverFile);
 		FileInputStream inputStream3 = new FileInputStream(file3);
 		ExcelWBook = new XSSFWorkbook(inputStream3);
 		ExcelWSheet = ExcelWBook.getSheet(sSheetRegressionPacks);  //ExcelWSheet = ExcelWBook.getSheetAt(1);
@@ -72,7 +72,7 @@ public class SetUp extends GenericSkins {
 		{
 			sColor="NA";
 		}
-		File file2 = new File(sTestResultsPath+"\\Driver.xlsx");
+		File file2 = new File(sTestResultsPath+"\\"+sDriverFile);
 		FileInputStream inputStream2 = new FileInputStream(file2);
 		ExcelWBook = new XSSFWorkbook(inputStream2);
 		ExcelWSheet = ExcelWBook.getSheet(sSheetRegressionPacks);  //ExcelWSheet = ExcelWBook.getSheetAt(1);

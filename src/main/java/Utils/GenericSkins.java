@@ -265,6 +265,7 @@ public class GenericSkins {
 	public static String sGenericCarrierDot;
 	
 	protected static WebDriverWait wait;
+	public static String sRegreesionScriptsLevel="NA";
 
 	// ------------------------------------Method to create New
 	// Folder-----------------------------------------
@@ -851,6 +852,17 @@ public class GenericSkins {
 		fromEmailID = ReadSystemIndependncyFile("FromEmail");
 		emailUsername = ReadSystemIndependncyFile("EmailUsername");
 		emailPassword = ReadSystemIndependncyFile("EmailPassword");
+		sRegreesionScriptsLevel=ReadSystemIndependncyFile("RegressionScripts");
+		System.out.println("sRegreesionScriptsLevel:"+sRegreesionScriptsLevel);
+		if(sRegreesionScriptsLevel.equalsIgnoreCase("Detailed"))
+		{
+			sDriverFile = "DriverDetailedRegression.xlsx";
+		}
+		else
+		{
+			sDriverFile = "DriverHighLevelRegression.xlsx";
+		}
+		
 
 		}
 

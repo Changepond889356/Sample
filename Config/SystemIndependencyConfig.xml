@@ -3,8 +3,9 @@
         <AUTPath>https://roger-uat.dev.rogerthat.com/</AUTPath>
 		<LocalBrowserName>Chrome</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
-		<RunReference>Run23Apr2021</RunReference>
-		<RunReferenceFlag>Yes</RunReferenceFlag>
+		<RegressionScripts>Detailed</RegressionScripts>
+		<RunReference>Debug</RunReference>
+		<RunReferenceFlag>NO</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
 		<ReportsDBJDBCDriver>NA</ReportsDBJDBCDriver>
@@ -12,7 +13,7 @@
 		<ReportsDBName>NA</ReportsDBName>
 		<ReportsDBUserName>NA</ReportsDBUserName>
 		<ReportsDBPassword>NA</ReportsDBPassword>
-		<ToEmail>thiruvatta.p@changepond.com,karthikeyan.s@changepond.com,aniket.g@changepond.com,mohammadfaheem.s@changepond.com</ToEmail>
+		<ToEmail>mohammadfaheem.s@changepond.com</ToEmail>
 		<FromEmail>karthikeyan.s@changepond.com</FromEmail>
 		<EmailUsername>Karthikeyan.S</EmailUsername>
 		<EmailPassword>London2268$</EmailPassword>
