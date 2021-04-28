@@ -5,7 +5,7 @@
 		<CaptureScreenShot>All</CaptureScreenShot>
 		<RegressionScripts>Detailed</RegressionScripts>
 		<RunReference>Debug</RunReference>
-		<RunReferenceFlag>NO</RunReferenceFlag>
+		<RunReferenceFlag>Yes</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
 		<ReportsDBJDBCDriver>NA</ReportsDBJDBCDriver>
@@ -13,7 +13,7 @@
 		<ReportsDBName>NA</ReportsDBName>
 		<ReportsDBUserName>NA</ReportsDBUserName>
 		<ReportsDBPassword>NA</ReportsDBPassword>
-		<ToEmail>mohammadfaheem.s@changepond.com</ToEmail>
+		<ToEmail>karthikeyan.s@changepond.com,mohammadfaheem.s@changepond.com,thiruvatta.p@changepond.com,aniket.g@changepond.com</ToEmail>
 		<FromEmail>karthikeyan.s@changepond.com</FromEmail>
 		<EmailUsername>Karthikeyan.S</EmailUsername>
 		<EmailPassword>London2268$</EmailPassword>
