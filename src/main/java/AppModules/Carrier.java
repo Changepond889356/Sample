@@ -397,6 +397,21 @@ public class Carrier extends GenericSkins {
 
 	public static void OpenSettings() {
 		try {
+			try {
+				System.out.println("open settings");
+				boolean bResult = false;
+				do
+				{
+					driver.findElement(By.xpath(".//*[text()='Decline']")).click();
+					Thread.sleep(4000);
+					System.out.println("clicked on decline");
+					bResult=true;
+				}while(bResult==true);
+			}
+			catch(Exception e)
+			{
+				
+			}
 			driver.findElement(
 					By.xpath("//button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']"))
 					.click(); // .//span[@class='MuiButton-label']//div[@data-cy='nav-menu']//button

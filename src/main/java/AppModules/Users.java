@@ -200,6 +200,7 @@ public class Users extends GenericSkins {
 					// click on load icon
 					driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]"))
 							.click();
+					//Thread.sleep(4000);
 
 					List<WebElement> listh1 = driver.findElements(
 							By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[1]/div"));
@@ -235,6 +236,21 @@ public class Users extends GenericSkins {
 							Thread.sleep(3000);
 							System.out.println("Data Enter");
 						}
+						if (listh1.get(i).getAttribute("col-id").equals("carrier")) {
+							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sCarrier);
+
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]")).clear();
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]"))
+									.sendKeys(sCarrier);
+							driver.findElement(
+									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]"))
+									.sendKeys(Keys.ENTER);
+							Thread.sleep(3000);
+							System.out.println("Data Enter");
+						}
+
 
 					}
 					// filter by Name
