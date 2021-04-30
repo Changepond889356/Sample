@@ -36,7 +36,27 @@ public class LoadsPage extends GenericSkins {
 
 	public static WebElement eAllTab() {
 		try {
-			element = driver.findElement(By.xpath(".//span[@class='MuiButton-label']/p[text()='All']"));
+			element = driver.findElement(By.xpath(".//*[text()='All']"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+
+		}
+		return element;
+	}
+	public static WebElement eOpenTab() {
+		try {
+			element = driver.findElement(By.xpath(".//span[@class='MuiButton-label']/p[text()='Open']"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+
+		}
+		return element;
+	}
+	public static WebElement eSubmittedTab() {
+		try {
+			element = driver.findElement(By.xpath(".//span[@class='MuiButton-label']/p[text()='Submitted']"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;

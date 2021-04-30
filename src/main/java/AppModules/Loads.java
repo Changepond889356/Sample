@@ -435,11 +435,13 @@ public class Loads extends GenericSkins {
 
 	// Method to customize webtable in Loads Page
 	public static boolean customizeAGgrid(String sActualTestCaseID) throws Exception {
+		Thread.sleep(5000);
 		boolean bResult = false;
 
 		boolean bSelected = false;
 		String sFileName = "Loads.xlsx";
 		String sSheetName = "CustomizeGrid";
+		sTestStepID = "Customize AG grid";
 		// Copy Loads.xlsx file from test data folder to current log folder
 		Copy_File(sTestDataPath + sFileName, sTestResultsPath);
 
@@ -453,7 +455,8 @@ public class Loads extends GenericSkins {
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			sTestStepData = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
-			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			String sTab = TestDataImport.GetCellData(sSheetName, 3, iRow);
+			sExpectedResult = TestDataImport.GetCellData(sSheetName, 4, iRow);
 			aHeaderNumbers = null;
 			aHeaderNames = null;
 			aHeaderNumbers = new ArrayList();
@@ -466,14 +469,26 @@ public class Loads extends GenericSkins {
 						System.out.println("Clicked on menu loads");
 						Thread.sleep(5000);
 						// Click on All tab
-						LoadsPage.eAllTab().click();
-						System.out.println("Clicked on all loads");
+						//LoadsPage.eAllTab().click();
+						//System.out.println("Clicked on all loads");
+						switch(sTab.toUpperCase())
+						{
+						case "ALL":
+							LoadsPage.eAllTab().click();
+							System.out.println("Clicked on all loads");
+							break;
+						case "OPEN":
+							LoadsPage.eOpenTab().click();
+							System.out.println("Clicked on Open loads");
+							break;
+							
+						}
 						Thread.sleep(5000);
 						// CLick on columns button from right pane
 						LoadsPage.eColumnPane().click();
 						Thread.sleep(500);
 						sActualResult = "Columns not found";
-						
+						Thread.sleep(2000);
 						List<WebElement> gridCol = driver.findElements(By.xpath("(//div[@class='ag-header-container']/div)[1]/div"));
 						
 						List<WebElement> eColumns = driver.findElements(
@@ -485,8 +500,10 @@ public class Loads extends GenericSkins {
 						for (WebElement eColumn : eColumns) {
 
 							String sName = eColumn.findElement(By.tagName("span")).getText();
+							System.out.println("sName:"+sName);
 							WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
 									.findElement(By.tagName("div"));
+							//eCheckBox.click();
 							try {
 								WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
 								bSelected = eCheckboxSelectedsvg.isDisplayed();
@@ -502,7 +519,7 @@ public class Loads extends GenericSkins {
 							}
 							Actions action = new Actions(driver);
 							action.sendKeys(Keys.ARROW_DOWN).build().perform();
-							//Thread.sleep(500);
+							Thread.sleep(100);
 
 						}
 
@@ -610,12 +627,13 @@ public class Loads extends GenericSkins {
 					driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 					bResult = false;
 					sActualResult = error.getMessage();
+					error.printStackTrace();
 
 				}
 				ResultComparision();
-				TestDataImport.setCellData(sSheetName, iRow, 4, sActualResult, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 5, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
-				TestDataImport.setCellData(sSheetName, iRow, 5, sTestStepStatus, "NA");
+				TestDataImport.setCellData(sSheetName, iRow, 6, sTestStepStatus, "NA");
 
 				break;
 			}
