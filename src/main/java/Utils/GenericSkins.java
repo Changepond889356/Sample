@@ -263,10 +263,24 @@ public class GenericSkins {
 	public static String sGenericCarrierName;
 	public static String sGenericCarrierMC;
 	public static String sGenericCarrierDot;
+	public static String sGenericCarrierNameGA;
+	public static String sGenericCarrierMCGA;
+	public static String sGenericCarrierDotGA;
+	
+	public static String sGenericCarrierNameSA;
+	public static String sGenericCarrierMCSA;
+	public static String sGenericCarrierDotSA;
+	
+	public static String sGenericCarrierNameSU;
+	public static String sGenericCarrierMCSU;
+	public static String sGenericCarrierDotSU;
+
+
+
 	
 	protected static WebDriverWait wait;
 	public static String sRegreesionScriptsLevel="NA";
-
+public static String sGenricAccountType="NA";
 	// ------------------------------------Method to create New
 	// Folder-----------------------------------------
 	protected static String createfolder(String path, String folder) throws IOException
