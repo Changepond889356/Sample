@@ -59,6 +59,7 @@ public class Shippers extends GenericSkins {
 					driver.navigate().refresh();
 					Thread.sleep(3000);
 					ShippersPage.ebtnAddShipper().click();
+					Thread.sleep(3000);
 					if (!(sShipperName.equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sShipperName = sShipperName + "_" + datetime;
@@ -95,7 +96,7 @@ public class Shippers extends GenericSkins {
 						//sActualResult = "Shipper added successfully";
 						bResult=true;
 					}
-					else if(error_messages.size()==2)
+					else if(error_messages.size()==3)
 					{
 						
 						sActualResult = "Unable to add shipper";
