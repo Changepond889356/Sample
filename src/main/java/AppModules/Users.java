@@ -484,28 +484,32 @@ public class Users extends GenericSkins {
 										Thread.sleep(2000);
 										// driver.findElement(By.xpath(".//span[text()='Delete']")).click();
 										bResult = true;
+										System.out.println("select:"+bResult);
 										break;
 									}
 								}
 								break;
 							}
+							if (bResult == true) {
+								sActualResult = "WebTable Validated successfully";
+								
+							} else {
+								sActualResult = "WebTable not Validated successfully";
+							}
 							break;
 						}
 						// }
-						if (bResult == true) {
-							sActualResult = "WebTable Validated successfully";
-							break;
-						} else {
-							sActualResult = "WebTable not Validated successfully";
-						}
+						
 					}
 
 					// return bResult;
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
+					
 					// throw error;
 
 				}
+				
 				ResultComparision();
 				TestDataImport.setCellData(sSheetName, iRow, 10, sActualResult, "NA");
 				TestDataImport.SetExcelFile(sTestResultsPath, sFileName);

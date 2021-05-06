@@ -19,7 +19,7 @@ public class Carrier_TC001 extends SetUp {
 	
 	@Test(dataProvider = "getData")
 	public void carrierScenario(String sAcccountType, String sUserName, String sPassword) throws IOException {
-		
+		sGenricAccountType=sAcccountType;
 		String sActTestCaseID = "Carrier_TC001";
 		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
