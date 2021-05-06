@@ -19,7 +19,7 @@ public class InviteCarrier_existing_002 extends SetUp {
 	
 	@Test(dataProvider = "getData")
 	public void carrierScenario(String sAcccountType, String sUserName, String sPassword) throws IOException {
-		
+		sGenricAccountType=sAcccountType;
 		String sActTestCaseID = "InviteCarrier_existing_002";
 		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);

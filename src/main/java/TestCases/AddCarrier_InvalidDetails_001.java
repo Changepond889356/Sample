@@ -24,7 +24,7 @@ public class AddCarrier_InvalidDetails_001 extends SetUp {
 		test = extent.createTest(sActTestCaseID + " - " + sAcccountType);
 		getTestCaseExpectedResult(sActTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sActTestCaseID);
-		
+		sGenricAccountType=sAcccountType;
 		boolean bResult = false;
 		try {
 			// Launch application
