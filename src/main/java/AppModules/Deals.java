@@ -253,7 +253,7 @@ public class Deals extends GenericSkins {
 			String sOrigin = TestDataImport.GetCellData(sSheetName, 9, iRow);
 			String sDestination = TestDataImport.GetCellData(sSheetName, 10, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 11, iRow);
-			System.out.println("Add Deal:" + "sTestCaseID:" + sTestCaseID + "sActualTestCaseID:" + sActualTestCaseID);
+			System.out.println("Edit Deal:" + "sTestCaseID:" + sTestCaseID + "sActualTestCaseID:" + sActualTestCaseID);
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID.trim())) {
 				System.out.println("inside if");
 				try {
@@ -269,13 +269,28 @@ public class Deals extends GenericSkins {
 						sGenericDealName = sDealName;
 
 					}
-					System.out.println("Deal name:" + sDealName);
-					// DealsPage.eDealName().clear();
-					DealsPage.eDealName().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-					Thread.sleep(2000);
-					DealsPage.eDealName().sendKeys(sDealName);
-					// set commodity
-					// DealsPage.eCommodity().clear();
+					if(sDealName.trim().equalsIgnoreCase("Last Created"))
+					{
+						System.out.println("last created Deal name:" + sGenericDealName);
+						// DealsPage.eDealName().clear();
+						DealsPage.eDealName().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+						Thread.sleep(2000);
+						DealsPage.eDealName().sendKeys(sDealName);
+						// set commodity
+						// DealsPage.eCommodity().clear();
+
+					}
+					else
+					{
+						System.out.println("Deal name:" + sDealName);
+						// DealsPage.eDealName().clear();
+						DealsPage.eDealName().sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+						Thread.sleep(2000);
+						DealsPage.eDealName().sendKeys(sDealName);
+						// set commodity
+						// DealsPage.eCommodity().clear();
+					}
+					
 					Thread.sleep(2000);
 
 					DealsPage.eCommodity();
@@ -592,6 +607,25 @@ public class Deals extends GenericSkins {
 									case 2:
 										sActDestination = eBoard.getAttribute("title");
 										break;
+									case 3:
+										List<WebElement> eP1 = eBoard.findElements(By.tagName("p"));
+										int iP1 = 0;
+										for (WebElement eleP : eP1) {
+											iP1++;
+
+											switch (iP1) {
+											case 1:
+												sActCommodity = eleP.getText();
+												break;
+											case 2:
+												sActRatePerUOM = eleP.getText();
+												break;
+											}
+										}
+										System.out.println("sActCommodity:"+sActCommodity);
+										System.out.println("sActRatePerUOM:"+sActRatePerUOM);
+
+										break;
 									}
 								}
 
@@ -633,7 +667,7 @@ public class Deals extends GenericSkins {
 
 										break;
 
-									case 2:
+									case 5:
 										eP = eBoard.findElements(By.tagName("p"));
 										iP = 0;
 										for (WebElement eleP : eP) {
@@ -749,6 +783,7 @@ public class Deals extends GenericSkins {
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		System.out.println("Number of rows:" + iRowCnt);
+		sActualResult="no record found";
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
@@ -764,7 +799,7 @@ public class Deals extends GenericSkins {
 				sDealName = sGenericDealName + " (2)";
 
 			}
-
+			sActualResult="Deal not found"+sDealName;
 			String sTab = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 3, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 4, iRow);
@@ -866,7 +901,7 @@ public class Deals extends GenericSkins {
 						if (sActualDealName.trim().equalsIgnoreCase(sDealName.trim())) {
 							// bResult=true;
 							// click on ...
-							if (!(sOperation.equalsIgnoreCase("SELECT")) && !(sOperation.equalsIgnoreCase("VIEW"))) {
+							if (!(sOperation.equalsIgnoreCase("SELECT")) && !(sOperation.equalsIgnoreCase("VIEW"))&&!(sOperation.equalsIgnoreCase("GETSTARTEDCARRIER"))&&!(sOperation.equalsIgnoreCase("GETSTARTEDSHIPPER"))) {
 								switch (sTab.toUpperCase().trim()) {
 								case "DRAFT":
 									eDots = eDeal.findElement(
@@ -954,10 +989,44 @@ public class Deals extends GenericSkins {
 								break;
 							case "SELECT":
 								eTitle.click();
-								Thread.sleep(4000);
+								Thread.sleep(2000);
+								try
+								{
+									Thread.sleep(2000);
+									driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[1]/div[2]/div/div/div[1]/div")).click();
+									
+								}
+								catch(Exception selecterror)
+								{
+									
+								}
 								bResult = true;
 								// eShare = eOperation;
 								break;
+							case "GETSTARTEDCARRIER":
+								eTitle.click();
+								Thread.sleep(4000);
+								driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/label/span[1]/span[1]/input")).click();
+								Thread.sleep(2000);
+								driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div/button")).click();
+								Thread.sleep(2000);
+								driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[1]/div[2]/div/div/div[1]/div")).click();
+								bResult = true;
+								// eShare = eOperation;
+								break;
+
+							case "GETSTARTEDSHIPPER":
+								eTitle.click();
+								Thread.sleep(4000);
+								driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div[1]/div[2]/label/span[1]/span[1]/input")).click();
+								Thread.sleep(2000);
+								driver.findElement(By.xpath(".//span[text()='CONFIRM']")).click();
+								Thread.sleep(2000);
+								driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[1]/div[2]/div/div/div[1]/div")).click();
+								bResult = true;
+								// eShare = eOperation;
+								break;
+
 
 							}
 							// bResult = true;
@@ -1269,6 +1338,25 @@ public class Deals extends GenericSkins {
 									case 2:
 										sActDestination = eBoard.getAttribute("title");
 										break;
+									case 3:
+										List<WebElement> eP1 = eBoard.findElements(By.tagName("p"));
+										int iP1 = 0;
+										for (WebElement eleP : eP1) {
+											iP1++;
+
+											switch (iP1) {
+											case 1:
+												sActCommodity = eleP.getText();
+												break;
+											case 2:
+												sActRatePerUOM = eleP.getText();
+												break;
+											}
+										}
+										System.out.println("sActCommodity:"+sActCommodity);
+										System.out.println("sActRatePerUOM:"+sActRatePerUOM);
+
+										break;
 									}
 								}
 
@@ -1311,22 +1399,26 @@ public class Deals extends GenericSkins {
 										break;
 
 									case 2:
-										eP = eBoard.findElements(By.tagName("p"));
-										iP = 0;
-										for (WebElement eleP : eP) {
-											iP++;
+										if(sActCommodity.equalsIgnoreCase("NA"))
+										{
 
-											switch (iP) {
-											case 1:
-												sActCommodity = eleP.getText();
-												break;
-											case 2:
-												sActRatePerUOM = eleP.getText();
+											eP = eBoard.findElements(By.tagName("p"));
+											iP = 0;
+											for (WebElement eleP : eP) {
+												iP++;
 
-												break;
+												switch (iP) {
+												case 1:
+													sActCommodity = eleP.getText();
+													break;
+												case 2:
+													sActRatePerUOM = eleP.getText();
+
+													break;
+												}
 											}
-										}
 
+										}
 										break;
 									}
 								}

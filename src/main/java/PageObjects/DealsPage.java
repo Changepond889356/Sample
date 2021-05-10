@@ -569,7 +569,7 @@ element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/d
 
 		public static WebElement eFilterOrigin() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"shared-type-popover\"]/div[3]/div/div[1]/div[2]/div[1]/div/div[1]/div/div/div/div[1]"));
+				element = driver.findElement(By.xpath("//*[@id=\"location-popover\"]/div[3]/div/div[1]/div[2]/div[1]/div/div[1]/div/div/div"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -586,7 +586,7 @@ element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/d
 		}
 		public static WebElement eFilterDestination() {
 			try {
-				element = driver.findElement(By.xpath("//*[@id=\"shared-type-popover\"]/div[3]/div/div[1]/div[2]/div[2]/div/div[1]/div/div/div/div[1]"));
+				element = driver.findElement(By.xpath("//*[@id=\"location-popover\"]/div[3]/div/div[1]/div[2]/div[2]/div/div[1]/div/div/div"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
@@ -604,7 +604,7 @@ element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/d
 		public static WebElement eBtnLocReset() {
 			try {
 				Thread.sleep(2000);
-				element = driver.findElement(By.xpath("//*[@id=\"shared-type-popover\"]/div[3]/div/div[2]/div/button[1]"));
+				element = driver.findElement(By.xpath(".//span[text()='Reset']"));
 			} catch (Exception ele) {
 				sActualResult = ele.getMessage();
 			}
