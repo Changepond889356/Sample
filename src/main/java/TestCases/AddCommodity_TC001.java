@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import AppModules.Commodities;
+import AppModules.Loads;
 import AppModules.Shippers;
 import AppModules.TestActions;
 import AppModules.Users;
@@ -37,13 +38,31 @@ public class AddCommodity_TC001 extends SetUp {
 						bResult = Commodities.CommoditiesWebTable(1, sTestCaseID);
 						if (bResult == true) {
 							//sActualResult = "Commodity added successfully";
-							bResult = Commodities.CommoditiesWebTable(2, sTestCaseID);
+							//bResult = Commodities.CommoditiesWebTable(2, sTestCaseID);
 							if (bResult == true) {
 								//sActualResult = "Commodity added successfully";
-								bResult = Commodities.CommoditiesWebTable(3, sTestCaseID);
-								if (bResult == true) {
-									sActualResult = "Commodity added and deleted successfully";
+								bResult=Loads.customizeAGgrid(sTestCaseID);
+								if(bResult==true)
+								{
+									// Add new Load
+									bResult = Loads.addNewLoad(sTestCaseID);
+									System.out.println("added load:"+sGenericCommodityName);
+									if(bResult=true)
+									{
+										bResult=Loads.LoadsWebTable(24, sTestCaseID);
+										System.out.println("view load:"+sGenericCommodityName);
+										if(bResult=true)
+										{
+											bResult=false;
+											bResult = Commodities.CommoditiesWebTable(2, sTestCaseID);
+											bResult = Commodities.CommoditiesWebTable(3, sTestCaseID);
+											if (bResult == true) {
+												sActualResult = "Commodity added and deleted successfully";
+											}
+										}
+									}
 								}
+								
 							}
 						}
 					}

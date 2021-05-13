@@ -1,6 +1,7 @@
 package PageObjects;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -109,7 +110,7 @@ public class LoadsPage extends GenericSkins {
 
 	public static WebElement eShipper() {
 		try {
-			element = driver.findElement(By.xpath(".//div[@id='shipper_uuid']/div/div/div/div/div[2]/div/input"));
+			element = driver.findElement(By.xpath("//*[@id=\"shipper_uuid\"]/div/div/div/*[name()='svg']"));
 			element.click();
 			Thread.sleep(1000);
 			element = driver.findElement(By.xpath(".//div[@id='shipper_uuid']/div/div/div/div/div[2]/div/input"));
@@ -137,7 +138,7 @@ public class LoadsPage extends GenericSkins {
 	}
 	public static WebElement eShipperContact() throws InterruptedException {
 		try {
-			
+			driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 			element = driver.findElement(By.xpath("//input[@id='contact_uuid']"));  //.//input[@id='contact_uuid']
 			element.click();
 			Thread.sleep(1000);
@@ -148,6 +149,7 @@ public class LoadsPage extends GenericSkins {
 			Thread.sleep(1000);
 			element = driver.findElement(By.xpath("//div[@id='contact_uuid']//input"));
 		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return element;
 	}
 

@@ -274,7 +274,7 @@ public class GenericSkins {
 	public static String sGenericCarrierNameSU;
 	public static String sGenericCarrierMCSU;
 	public static String sGenericCarrierDotSU;
-
+    public static String sGenericShipperContact;
 
 
 	

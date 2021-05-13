@@ -21,11 +21,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import PageObjects.*;
 
 public class Commodities extends GenericSkins {
-	
-	protected static WebElement eCommodityName=null;
-	protected static WebElement eUpperLImit=null;
-	protected static WebElement eLowerLimit=null;
-	protected static WebElement ePounds=null;
+
+	protected static WebElement eCommodityName = null;
+	protected static WebElement eUpperLImit = null;
+	protected static WebElement eLowerLimit = null;
+	protected static WebElement ePounds = null;
 
 	// MEthod to add a new user
 	public static boolean addCommodities(String sActualTestCaseID) throws Exception {
@@ -56,10 +56,12 @@ public class Commodities extends GenericSkins {
 			// sTestCaseID = "TestCases."+sTestCaseID;
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
 				try {
+					driver.navigate().refresh();
 
 					CommoditiesPage.eMenuCommodities().click();
 					Thread.sleep(3000);
 					CommoditiesPage.ebtnAddCommodity().click();
+					Thread.sleep(2000);
 					if (!(sCommodityName.equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sCommodityName = sCommodityName + "_" + datetime;
@@ -84,8 +86,24 @@ public class Commodities extends GenericSkins {
 					}
 					// UserPage.eInvite().click();
 					ShippersPage.eAdd().click();
-					sActualResult = "Commodity added successfully";
-					bResult = true;
+					Thread.sleep(2000);
+					List<WebElement> eAlerts = driver.findElements(By.xpath(".//*[contains(@id,'-helper-text')]"));
+					System.out.println("number of alerts:"+eAlerts.size());
+					if (eAlerts.size() == 3) {
+						sActualResult = "Unable to add commodity";
+					} else if (eAlerts.size() > 0) {
+						for (WebElement eAlert : eAlerts) {
+							sActualResult = eAlert.getText();
+							break;
+						}
+					} else {
+						sActualResult = "Commodity added successfully";
+					}
+					if (sActualResult.trim().equalsIgnoreCase(sExpectedResult.trim())) {
+						bResult = true;
+					} else {
+						bResult = false;
+					}
 
 				} catch (Exception error) {
 					sActualResult = error.getMessage();
@@ -103,7 +121,6 @@ public class Commodities extends GenericSkins {
 		return bResult;
 
 	}
-
 
 	// MEthod to add a new user
 	public static boolean EditCommodities(String sActualTestCaseID) throws Exception {
@@ -135,9 +152,9 @@ public class Commodities extends GenericSkins {
 			if (sTestCaseID.equalsIgnoreCase(sActualTestCaseID)) {
 				try {
 
-					//CommoditiesPage.eMenuCommodities().click();
-					//Thread.sleep(3000);
-					//CommoditiesPage.ebtnAddCommodity().click();
+					// CommoditiesPage.eMenuCommodities().click();
+					// Thread.sleep(3000);
+					// CommoditiesPage.ebtnAddCommodity().click();
 					if (!(sCommodityName.equalsIgnoreCase("NA"))) {
 						String datetime = new SimpleDateFormat("MMddhhmmss").format(new Date());
 						sCommodityName = sCommodityName + "_" + datetime;
@@ -145,41 +162,49 @@ public class Commodities extends GenericSkins {
 						eCommodityName.click();
 						Thread.sleep(2000);
 						Actions action3 = new Actions(driver);
-						//action3.sendKeys(Keys.CONTROL+"a").build().perform();
+						// action3.sendKeys(Keys.CONTROL+"a").build().perform();
 						Thread.sleep(1000);
-						action3.sendKeys(Keys.DELETE).build().perform();;
-						action3.sendKeys(sCommodityName).build().perform();;
-						sGenericCommodityName=sCommodityName;
+						action3.sendKeys(Keys.DELETE).build().perform();
+						;
+						action3.sendKeys(sCommodityName).build().perform();
+						;
+						sGenericCommodityName = sCommodityName;
 					}
 					if (!(sUpperLimit.equalsIgnoreCase("NA"))) {
 						eUpperLImit.click();
 						Thread.sleep(2000);
-					Actions action3 = new Actions(driver);
-					//action3.sendKeys(Keys.CONTROL+"a").build().perform();
-					Thread.sleep(1000);
-					action3.sendKeys(Keys.DELETE).build().perform();;
-					action3.sendKeys(sUpperLimit).build().perform();;
+						Actions action3 = new Actions(driver);
+						// action3.sendKeys(Keys.CONTROL+"a").build().perform();
+						Thread.sleep(1000);
+						action3.sendKeys(Keys.DELETE).build().perform();
+						;
+						action3.sendKeys(sUpperLimit).build().perform();
+						;
 					}
 					if (!(sLowerLimit.equalsIgnoreCase("NA"))) {
 						eLowerLimit.click();
-					Actions action3 = new Actions(driver);
-					Thread.sleep(2000);
-					//action3.sendKeys(Keys.CONTROL+"a").build().perform();
-					Thread.sleep(1000);
-					action3.sendKeys(Keys.DELETE).build().perform();;
-					action3.sendKeys(sLowerLimit).build().perform();;
+						Actions action3 = new Actions(driver);
+						Thread.sleep(2000);
+						// action3.sendKeys(Keys.CONTROL+"a").build().perform();
+						Thread.sleep(1000);
+						action3.sendKeys(Keys.DELETE).build().perform();
+						;
+						action3.sendKeys(sLowerLimit).build().perform();
+						;
 					}
 					if (!(sPounds.equalsIgnoreCase("NA"))) {
 						ePounds.click();
-					Actions action3 = new Actions(driver);
-					Thread.sleep(2000);
-					//action3.sendKeys(Keys.CONTROL+"a").build().perform();
-					Thread.sleep(1000);
-					action3.sendKeys(Keys.DELETE).build().perform();;
-					action3.sendKeys(sPounds).build().perform();;
+						Actions action3 = new Actions(driver);
+						Thread.sleep(2000);
+						// action3.sendKeys(Keys.CONTROL+"a").build().perform();
+						Thread.sleep(1000);
+						action3.sendKeys(Keys.DELETE).build().perform();
+						;
+						action3.sendKeys(sPounds).build().perform();
+						;
 					}
 					// UserPage.eInvite().click();
-					//ShippersPage.eAdd().click();
+					// ShippersPage.eAdd().click();
 					sActualResult = "Commodity edited successfully";
 					bResult = true;
 
@@ -199,7 +224,6 @@ public class Commodities extends GenericSkins {
 		return bResult;
 
 	}
-
 
 	// Method to handle Users Webtable
 	public static boolean CommoditiesWebTable(int iUserNum, String sActualTestCaseID) throws Exception {
@@ -257,8 +281,8 @@ public class Commodities extends GenericSkins {
 							.click();
 					Thread.sleep(5000);
 					// filter by Name
-					WebElement eNameFilter = driver
-							.findElement(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"));
+					WebElement eNameFilter = driver.findElement(By.xpath(
+							"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[1]/div[2]/div/div[2]/div[1]/div[1]/div/div/input"));
 
 					eNameFilter.clear();
 					Thread.sleep(1000);
@@ -345,15 +369,17 @@ public class Commodities extends GenericSkins {
 									&& sPounds.trim().equalsIgnoreCase(sActualPounds.trim())) {
 								System.out.println("Record found");
 								System.out.println("sOperation :" + sOperation);
-								List<WebElement> eCheckBoxes = driver
-										.findElements(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
+								List<WebElement> eCheckBoxes = driver.findElements(
+										By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div"));
 
 								switch (sOperation.toUpperCase()) {
 								case "VIEW":
 									bResult = true;
 									break;
 								case "DELETE":
-									driver.findElement(By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div/div/div/span[1]/span[2]")).click();
+									driver.findElement(By.xpath(
+											"//*[@id=\"myGrid\"]/div/div/div[2]/div[1]/div[3]/div[1]/div/div/div/span[1]/span[2]"))
+											.click();
 									CommoditiesPage.eDelete().click();
 									CommoditiesPage.eConfirmDelete().click();
 									bResult = true;

@@ -18,6 +18,16 @@ public class ShipperContactPage  extends GenericSkins {
 		}
 		return element;
 	}
+	public static WebElement eColumnPane() {
+		try {
+			element = driver.findElement(By.xpath("*//span[contains(text(),'Columns')]"));
+		} catch (Exception ele) {
+			sActualResult=ele.getMessage();
+			element=null;
+			System.out.println("CarrierBtn : " +ele.getMessage());
+		}
+		return element;
+	}
 	public static WebElement ShipperContactMenu() {
 		try {
 			element = driver.findElement(By.xpath("*//span[contains(text(),'Shipper Contacts')]"));
