@@ -193,7 +193,8 @@ public class EmailFunctions extends GenericSkins {
             String arr[] = body.split("=");
             for(String s: arr) {
                 s = s.trim();
-                if(s.contains("http://roger-uat.myriadapps.com/api/v1/emails/registration")) {
+                System.out.println("S:"+s);
+                if(s.contains("http://roger-uat.dev.rogerthat.com/api/v1/emails/registration")) {
                     link = s.trim();
                     System.out.println("Link - " + link);
                     break;

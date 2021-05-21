@@ -26,7 +26,7 @@ public class EmailNotifications extends GenericSkins{
 	//www.google.com/settings/security/lesssecureapps
 	Properties props = new Properties();
 	props.put("mail.smtp.auth", "true");
-	props.put("mail.smtp.starttls.enable", "false");	
+	props.put("mail.smtp.starttls.enable", "true");	
 	props.put("mail.smtp.host", "webmail.changepond.com");
 	props.put("mail.smtp.port", "25");
 

@@ -236,7 +236,7 @@ public class Users extends GenericSkins {
 							Thread.sleep(3000);
 							System.out.println("Data Enter");
 						}
-						if (listh1.get(i).getAttribute("col-id").equals("carrier")) {
+						if (listh1.get(i).getAttribute("col-id").equals("carrier")&&!(sCarrier.trim().equalsIgnoreCase("NA"))) {
 							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sCarrier);
 
 							driver.findElement(
