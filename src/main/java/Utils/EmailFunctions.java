@@ -302,7 +302,7 @@ public class EmailFunctions extends GenericSkins {
             String arr[] = body.split("=");
             for(String s: arr) {
                 s = s.trim();
-                if(s.contains("http://roger-uat.myriadapps.com/reset-password/")) {
+                if(s.contains("http://roger-uat.dev.rogerthat.com/reset-password/")) {
                     link = s.trim();
                     System.out.println("Link - " + link);
                     break;
