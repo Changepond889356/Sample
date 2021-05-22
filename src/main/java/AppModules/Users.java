@@ -191,7 +191,7 @@ public class Users extends GenericSkins {
 						// click on clear filter
 						driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 						driver.findElement(By.xpath(".//span[text()='Clear Filters']")).click();
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 					}
 
 					catch (Exception er) {
@@ -200,13 +200,18 @@ public class Users extends GenericSkins {
 					// click on load icon
 					driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div/div/div[1]/button[1]/span[1]"))
 							.click();
-					//Thread.sleep(4000);
+					Thread.sleep(5000);
 
 					List<WebElement> listh1 = driver.findElements(
 							By.xpath("(//div[@class='ag-header-container']//div[@class='ag-header-row'])[1]/div"));
 					int tempvar = 0;
+					
 					for (int i = 0; i < listh1.size(); i++) {
-						tempvar = i + 1;
+						System.out.println("i:"+i);
+						if(!(sTestCaseID.equalsIgnoreCase("User_TC007"))&&!(sTestCaseID.equalsIgnoreCase("User_TC008")))
+						{
+							tempvar = i + 1;
+						}
 						if (listh1.get(i).getAttribute("col-id").equals("email")) {
 							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sEmail);
 
@@ -223,7 +228,7 @@ public class Users extends GenericSkins {
 						}
 
 						if (listh1.get(i).getAttribute("col-id").equals("name")) {
-							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sName);
+							System.out.println("Col Name - " + listh1.get(i).getAttribute("col-id") + " " + sName+"::tempvar:"+tempvar);
 
 							driver.findElement(
 									By.xpath("(.//div[@role='columnheader']/div/div/input)[" + tempvar + "]")).clear();
@@ -251,7 +256,11 @@ public class Users extends GenericSkins {
 							System.out.println("Data Enter");
 						}
 
-
+						//tempvar = i + 1;
+						if((sTestCaseID.equalsIgnoreCase("User_TC007"))||(sTestCaseID.equalsIgnoreCase("User_TC008")))
+						{
+							tempvar = i + 1;
+						}
 					}
 					// filter by Name
 					/*
