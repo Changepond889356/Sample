@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-05-22T01:35:27 IST" name="Suite" finished-at="2021-05-22T01:35:31 IST" duration-ms="3901">
+  <suite started-at="2021-05-22T10:30:21 IST" name="Suite" finished-at="2021-05-22T10:30:34 IST" duration-ms="13419">
     <groups>
     </groups>
-    <test started-at="2021-05-22T01:35:27 IST" name="Test" finished-at="2021-05-22T01:35:31 IST" duration-ms="3901">
+    <test started-at="2021-05-22T10:30:21 IST" name="Test" finished-at="2021-05-22T10:30:34 IST" duration-ms="13419">
       <class name="TestCases.DriverScript">
-        <test-method signature="main(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestCases.DriverScript@54422e18]" started-at="2021-05-22T01:35:27 IST" name="main" finished-at="2021-05-22T01:35:31 IST" duration-ms="3869" status="FAIL">
+        <test-method signature="main(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestCases.DriverScript@54422e18]" started-at="2021-05-22T10:30:21 IST" name="main" finished-at="2021-05-22T10:30:34 IST" duration-ms="13389" status="FAIL">
           <params>
             <param index="0">
               <value>
@@ -31,11 +31,11 @@
           <exception class="org.testng.TestNGException">
             <message>
               <![CDATA[
-Cannot find class in classpath: TestCases.InActivateShippers_CarrierUser_TC010]]>
+Cannot find class in classpath: TestCases.GlobalAdmin_ShipperContacts_TC001]]>
             </message>
             <full-stacktrace>
               <![CDATA[org.testng.TestNGException: 
-Cannot find class in classpath: TestCases.InActivateShippers_CarrierUser_TC010
+Cannot find class in classpath: TestCases.GlobalAdmin_ShipperContacts_TC001
 at org.testng.xml.XmlClass.loadClass(XmlClass.java:75)
 at org.testng.xml.XmlClass.init(XmlClass.java:67)
 at org.testng.xml.XmlClass.init(XmlClass.java:58)
