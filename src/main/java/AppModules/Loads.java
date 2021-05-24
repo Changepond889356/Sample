@@ -133,7 +133,7 @@ public class Loads extends GenericSkins {
 						System.out.println("Shipper Contact : " + e);
 					}
 
-										if (!(sRate.trim().equalsIgnoreCase("NA"))) {
+					if (!(sRate.trim().equalsIgnoreCase("NA"))) {
 						LoadsPage.eRate().sendKeys(sRate);
 
 					}
@@ -157,14 +157,6 @@ public class Loads extends GenericSkins {
 						LoadsPage.eDestination().sendKeys(sDestination);
 						driver.findElement(By.xpath("//*[@id='origin_weight']")).click();
 					}
-
-					if (!(sRateUOM.trim().equalsIgnoreCase("NA"))) {
-						LoadsPage.eRateUOM().sendKeys(sRateUOM);
-						ac = new Actions(driver);
-						ac.sendKeys(Keys.ENTER).build().perform();
-						Thread.sleep(1000);
-
-					}
 					if (!(sCommodity.trim().equalsIgnoreCase("NA"))) {
 						LoadsPage.eCommodity().sendKeys(sCommodity);
 						ac = new Actions(driver);
@@ -173,6 +165,20 @@ public class Loads extends GenericSkins {
 
 					}
 
+					if (!(sRateUOM.trim().equalsIgnoreCase("NA"))) {
+						LoadsPage.eRateUOM().sendKeys(sRateUOM);;
+						LoadsPage.eRateUOM().clear();
+						LoadsPage.eRateUOM();
+						ac = new Actions(driver);
+						ac.sendKeys(sRateUOM).build().perform();
+						System.out.println("entered UOM");
+						Thread.sleep(2000);
+						ac.sendKeys(Keys.ENTER).build().perform();
+						Thread.sleep(1000);
+						System.out.println("clicked on enter");
+
+					}
+					
 
 					LoadsPage.eSave().click();
 					WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -514,7 +520,7 @@ public class Loads extends GenericSkins {
 								By.xpath("//*[@id=\"myGrid\"]/div/div/div[2]/div[2]/div[2]/div[2]/div/div/div"));
 						driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 						// uncheck all checkboxes
-
+						System.out.println("no of cols available:" + eColumns.size());
 						int tempcnt = 0;
 						for (WebElement eColumn : eColumns) {
 
@@ -533,11 +539,12 @@ public class Loads extends GenericSkins {
 								eCheckBox.click();
 								tempcnt++;
 							}
+							System.out.println("tempcount:" + tempcnt);
 							if (tempcnt >= gridCol.size()) {
 								break;
 							}
 							Actions action = new Actions(driver);
-							action.sendKeys(Keys.ARROW_DOWN).build().perform();
+							// action.sendKeys(Keys.ARROW_DOWN).build().perform();
 							Thread.sleep(100);
 
 						}
@@ -583,33 +590,68 @@ public class Loads extends GenericSkins {
 						case "SELECT":
 
 							String[] sData = sTestStepData.split(";");
+							System.out.println("no of cols to select:" + sData.length);
 							int iSelectedCnt = 0;
-							for (int i = 0; i < sData.length; i++) {
-								for (WebElement eColumn : eColumns) {
-									String sName = eColumn.findElement(By.tagName("span")).getText();
-									if (sName.trim().equalsIgnoreCase(sData[i].trim())) {
-										WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
-												.findElement(By.tagName("div"));
-										try {
-											WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
-											bSelected = eCheckboxSelectedsvg.isDisplayed();
-										} catch (Exception child_error) {
-											bSelected = false;
-										}
+							for (WebElement eColumn : eColumns) {
+								String sName = eColumn.findElement(By.tagName("span")).getText();
+								WebElement eCheckBox = eColumn.findElement(By.cssSelector(".css-yvbm2a"))
+										.findElement(By.tagName("div"));
+								try {
+									driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+									WebElement eCheckboxSelectedsvg = eCheckBox.findElement(By.tagName("svg"));
+									bSelected = eCheckboxSelectedsvg.isDisplayed();
+								} catch (Exception child_error) {
+									bSelected = false;
+								}
+								System.out.println("sName column:" + sName + ":bSelected:" + bSelected);
+								for (int k = 0; k < sData.length; k++) {
+									if (sName.trim().equalsIgnoreCase(sData[k].trim())) {
+
 										if (bSelected == false) {
 											eCheckBox.click();
-											iSelectedCnt++;
 
 										}
+										iSelectedCnt++;
+
+										System.out.println("col is checked");
 										break;
 
+									} else {
+
+										if (bSelected == true) {
+											eCheckBox.click();
+											System.out.println("unchecked");
+											try {
+												driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+												WebElement eCheckboxSelectedsvg = eCheckBox
+														.findElement(By.tagName("svg"));
+												bSelected = eCheckboxSelectedsvg.isDisplayed();
+											} catch (Exception child_error) {
+												bSelected = false;
+											}
+											System.out.println("sName column:" + sName + ":bSelected:" + bSelected);
+
+										}
+
+										/*
+										 * for (i = 0; i < sData.length; i++) { if
+										 * (!(sName.trim().equalsIgnoreCase(sData[i].trim())) && (bSelected == true)) {
+										 * eCheckBox.click(); // iSelectedCnt++;
+										 * 
+										 * }
+										 * 
+										 * }
+										 */
 									}
-									// Thread.sleep(50);
-									Actions action2 = new Actions(driver);
-									action2.sendKeys(Keys.ARROW_DOWN).build().perform();
-									// Thread.sleep(100);
+
 								}
+								// Thread.sleep(50);
+								Actions action2 = new Actions(driver);
+								// action2.sendKeys(Keys.ARROW_DOWN).build().perform();
+								Thread.sleep(100);
 							}
+
+							// driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 							// click on columnspane
 							LoadsPage.eColumnPane().click();
 							Thread.sleep(500);
@@ -627,6 +669,8 @@ public class Loads extends GenericSkins {
 
 								}
 							}
+							System.out.println(sData.length);
+							System.out.println(eHeaders.size());
 							if (sData.length == eHeaders.size()) {
 								bResult = true;
 								sActualResult = "Webtable customized successfully";
@@ -700,17 +744,16 @@ public class Loads extends GenericSkins {
 			String sRateUOM = TestDataImport.GetCellData(sSheetName, 9, iRow);
 			String sCommodity = TestDataImport.GetCellData(sSheetName, 10, iRow);
 			String sReadytoSubmit = TestDataImport.GetCellData(sSheetName, 11, iRow);
-			
-				System.out.println(sCommodity + ":sCommodity");
+
+			System.out.println(sCommodity + ":sCommodity");
 			System.out.println(sGenericCommodityName + ":sGenericCommodityName");
-			if (sCommodity.trim().equalsIgnoreCase("Generic"))
-			{
+			if (sCommodity.trim().equalsIgnoreCase("Generic")) {
 				sCommodity = sGenericCommodityName;
 			}
 			System.out.println(sCommodity + ":sCommodity");
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 13, iRow);
 			String sTemp = "NA";
-			System.out.println("Origin:"+sOrigin);
+			System.out.println("Origin:" + sOrigin);
 			if (sOrigin.trim().equalsIgnoreCase("NA")) {
 				sTemp = sCommodity;
 			} else {
@@ -1326,7 +1369,7 @@ public class Loads extends GenericSkins {
 			System.out.println("Record already is selected");
 		} else {
 			driver.findElement(By.xpath("(//div[@col-id='first_column']/div/span/span[2])[2]")).click();
-			System.out.println("Record is selected");
+			System.out.println("Firest Record is selected");
 			Thread.sleep(2000);
 		}
 	}

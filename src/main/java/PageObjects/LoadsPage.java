@@ -226,7 +226,7 @@ public class LoadsPage extends GenericSkins {
 
 	public static WebElement eRateUOM() {
 		try {
-			element = driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input"));
+			element = driver.findElement(By.xpath("//*[@id=\"rate_uom_uuid\"]/div/div/div/*[name()='svg']"));
 			element.click();
 			Thread.sleep(2000);
 			element = driver.findElement(By.xpath(".//div[@id='rate_uom_uuid']/div/div/div/div/div[2]/div/input"));
@@ -234,7 +234,7 @@ public class LoadsPage extends GenericSkins {
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
 			element=null;
-			element = null;
+			
 		}
 		return element;
 	}
@@ -287,6 +287,7 @@ public static WebElement Submit() {
 	catch(Exception ele)
 	{
 		sActualResult=ele.getMessage();
+		ele.printStackTrace();
 	}
 	return element;
 }
