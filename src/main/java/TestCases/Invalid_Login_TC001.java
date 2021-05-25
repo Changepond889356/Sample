@@ -8,11 +8,10 @@ import AppModules.Share;
 import AppModules.TestActions;
 import Utils.*;
 
-public class NegotiateDeal_TC001 extends SetUp {
+public class Invalid_Login_TC001 extends SetUp {
 	@Test
 	public void main() throws Exception {
-
-		String sTestCaseID = "NegotiateDeal_TC001";
+		String sTestCaseID = "Invalid_Login_TC001";
 		test = extent.createTest(sTestCaseID);
 		getTestCaseExpectedResult(sTestCaseID);
 		sScreenShotTCFolder = createfolder(sScreenShotFolder, sTestCaseID);
@@ -22,38 +21,23 @@ public class NegotiateDeal_TC001 extends SetUp {
 			// Launch application
 			TestActions.LaunchApplication();
 
-			// Login as Global Admin
+			// check if unable to login
 			bResult = TestActions.Login(sTestCaseID);
 			if (bResult == true) {
-				bResult = Deals.addNewDeal(sTestCaseID);
+				// check if unable to login
+				bResult = TestActions.Login(sTestCaseID+"(2)");
 				if (bResult == true) {
-					// handle newly created deal widget
-					Deals.DealWidget(sTestCaseID);
-					// share to contact
-					bResult = Share.ShareDeal(sTestCaseID);
+					// check if unable to login
+					bResult = TestActions.Login(sTestCaseID+"(3)");
 					if (bResult == true) {
-						bResult = false;
-						// WITHDRAW shared deal
-						bResult = Deals.DealWidget("NegotiateDeal_TC001(2)");
+						// check if unable to login
+						bResult = TestActions.Login(sTestCaseID+"(4)");
 						if (bResult == true) {
-							bResult = false;
-							bResult = Deals.DealWidget("NegotiateDeal_TC001(3)");
-							if (bResult == true) {
-								bResult=Deals.counterDeal(sTestCaseID);
-								if(bResult==false)
-								{
-									sActualResult="Unable to negotiate deal";
-								}
-								TestActions.LogOut();
-								
-							}
+							sActualResult="Unable to login application";
+							
 						}
-
 					}
-
-					// sActualResult="Deal shared successfully";
 				}
-
 			}
 
 		} catch (Exception error) {

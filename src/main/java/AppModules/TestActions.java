@@ -50,7 +50,7 @@ public class TestActions extends GenericSkins {
 				HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 				chromePrefs.put("profile.default_content_settings.popups", 0);
 				chromePrefs.put("download.prompt_for_download", "true");
-				//chromePrefs.put("profile.default_content_setting_values.notifications", 2);
+				// chromePrefs.put("profile.default_content_setting_values.notifications", 2);
 				// chromePrefs.put("download.default_directory",
 				// "C://Users//mohammadfaheem.s//Downloads//");
 				chromePrefs.put("credentials_enable_service", false);
@@ -82,23 +82,25 @@ public class TestActions extends GenericSkins {
 
 				System.setProperty("webdriver.gecko.driver", sBrowsserDriverPath + "geckodriver.exe");
 				FirefoxProfile profile = new FirefoxProfile();
-				DesiredCapabilities capabilities  = DesiredCapabilities.firefox();
-				profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/csv,application/xls,application/xlsx, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel,application/x-msexcel,application/excel,application/x-excel, text/html, text/csv, text/plain, application/msword, application/octet-stream doc xlsx pdf txt");
-	            profile.setPreference("browser.helperApps.neverAsk.openFile", "application/csv,application/xls,application/xlsx, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel,application/x-msexcel,application/excel,application/x-excel, text/html, text/csv, text/plain, application/msword, application/octet-stream doc xlsx pdf txt");
-	           	profile.setPreference("browser.download.manager.showWhenStarting", false );
-	            profile.setPreference("browser.download.manager.focusWhenStarting", false);
-	            profile.setPreference("browser.download.useDownloadDir", true);
-	            profile.setPreference("browser.helperApps.alwaysAsk.force", false);
-	            profile.setPreference("browser.download.manager.closeWhenDone", true);
-	            profile.setPreference("browser.download.manager.showAlertOnComplete", false);
-	            profile.setPreference("browser.download.manager.useWindow", false);
-	            profile.setPreference("services.sync.prefs.sync.browser.download.manager.showWhenStarting", false);
-	            profile.setPreference("pdfjs.disabled", true); 
-	            capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-	            driver = new FirefoxDriver(capabilities);
+				DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+				profile.setPreference("browser.helperApps.neverAsk.saveToDisk",
+						"application/csv,application/xls,application/xlsx, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel,application/x-msexcel,application/excel,application/x-excel, text/html, text/csv, text/plain, application/msword, application/octet-stream doc xlsx pdf txt");
+				profile.setPreference("browser.helperApps.neverAsk.openFile",
+						"application/csv,application/xls,application/xlsx, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel,application/x-msexcel,application/excel,application/x-excel, text/html, text/csv, text/plain, application/msword, application/octet-stream doc xlsx pdf txt");
+				profile.setPreference("browser.download.manager.showWhenStarting", false);
+				profile.setPreference("browser.download.manager.focusWhenStarting", false);
+				profile.setPreference("browser.download.useDownloadDir", true);
+				profile.setPreference("browser.helperApps.alwaysAsk.force", false);
+				profile.setPreference("browser.download.manager.closeWhenDone", true);
+				profile.setPreference("browser.download.manager.showAlertOnComplete", false);
+				profile.setPreference("browser.download.manager.useWindow", false);
+				profile.setPreference("services.sync.prefs.sync.browser.download.manager.showWhenStarting", false);
+				profile.setPreference("pdfjs.disabled", true);
+				capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+				driver = new FirefoxDriver(capabilities);
 				driver.manage().deleteAllCookies();
 				break;
-			
+
 			case "EDGE":
 				System.setProperty("webdriver.edge.driver", sBrowsserDriverPath + "msedgedriver.exe");
 				driver = new EdgeDriver();
@@ -158,11 +160,19 @@ public class TestActions extends GenericSkins {
 		boolean bResult = false;
 		try {
 			Thread.sleep(2000);
-			GenericSkins.WaitForElementVisibility(By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button"));
-			GenericSkins.WaitForElementTobeClickable(By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button")); //button[@class='MuiButtonBase-root MuiButton-root MuiButton-text css-143qge7']
-			driver.findElement(By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button")).click();   //.//span[@class='MuiButton-label']  //div[@data-cy='nav-menu']//button
+			GenericSkins.WaitForElementVisibility(
+					By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button"));
+			GenericSkins.WaitForElementTobeClickable(
+					By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button")); // button[@class='MuiButtonBase-root
+																												// MuiButton-root
+																												// MuiButton-text
+																												// css-143qge7']
+			driver.findElement(
+					By.xpath("//div[@class='MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters']//button")).click(); // .//span[@class='MuiButton-label']
+																														// //div[@data-cy='nav-menu']//button
 			Thread.sleep(1000);
-			driver.findElement(By.xpath("//ul//div[contains(text(),'Log Out')]")).click();  //.//li[text()='Log Out']   //li[@data-cy='menu-logout']
+			driver.findElement(By.xpath("//ul//div[contains(text(),'Log Out')]")).click(); // .//li[text()='Log Out']
+																							// //li[@data-cy='menu-logout']
 			System.out.println("Logout Happen");
 			Thread.sleep(3000);
 			Actions action = new Actions(driver);
@@ -208,11 +218,20 @@ public class TestActions extends GenericSkins {
 			// sTestStepData =
 			// sLoadDate+";"+sSHipper+";"+sSHipperContact+";"+sCarrier+";"+sStatus+";"+sOrigin+";"+sDestination+";"+sRate+";"+sRateUOM+";"+sCommodity+";";
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
+				System.out.println("Login as:" + sActualTestCaseID);
 				try {
-					LoginPage.eUserName().sendKeys(sUserName);
+					driver.navigate().refresh();
+					if (!(sUserName.trim().equalsIgnoreCase("NA"))) {
+						LoginPage.eUserName().sendKeys(sUserName);
+					}
+
 					Thread.sleep(1000);
 					LoginPage.sSubmit().click();
-					LoginPage.ePassword().sendKeys(sPassword);
+					if (!(sPassword.trim().equalsIgnoreCase("NA"))) {
+						// LoginPage.eUserName().sendKeys(sUserName);
+						LoginPage.ePassword().sendKeys(sPassword);
+					}
+
 					Thread.sleep(1000);
 					LoginPage.eLoginButton().click();
 					Thread.sleep(5000);
@@ -220,26 +239,25 @@ public class TestActions extends GenericSkins {
 					action.sendKeys(Keys.F5).build().perform();
 					WebDriverWait wait = new WebDriverWait(driver, 30);
 					wait.until(ExpectedConditions
-							.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
+							.visibilityOfElementLocated(By.xpath(".//span[text()='Loads']")));
 					try {
 						driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 						driver.findElement(By.xpath(".//img[@class='css-1piz8fp']")).click();
 					} catch (Exception error_child) {
+						
 						driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 					}
-					
-					
+
 					bResult = true;
+					Loads.HideGeoLocationPane();
 
 				} catch (Exception error) {
 					bResult = false;
 					sActualResult = error.getMessage();
 
 				}
-				
-				Loads.HideGeoLocationPane();
-				
+
 				if (bResult == true) {
 					sActualResult = "Login successful";
 				} else {
@@ -257,6 +275,9 @@ public class TestActions extends GenericSkins {
 			sActualResult = "Login successful";
 		} else {
 			sActualResult = "Login not successful";
+		}
+		if (sActualResult.trim().equalsIgnoreCase(sExpectedResult.trim())) {
+			bResult = true;
 		}
 		return bResult;
 
@@ -303,19 +324,20 @@ public class TestActions extends GenericSkins {
 					String TokenLink = hm.get("link");
 					System.out.println("Token Link:" + TokenLink);
 					sAUTPath = TokenLink;
-					System.out.println("Reset password link:"+sAUTPath);
-				    TestActions.LaunchApplication();
+					System.out.println("Reset password link:" + sAUTPath);
+					TestActions.LaunchApplication();
 					System.out.println("open link");
-					System.out.println("new password:"+sPassword);
+					System.out.println("new password:" + sPassword);
 					LoginPage.eNewPwd().sendKeys(sPassword);
 					Thread.sleep(2000);
 					LoginPage.eConfirmNewPwd().sendKeys(sPassword);
 					Thread.sleep(4000);
 					LoginPage.eResetPwd().click();
 					WebDriverWait wait = new WebDriverWait(driver, 20);
-					wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[text()='Enter your email address or phone number to continue login.']")));;
+					wait.until(ExpectedConditions.visibilityOfElementLocated(
+							By.xpath(".//div[text()='Enter your email address or phone number to continue login.']")));
+					;
 					bResult = true;
-
 
 				} catch (Exception error) {
 					bResult = false;
@@ -389,7 +411,7 @@ public class TestActions extends GenericSkins {
 					sActualResult = error.getMessage();
 
 				}
-				
+
 				if (bResult == true) {
 					sActualResult = "Registered Successfully";
 				} else {
@@ -460,7 +482,7 @@ public class TestActions extends GenericSkins {
 					WebDriverWait wait = new WebDriverWait(driver, 30);
 					wait.until(ExpectedConditions
 							.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
-					
+
 					Loads.HideGeoLocationPane();
 					try {
 						driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
@@ -498,7 +520,8 @@ public class TestActions extends GenericSkins {
 	}
 
 	public static boolean Login(String sUserName, String sPassword) throws InterruptedException {
-		
+		System.out.println("sUserName:" + sUserName);
+		System.out.println("sPassword:" + sPassword);
 		LoginPage.eUserName().sendKeys(sUserName);
 		Thread.sleep(3000);
 		LoginPage.sSubmit().click();
@@ -509,8 +532,7 @@ public class TestActions extends GenericSkins {
 		Actions action = new Actions(driver);
 		action.sendKeys(Keys.F5).build().perform();
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//span[@class='MuiButton-label']")));
 		Loads.HideGeoLocationPane();
 		return true;
 	}
