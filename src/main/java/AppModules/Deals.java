@@ -816,6 +816,14 @@ public class Deals extends GenericSkins {
 						Thread.sleep(2000);
 						driver.navigate().refresh();
 						DealsPage.eDealsOpportunity().click();
+						Thread.sleep(3000);
+						DealsPage.eBtnLocation().click();
+						Thread.sleep(2000);
+						DealsPage.eBtnLocReset().click();
+						Thread.sleep(2000);
+						//datefilter("RESET", "NA", "NA");
+						datefilter("FILTER", "CurrentDate", "CurrentDate");
+						Thread.sleep(5000);
 						break;
 					case "WITHDRAW":
 						DealsPage.eDealsWithDrawTab().click();
