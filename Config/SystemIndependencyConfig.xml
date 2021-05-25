@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
 	    <ProjectName>ROGER</ProjectName>
         <AUTPath>https://roger-uat.dev.rogerthat.com/</AUTPath>
-		<LocalBrowserName>Firefox</LocalBrowserName>
+		<LocalBrowserName>MozillaFirefox</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
 		<RegressionScripts>Detailed</RegressionScripts>
 		<RunReference>Run25May2021</RunReference>
