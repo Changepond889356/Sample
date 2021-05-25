@@ -499,7 +499,7 @@ public class Carrier extends GenericSkins {
 				sActualResult = "Failed to Accept the Invitation";
 			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println("Accepted ");
 		}
 		ResultComparision();
@@ -513,9 +513,9 @@ public class Carrier extends GenericSkins {
 				System.out.println("open settings");
 				boolean bResult = false;
 				do {
-					driver.findElement(By.xpath(".//*[text()='Decline']")).click();
-					Thread.sleep(4000);
-					System.out.println("clicked on decline");
+					driver.findElement(By.xpath(".//*[text()='Accept']")).click();
+					Thread.sleep(8000);
+					System.out.println("clicked on Accept");
 					bResult = true;
 				} while (bResult == true);
 			} catch (Exception e) {
@@ -671,6 +671,7 @@ public class Carrier extends GenericSkins {
 
 				try {
 					CarrierPage.AcceptBtn().click();
+					Thread.sleep(5000);
 					TestActions.WaitForElementVisibility(By.xpath("//button//span[contains(text(),'Cancel')]"));
 					driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
 					System.out.println("Request Accepted ");
@@ -684,10 +685,11 @@ public class Carrier extends GenericSkins {
 					driver.findElement(By.xpath("//button//span[contains(text(),'Cancel')]")).click();
 					Thread.sleep(2000);
 					CarrierPage.AcceptBtn().click();
-					System.out.println("Request Accepted ");
+					System.out.println("clicked on cancel");
 				} catch (Exception e) {
-					System.out.println("Failed to Accepted ");
+					System.out.println("accepted and popup not displayed");
 				}
+
 				bResult = true;
 
 			}
@@ -705,7 +707,20 @@ public class Carrier extends GenericSkins {
 		} catch (Exception e) {
 
 		}
+		try {
+			System.out.println("back from settings");
+			boolean temp = false;
+			do {
+				driver.findElement(By.xpath(".//*[text()='Accept']")).click();
+				Thread.sleep(4000);
+				System.out.println("clicked on accept in while loop");
+				bResult = true;
+			} while (temp == true);
+		} catch (Exception e) {
+			System.out.println("cancel not available");
+		}
 
+		System.out.println("accept request:" + bResult);
 		return bResult;
 	}
 
@@ -722,23 +737,45 @@ public class Carrier extends GenericSkins {
 			TestDataImport.SetExcelFile(sTestDataPath, sFileName);
 			String sTestCaseID = TestDataImport.GetCellData(sSheetName, 0, iRow);
 			String sCarrierName = TestDataImport.GetCellData(sSheetName, 1, iRow);
+			try {
+				System.out.println("verify load");
+				boolean temp = false;
+				do {
+					driver.findElement(By.xpath(".//*[text()='Accept']")).click();
+					Thread.sleep(8000);
+					System.out.println("clicked on decline");
+					bResult = true;
+				} while (temp == true);
+			} catch (Exception e) {
+				System.out.println("Decline not available");
+			}
 
 			if (sTestCaseID.trim().equalsIgnoreCase(sActTestCaseID) && (iDataRow == iRow)) {
-				LoadsPage.eAddNewLoad().click();
-				Thread.sleep(2000);
-				LoadsPage.eListCarrier().sendKeys(sGenericCarrierName);
-				Actions ac = new Actions(driver);
-				ac.sendKeys(Keys.ENTER).build().perform();
-				Thread.sleep(2000);
-				String aCarrier = driver.findElement(By.xpath("//*[@id=\"carrier_uuid\"]/div/div/div/div/div[1]"))
-						.getText();
-				if (aCarrier.equalsIgnoreCase(sGenericCarrierName)) {
-					bResult = true;
-					System.out.println("Newly Added carrier Available for Load Generation");
+				try {
+					Thread.sleep(5000);
+
+					LoadsPage.eAddNewLoad().click();
+					Thread.sleep(2000);
+					LoadsPage.eListCarrier().sendKeys(sGenericCarrierName);
+					Actions ac = new Actions(driver);
+					ac.sendKeys(Keys.ENTER).build().perform();
+					Thread.sleep(2000);
+					String aCarrier = driver.findElement(By.xpath("//*[@id=\"carrier_uuid\"]/div/div/div/div/div[1]"))
+							.getText();
+					if (aCarrier.equalsIgnoreCase(sGenericCarrierName)) {
+						bResult = true;
+						System.out.println("Newly Added carrier Available for Load Generation");
+						sActualResult = "New Carrier avaliable";
+					}
+					break;
+
+				} catch (Exception childerror) {
+					sActualResult = childerror.getMessage();
+					bResult = false;
 				}
-				break;
 			}
 		}
+		System.out.println("verify load screen:" + bResult);
 
 		return bResult;
 	}
