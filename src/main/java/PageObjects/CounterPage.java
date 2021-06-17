@@ -9,7 +9,7 @@ public class CounterPage extends GenericSkins{
 	static WebElement element = null;
 	public static WebElement eDealChatPlusIcon() throws Exception {
 		try {
-			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div[2]/div[2]/div[1]/div[1]/img"));
+			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[2]/div[1]/div[2]/img"));
 			//element.click();
 			//System.out.println("clicked on ");
 			
@@ -23,7 +23,7 @@ public class CounterPage extends GenericSkins{
 	}
 	public static WebElement eDealsCounter() throws Exception {
 		try {
-			element = driver.findElement(By.xpath(".//ul[@class='MuiList-root MuiMenu-list MuiList-padding']/div[2]/span"));
+			element = driver.findElement(By.xpath(".//span[text()='Counter']"));
 			
 			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
 		} catch (Exception ele) {
@@ -35,7 +35,7 @@ public class CounterPage extends GenericSkins{
 	}
 	public static WebElement eDealsAccept() throws Exception {
 		try {
-			element = driver.findElement(By.xpath(".//ul[@class='MuiList-root MuiMenu-list MuiList-padding']/div[3]/span"));
+			element = driver.findElement(By.xpath(".//span[text()='Accept']"));
 			
 			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
 		} catch (Exception ele) {
@@ -60,7 +60,7 @@ public class CounterPage extends GenericSkins{
 	}
 	public static WebElement eBtnAccept() throws Exception {
 		try {
-			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div[3]/div/div[2]/form/div/div/div[2]/div/div/button/span[1]"));
+			element = driver.findElement(By.xpath("(.//span[text()='Accept'])[2]"));
 			//Thread.sleep(1000);
 			//element = driver.findElement(By.xpath("//div[@id='commodity_uuid']/div/div/div/div/div[2]/div/input"));
 		} catch (Exception ele) {

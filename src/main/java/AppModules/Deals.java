@@ -131,9 +131,9 @@ public class Deals extends GenericSkins {
 					// Thread.sleep(2000);
 					System.out.println("sOrigin:" + sOrigin);
 					ac = new Actions(driver);
-					DealsPage.eOrigin().sendKeys(sOrigin);
+					//DealsPage.eOrigin().sendKeys(sOrigin);
 					DealsPage.eOrigin().clear();
-					DealsPage.eOrigin().click();
+					//DealsPage.eOrigin().click();
 					for (int i = 0; i < sOrigin.length(); i++) {
 						ac.sendKeys(sOrigin.substring(i, i + 1)).build().perform();
 						Thread.sleep(100);
@@ -145,6 +145,8 @@ public class Deals extends GenericSkins {
 
 					System.out.println("searching origin");
 					Thread.sleep(2000);
+					ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+					Thread.sleep(2000);
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(2000);
 					System.out.println("searched origin");
@@ -154,7 +156,7 @@ public class Deals extends GenericSkins {
 					System.out.println("sDestination:" + sDestination);
 					ac = new Actions(driver);
 					// ac.sendKeys(sDestination).build().perform();
-					DealsPage.eDestination().sendKeys(sDestination);
+					//DealsPage.eDestination().sendKeys(sDestination);
 					DealsPage.eDestination().clear();
 					for (int i = 0; i < sDestination.length(); i++) {
 						ac.sendKeys(sDestination.substring(i, i + 1)).build().perform();
@@ -165,6 +167,8 @@ public class Deals extends GenericSkins {
 					// DealsPage.eDestination().clear();
 					// DealsPage.eDestination().sendKeys(sDestination);
 					Thread.sleep(4000);
+					ac.sendKeys(Keys.ARROW_DOWN).build().perform();
+					Thread.sleep(2000);
 					ac.sendKeys(Keys.ENTER).build().perform();
 					Thread.sleep(2000);
 
@@ -450,7 +454,7 @@ public class Deals extends GenericSkins {
 				System.out.println("inside if");
 				try {
 
-					CounterPage.eDealChatPlusIcon().click();
+					//CounterPage.eDealChatPlusIcon().click();
 					CounterPage.eDealsCounter().click();
 
 					DateTimeFormatter dateandtime = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
@@ -584,7 +588,7 @@ public class Deals extends GenericSkins {
 							iCOnvCount++;
 							if (iCOnvCount == Integer.parseInt(sExpConverCount)) {
 								List<WebElement> eboarditems = eConv
-										.findElements(By.xpath(".//div[@class=' css-vao47x e1o6159y0']"));
+										.findElements(By.xpath(".//div[@class=' css-1v5sq6q e1o6159y0']"));
 								System.out.println("eboarditems size: " + eboarditems.size());
 								int iBoard = 0;
 								for (WebElement eBoard : eboarditems) {
@@ -629,7 +633,7 @@ public class Deals extends GenericSkins {
 									}
 								}
 
-								eboarditems = eConv.findElements(By.xpath(".//div[@class='css-vao47x e1o6159y0']"));
+								eboarditems = eConv.findElements(By.xpath(".//div[@class='css-1v5sq6q e1o6159y0']"));
 								System.out.println("eboarditems size: " + eboarditems.size());
 								iBoard = 0;
 								for (WebElement eBoard : eboarditems) {
@@ -1070,6 +1074,7 @@ public class Deals extends GenericSkins {
 
 		}
 		System.out.println("Deals||Deals Widget:" + bResult);
+		ResultComparision();
 		return bResult;
 	}
 
@@ -1323,7 +1328,7 @@ public class Deals extends GenericSkins {
 							if (iCOnvCount == Integer.parseInt(sExpConverCount)) {
 
 								List<WebElement> eboarditems = eConv
-										.findElements(By.xpath(".//div[@class=' css-vao47x e1o6159y0']"));
+										.findElements(By.xpath(".//div[@class=' css-1v5sq6q e1o6159y0']"));
 								System.out.println("eboarditems size: " + eboarditems.size());
 								int iBoard = 0;
 								for (WebElement eBoard : eboarditems) {
@@ -1344,7 +1349,7 @@ public class Deals extends GenericSkins {
 										}
 										break;
 									case 2:
-										sActDestination = eBoard.getAttribute("title");
+										sActDestination = eBoard.findElement(By.tagName("p")).getText();
 										break;
 									case 3:
 										List<WebElement> eP1 = eBoard.findElements(By.tagName("p"));
@@ -1368,7 +1373,7 @@ public class Deals extends GenericSkins {
 									}
 								}
 
-								eboarditems = eConv.findElements(By.xpath(".//div[@class='css-vao47x e1o6159y0']"));
+								eboarditems = eConv.findElements(By.xpath(".//div[@class='css-1v5sq6q e1o6159y0']"));
 								System.out.println("eboarditems size: " + eboarditems.size());
 								iBoard = 0;
 								for (WebElement eBoard : eboarditems) {
@@ -1474,11 +1479,11 @@ public class Deals extends GenericSkins {
 								&& sActDestination.trim().equalsIgnoreCase(sDestination.trim())
 								&& sActLoads.trim().equalsIgnoreCase(sNoOfLoads.trim())
 								&& sActRatePerUOM.trim().equalsIgnoreCase(sExpRatePerUOM.trim())) {
-							CounterPage.eDealChatPlusIcon().click();
+							//CounterPage.eDealChatPlusIcon().click();
 							CounterPage.eDealsAccept().click();
 							Thread.sleep(1000);
 							CounterPage.eBtnAccept().click();
-							Thread.sleep(5000);
+							Thread.sleep(2000);
 							WebDriverWait wait = new WebDriverWait(driver, 5);
 							wait.until(ExpectedConditions
 									.visibilityOfElementLocated(By.xpath(".//div[@class='css-1hnad6s']")));
@@ -2409,7 +2414,7 @@ public class Deals extends GenericSkins {
 					// DealsPage.eCommodity().clear();
 					Thread.sleep(2000);
 					List<WebElement> eConversationlist = driver
-							.findElements(By.xpath(".//div[@class='left-conversation']"));
+							.findElements(By.xpath(".//div[@class='css-s2uf1z']"));
 					System.out.println("eConversationlist" + eConversationlist.size());
 					System.out.println("sExpConverCount" + sExpConverCount);
 					if (eConversationlist.size() == Integer.parseInt(sExpConverCount)) {
@@ -2426,10 +2431,57 @@ public class Deals extends GenericSkins {
 						for (WebElement eConv : eConversationlist) {
 							iCOnvCount++;
 							if (iCOnvCount == Integer.parseInt(sExpConverCount)) {
-								System.out.println("searchig board items");
-								List<WebElement> eboarditems = eConv.findElements(By.className("bot-card-item"));
+
+
+								List<WebElement> eboarditems = eConv
+										.findElements(By.xpath(".//div[@class=' css-1v5sq6q e1o6159y0']"));
 								System.out.println("eboarditems size: " + eboarditems.size());
 								int iBoard = 0;
+								for (WebElement eBoard : eboarditems) {
+									iBoard++;
+									switch (iBoard) {
+
+									case 1:
+										sActOrigin = eBoard.getAttribute("title");
+										List<WebElement> tagP = eBoard.findElements(By.tagName("p"));
+										int cntP = 0;
+										for (WebElement tag : tagP) {
+											cntP++;
+											switch (cntP) {
+											case 2:
+												sActLoads = tag.getText();
+												break;
+											}
+										}
+										break;
+									case 2:
+										sActDestination = eBoard.getAttribute("title");
+										break;
+									case 3:
+										List<WebElement> eP1 = eBoard.findElements(By.tagName("p"));
+										int iP1 = 0;
+										for (WebElement eleP : eP1) {
+											iP1++;
+
+											switch (iP1) {
+											case 1:
+												sActCommodity = eleP.getText();
+												break;
+											case 2:
+												sActRatePerUOM = eleP.getText();
+												break;
+											}
+										}
+										System.out.println("sActCommodity:"+sActCommodity);
+										System.out.println("sActRatePerUOM:"+sActRatePerUOM);
+
+										break;
+									}
+								}
+
+								eboarditems = eConv.findElements(By.xpath(".//div[@class='css-1v5sq6q e1o6159y0']"));
+								System.out.println("eboarditems size: " + eboarditems.size());
+								iBoard = 0;
 								for (WebElement eBoard : eboarditems) {
 									iBoard++;
 									switch (iBoard) {
@@ -2464,42 +2516,34 @@ public class Deals extends GenericSkins {
 										}
 
 										break;
+
 									case 2:
-										sActOrigin = eBoard.getAttribute("title");
-										List<WebElement> tagP = eBoard.findElements(By.tagName("p"));
-										int cntP = 0;
-										for (WebElement tag : tagP) {
-											cntP++;
-											switch (cntP) {
-											case 2:
-												sActLoads = tag.getText();
-												break;
+										if(sActCommodity.equalsIgnoreCase("NA"))
+										{
+
+											eP = eBoard.findElements(By.tagName("p"));
+											iP = 0;
+											for (WebElement eleP : eP) {
+												iP++;
+
+												switch (iP) {
+												case 1:
+													sActCommodity = eleP.getText();
+													break;
+												case 2:
+													sActRatePerUOM = eleP.getText();
+
+													break;
+												}
 											}
+
 										}
-										break;
-									case 3:
-										sActDestination = eBoard.getAttribute("title");
-										break;
-									case 4:
-										eP = eBoard.findElements(By.tagName("p"));
-										iP = 0;
-										for (WebElement eleP : eP) {
-											iP++;
-
-											switch (iP) {
-											case 1:
-												sActCommodity = eleP.getText();
-												break;
-											case 2:
-												sActRatePerUOM = eleP.getText();
-
-												break;
-											}
-										}
-
 										break;
 									}
 								}
+
+							
+							
 							}
 
 						}
@@ -2542,9 +2586,11 @@ public class Deals extends GenericSkins {
 							// Thread.sleep(1000);
 							// CounterPage.eBtnAccept().click();
 							Thread.sleep(5000);
-							WebDriverWait wait = new WebDriverWait(driver, 5);
-							wait.until(ExpectedConditions
-									.visibilityOfElementLocated(By.xpath(".//div[@class='accept-message']")));
+							/*
+							 * WebDriverWait wait = new WebDriverWait(driver, 5);
+							 * wait.until(ExpectedConditions
+							 * .visibilityOfElementLocated(By.xpath(".//div[@class='accept-message']")));
+							 */
 							bResult = true;
 							sActualResult = "Mute deal successfully";
 							break;

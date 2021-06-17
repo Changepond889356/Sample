@@ -320,11 +320,11 @@ public class DealsPage extends GenericSkins {
 
 	public static WebElement eOrigin() {
 		try {
-			element = driver.findElement(By.xpath("//*[@id=\"origin\"]/div[1]"));
+			element = driver.findElement(By.xpath("//*[@id=\"origin_uuid\"]"));
             element.click();
             System.out.println("clicked on origin");
             Thread.sleep(1000);
-			element = driver.findElement(By.xpath("//*[@id=\"react-select-3-input\"]"));
+			//element = driver.findElement(By.xpath("//*[@id=\"react-select-3-input\"]"));
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
 			//element = null;
@@ -335,9 +335,9 @@ public class DealsPage extends GenericSkins {
 
 	public static WebElement eDestination() {
 		try {
-			element = driver.findElement(By.xpath("//*[@id=\"destination\"]/div[1]"));
+			element = driver.findElement(By.xpath("//*[@id=\"destination_uuid\"]"));
 			element.click();
-			element = driver.findElement(By.xpath("//*[@id=\"react-select-4-input\"]"));
+			//element = driver.findElement(By.xpath("//*[@id=\"react-select-4-input\"]"));
 		} catch (Exception ele) {
 			sActualResult = ele.getMessage();
 			element = null;

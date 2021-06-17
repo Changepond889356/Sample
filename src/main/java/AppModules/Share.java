@@ -39,7 +39,7 @@ public class Share extends GenericSkins {
 		int iRowCnt = 0;
 		iRowCnt = TestDataImport.GetRowCount(sSheetName);
 		// System.out.println("Number of rows:"+iRowCnt);
-		//Thread.sleep(2000);
+		// Thread.sleep(2000);
 		for (int iRow = 1; iRow <= iRowCnt; iRow++) {
 
 			TestDataImport.SetExcelFile(sTestResultsPath, sFileName);
@@ -47,21 +47,20 @@ public class Share extends GenericSkins {
 			String sContactName = TestDataImport.GetCellData(sSheetName, 1, iRow);
 			String sOperation = TestDataImport.GetCellData(sSheetName, 2, iRow);
 			sExpectedResult = TestDataImport.GetCellData(sSheetName, 3, iRow);
-			System.out.println("share deal:"+sTestCaseID);
+			System.out.println("share deal:" + sTestCaseID);
 			if (sTestCaseID.trim().equalsIgnoreCase(sActualTestCaseID)) {
 				try {
-					System.out.println("share deal operation:"+sOperation);
+					System.out.println("share deal operation:" + sOperation);
 					switch (sOperation.toUpperCase().trim()) {
 					case "ONE":
 						if (!(sContactName.equalsIgnoreCase("NA"))) {
 							SharePage.eSearch().sendKeys(sContactName);
 							Thread.sleep(2000);
-							Actions ac = new Actions(driver);
-							ac.sendKeys(Keys.ENTER).build().perform();
-							Thread.sleep(500);
-							ac.sendKeys(Keys.BACK_SPACE).build().perform();
-							// SharePage.eSearch().sendKeys(Keys.ENTER);
-							Thread.sleep(500);
+							/*
+							 * Actions ac = new Actions(driver); ac.sendKeys(Keys.ENTER).build().perform();
+							 * Thread.sleep(500); ac.sendKeys(Keys.BACK_SPACE).build().perform(); //
+							 * SharePage.eSearch().sendKeys(Keys.ENTER);
+							 */ Thread.sleep(500);
 							SharePage.eContact().click();
 
 						}
@@ -72,7 +71,7 @@ public class Share extends GenericSkins {
 					case "ALL":
 						driver.findElement(By.xpath(
 								"//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[1]/div/div/div/label/span"))
-						.click();
+								.click();
 						Thread.sleep(500);
 						bResult = true;
 						break;

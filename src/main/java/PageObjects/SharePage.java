@@ -21,10 +21,10 @@ public class SharePage extends GenericSkins {
 	public static WebElement eContact() {
 		try {
 			Thread.sleep(3000);
-			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[2]/div/div/div/div/div[3]/div/div/div/div/ul/li/div"));
+			element = driver.findElement(By.xpath(".//ul[@class='css-benfvn']/li"));
 		
 		} catch (Exception ele) {
-			sActualResult = ele.getMessage();
+			sActualResult = null;
 
 		}
 		return element;
