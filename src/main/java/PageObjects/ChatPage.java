@@ -31,8 +31,8 @@ public class ChatPage extends GenericSkins {
 
 	public static WebElement sendMessageButton() {
 		try {
-			element = driver.findElement(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[3]"));
-		} catch (Exception ele) {
+			element = driver.findElement(By.xpath(".//div[@class='css-1cerjou e1ngilwh0']/div[3]"));
+		} catch (Exception ele) {                  
 			sActualResult=ele.getMessage();
 			System.out.println("SendMessage Button : " +sActualResult);
 		}
@@ -49,10 +49,10 @@ public class ChatPage extends GenericSkins {
 	}
 	public static WebElement addAttachmentButton() {
 		try {
-			element = driver.findElement(By.xpath("(//div[@class='css-8ki3g7 e1ngilwh0']/div)[2]"));
+			element = driver.findElement(By.xpath(".//div[@class='css-1cerjou e1ngilwh0']/div[2]"));
 		} catch (Exception ele) {
 			sActualResult=ele.getMessage();
-			System.out.println("SendMessage Button : " +sActualResult);
+			System.out.println("attachment Button : " +sActualResult);
 		}
 		return element;
 	}
