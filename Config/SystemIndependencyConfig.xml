@@ -4,7 +4,7 @@
 		<LocalBrowserName>Chrome</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
 		<RegressionScripts>Highlevel</RegressionScripts>
-		<RunReference>Run25June2021</RunReference>
+		<RunReference>Run26June2021</RunReference>
 		<RunReferenceFlag>Yes</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
