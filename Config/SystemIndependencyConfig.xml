@@ -3,7 +3,7 @@
         <AUTPath>https://roger-uat.dev.rogerthat.com/</AUTPath>
 		<LocalBrowserName>Chrome</LocalBrowserName>
 		<CaptureScreenShot>All</CaptureScreenShot>
-		<RegressionScripts>High</RegressionScripts>
+		<RegressionScripts>Highlevel</RegressionScripts>
 		<RunReference>Run25June2021</RunReference>
 		<RunReferenceFlag>Yes</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
