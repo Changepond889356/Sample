@@ -72,7 +72,7 @@ public class Users extends GenericSkins {
 					}
 					if (!(sRole.equalsIgnoreCase("NA"))) {
 						UserPage.eRole().sendKeys(sRole);
-						Thread.sleep(2000);
+						Thread.sleep(3000);
 						Actions ac = new Actions(driver);
 						ac.sendKeys(Keys.ENTER).build().perform();
 
@@ -85,7 +85,7 @@ public class Users extends GenericSkins {
 					}
 					if (!(sShipper.equalsIgnoreCase("NA"))) {
 						UserPage.eShipper().sendKeys(sShipper);
-						Thread.sleep(2000);
+						Thread.sleep(3000);
 						Actions ac = new Actions(driver);
 						ac.sendKeys(Keys.ENTER).build().perform();
 					}
