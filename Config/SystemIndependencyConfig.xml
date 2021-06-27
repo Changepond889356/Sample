@@ -5,7 +5,7 @@
 		<CaptureScreenShot>All</CaptureScreenShot>
 		<RegressionScripts>Detailed</RegressionScripts>
 		<RunReference>Run27June2021</RunReference>
-		<RunReferenceFlag>No</RunReferenceFlag>
+		<RunReferenceFlag>Yes</RunReferenceFlag>
 		<GlobalAdminUserName>changepondtest16@yahoo.com</GlobalAdminUserName>
 		<GlobalAdminPassword>Password1</GlobalAdminPassword>
 		<ReportsDBJDBCDriver>NA</ReportsDBJDBCDriver>
