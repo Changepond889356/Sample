@@ -46,10 +46,12 @@ public class Chat extends GenericSkins {
 						GenericSkins.WaitForElementTobeClickable(
 								By.xpath("//button[@class='MuiButtonBase-root MuiIconButton-root']//img"));
 						ChatPage.addButton().click();
-						Thread.sleep(1000);
+						System.out.println("clicked on add buttton");
+						Thread.sleep(5000);
 
 						String[] inp = sInvitePersonName.split(";");
 						for (String inptxt : inp) {
+							System.out.println("inp text:"+inptxt);
 							if (!(inptxt.equals("")) && !(inptxt.equalsIgnoreCase(null))) {
 								GenericSkins.WaitForElementTobeClickable(By.id("new-chat"));
 								driver.findElement(By.id("new-chat")).clear();
@@ -75,11 +77,23 @@ public class Chat extends GenericSkins {
 										.xpath("//*[@id=\"root\"]/div[1]/div[3]/div[1]/div[2]/div/span/div/div[1]/div"))
 								.getText();
 						System.out.println(sname);
-						if (sInvitePersonName.contains(sname)) {
+						System.out.println(sInvitePersonName);
+						String sTempsName="";
+						if(sname.contains(","))
+						{
+							sTempsName=sname.split(",")[0].trim();
+						}
+						else
+						{
+							sTempsName=sname;
+						}
+						System.out.println("sTempsName:"+sTempsName);
+						if (sInvitePersonName.contains(sTempsName)) {
 							bResult = true;
 							sActualResult = "Chat Invited Successfully";
 						} else {
 							sActualResult = "Chat Invited Fail";
+							bResult=false;
 						}
 
 						break;
@@ -108,12 +122,46 @@ public class Chat extends GenericSkins {
 						ChatPage.chatButton().click();
 						Thread.sleep(1000);
 						GenericSkins.WaitForElementVisibility(By.xpath("(.//div[@class='css-1vm0gw7 e1ngilwh0'])[1]"));
+						GenericSkins.WaitForElementTobeClickable(
+								By.xpath("//button[@class='MuiButtonBase-root MuiIconButton-root']//img"));
+						Thread.sleep(5000);
 						List<WebElement> totalchat = driver
 								.findElements(By.xpath(".//div[@class='css-1vm0gw7 e1ngilwh0']/div"));
 						String[] inp3 = sInvitePersonName.split(";");
+						int iChatCnt=0;
+						
 						for (WebElement nChat : totalchat) {
-							String senderName = nChat.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']"))
-									.getText();
+							String senderName="";
+							iChatCnt++;
+							try
+							{
+								senderName = nChat.findElement(By.cssSelector(".css-1lsojxe")).getText();
+							}
+							catch(Exception staleElement)
+							{
+								driver.navigate().refresh();
+								GenericSkins.WaitForElementTobeClickable(
+										By.xpath("//button[@class='MuiButtonBase-root MuiFab-root MuiFab-secondary']"));
+								ChatPage.chatButton().click();
+								Thread.sleep(1000);
+								GenericSkins.WaitForElementVisibility(By.xpath("(.//div[@class='css-1vm0gw7 e1ngilwh0'])[1]"));
+								totalchat = driver
+										.findElements(By.xpath(".//div[@class='css-1vm0gw7 e1ngilwh0']/div"));
+								int icntTemp=0;
+								for(WebElement eChatTemp : totalchat)
+								{
+									icntTemp++;
+									if(icntTemp==iChatCnt)
+									{
+										senderName=eChatTemp.findElement(By.xpath("//div[@class='css-1tyx9qz e1ngilwh0']")).getText();;
+										nChat=eChatTemp;
+										break;
+									}
+								}
+								
+							}
+							
+							System.out.println("senderName:"+senderName);
 
 							if (senderName.contains(sName) || senderName.contains(inp3[0])) {
 								nChat.click();
