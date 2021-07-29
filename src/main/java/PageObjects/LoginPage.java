@@ -10,7 +10,7 @@ public class LoginPage extends GenericSkins {
 	{
 		try
 		{
-			element = driver.findElement(By.xpath("//*[@id=\"user\"]"));
+			element = driver.findElement(By.name("user"));
 		}
 		catch(Exception ele)
 		{
@@ -23,7 +23,7 @@ public class LoginPage extends GenericSkins {
 	{
 		try
 		{
-			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div/form/div[2]/button"));
+			element = driver.findElement(By.xpath("//span[contains(text(),'continue')]"));
 		}
 		catch(Exception ele)
 		{
@@ -83,7 +83,7 @@ public class LoginPage extends GenericSkins {
 	{
 		try
 		{
-			element = driver.findElement(By.xpath("//*[@id=\"verification\"]"));
+			element = driver.findElement(By.name("verification"));
 		}
 		catch(Exception ele)
 		{
@@ -95,7 +95,7 @@ public class LoginPage extends GenericSkins {
 	{
 		try
 		{
-			element = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[3]/div[1]/div/form/div[3]/button/span[1]"));
+			element = driver.findElement(By.xpath("//span[contains(text(),'login')]"));
 		}
 		catch(Exception ele)
 		{

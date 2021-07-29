@@ -131,9 +131,11 @@ public class TestActions extends GenericSkins {
 			LoginPage.sSubmit().click();
 			LoginPage.ePassword().sendKeys(GlobalAdminPassword);
 			Thread.sleep(2000);
-			LoginPage.eLoginButton().click();
-			Thread.sleep(10000);
+			//LoginPage.eLoginButton().click();
+			//Thread.sleep(10000);
 			Actions action = new Actions(driver);
+			action.sendKeys(Keys.ENTER).build().perform();
+			Thread.sleep(10000);
 			action.sendKeys(Keys.F5).build().perform();
 			WebDriverWait wait = new WebDriverWait(driver, 30);
 			wait.until(ExpectedConditions.visibilityOf(LoadsPage.eMenuLoads()));
@@ -233,9 +235,11 @@ public class TestActions extends GenericSkins {
 					}
 
 					Thread.sleep(1000);
-					LoginPage.eLoginButton().click();
-					Thread.sleep(5000);
+					//LoginPage.eLoginButton().click();
+					//Thread.sleep(5000);
 					Actions action = new Actions(driver);
+					action.sendKeys(Keys.ENTER).build().perform();
+					Thread.sleep(5000);
 					action.sendKeys(Keys.F5).build().perform();
 					WebDriverWait wait = new WebDriverWait(driver, 30);
 					wait.until(ExpectedConditions
